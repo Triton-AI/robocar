@@ -17,3 +17,7 @@ rosdep-install-eol:
 	sudo apt update
 	rosdep update --include-eol-distros
 	rosdep install -y -r --rosdistro foxy --ignore-src --from-paths src
+	
+.PHONY: livox-driver
+livox-driver:
+	./scripts/livox_driver.sh
