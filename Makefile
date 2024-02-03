@@ -13,7 +13,7 @@ rosdep-install:
 	rosdep install -y -r --rosdistro foxy --ignore-src --from-paths src
 
 .PHONY: rosdep-install-eol
-rosdep-install:
+rosdep-install-eol:
 	sudo apt update
 	rosdep update --include-eol-distros
 	rosdep install -y -r --rosdistro foxy --ignore-src --from-paths src
