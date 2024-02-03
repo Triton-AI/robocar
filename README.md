@@ -3,17 +3,13 @@
 ## ALWAYS SOURCE ROS IN EVERY TERMINAL
 
 ## First build
+Clone this repo.
 
-```
-vcs import < YOUR_REPOS_FILE
-```
-
-Then, in the robocar home directory.
-
+Then, in the robocar home directory, do
 ```
 source /opt/ros/foxy/setup.bash
 vcs import < common.foxy.repos
-vcs import < ADDITIONAL_REPO_FILE
+vcs import < ADDITIONAL_REPO_FILE (If you have one)
 make rosdep-install
 make
 source install/setup.bash
