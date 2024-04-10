@@ -35,3 +35,9 @@ sick-driver:
 .PHONY: livox-driver
 livox-driver:
 	./scripts/livox_driver.sh
+
+.PHONY: source-livox
+source-livox:
+	source /opt/ros/foxy/setup.bash
+	source install/setup.bash
+	source src/external/lidar/install/setup.bash
