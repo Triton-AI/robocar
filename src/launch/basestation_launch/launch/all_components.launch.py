@@ -37,6 +37,11 @@ def update_packages(packages_info_path):
 
 
 def generate_a_launch_description(some_package, some_launch, new_topic_name):
+    if some_package == 'livox_ros_driver2':
+        launch_folder = 'launch_ROS2'
+    else:
+        launch_folder = 'launch'
+            
     return LaunchDescription([
     DeclareLaunchArgument(
             'topic_name',
@@ -47,7 +52,7 @@ def generate_a_launch_description(some_package, some_launch, new_topic_name):
             PythonLaunchDescriptionSource(
                 os.path.join(
                     get_package_share_directory(some_package),
-                    'launch',
+                    launch_folder,
                     some_launch)
             ),
             launch_arguments = {'topic_name': new_topic_name}.items()
