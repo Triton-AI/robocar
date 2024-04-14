@@ -9,9 +9,9 @@ from launch_ros.actions import Node
 from launch_ros.actions import PushRosNamespace
 import yaml
 
-
+launch_file_path = os.path.split(os.path.realpath(__file__))[0] + '/'
 car_parameter_input_path = '/home/jetson/projects/robocar/src/launch/basestation_launch/param/car_config.yaml'
-packages_info_path = '/home/jetson/projects/robocar/src/launch/basestation_launch/param/pkg_locations.yaml'
+packages_info_path = os.path.join(launch_file_path, '../param/pkg_locations.yaml') # '/home/jetson/projects/robocar/src/launch/basestation_launch/param/pkg_locations.yaml'
 
 def update_parameters(car_parameter_input_path):
         with open(car_parameter_input_path, "r") as file:

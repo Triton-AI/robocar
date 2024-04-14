@@ -12,7 +12,8 @@ import yaml
 
 def generate_launch_description():
     pkg_name = 'basestation_launch'
-    pkg_dir = '/home/jetson/projects/robocar/src/launch/basestation_launch/rviz'
+    launch_file_path = os.path.split(os.path.realpath(__file__))[0] + '/'
+    pkg_dir = os.path.join(launch_file_path, '../rviz')
     config_file = 'sensor_visualization.rviz'
     
     config = os.path.join(
