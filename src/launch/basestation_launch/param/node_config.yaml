@@ -32,4 +32,6 @@ f1tenth_vesc_joy_launch: 0
 urdf: 0
 localization: 0
 
+pointcloud_to_laserscan: 1
+
 # scan_correction: 1
