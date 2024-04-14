@@ -20,10 +20,10 @@ def generate_launch_description():
         'param',
         'joy_teleop.param.yaml'
     )
-    joy_la = DeclareLaunchArgument(
-        'joy_config',
-        default_value=joy_teleop_config,
-        description='Descriptions for joy and joy_teleop configs')
+    # joy_la = DeclareLaunchArgument(
+    #     'joy_config',
+    #     default_value=joy_teleop_config,
+    #     description='Descriptions for joy and joy_teleop configs')
 
     ld = LaunchDescription([])
 
@@ -38,7 +38,7 @@ def generate_launch_description():
         package='joy_teleop',
         executable='joy_teleop',
         name='joy_teleop',
-        parameters=[joy_config]
+        parameters=[joy_teleop_config]
     )
 
     ld.add_action(joy_node)
