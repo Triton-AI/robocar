@@ -12,3 +12,7 @@ repositories:
         type: git
         url: https://github.com/ros-perception/pointcloud_to_laserscan.git
         version: foxy
+    src/launch/wall-following-utils:
+        type: git
+        url: https://github.com/Triton-AI/wall-following-utils.git
+        version: main
