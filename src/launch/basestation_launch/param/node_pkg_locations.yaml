@@ -19,6 +19,9 @@ ros_bridge_launch: ['basestation_launch', 'ros_bridge_launch.launch.py']
 # rviz
 sensor_visualization: ['basestation_launch', 'sensor_visualization.launch.py']
 
+# Wall Following
+wall_follow: ['wall_follow', 'wall_follower.launch.py']
+
 # control
 f1tenth_vesc_joy_launch: ['basestation_launch', 'joy.launch.py']
 # pid_launch: ['ucsd_robocar_control2_pkg', 'pid_launch.launch.py']

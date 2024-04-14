@@ -20,7 +20,7 @@ def generate_launch_description():
             package='tf2_ros',
             executable='static_transform_publisher',
             name='static_transform_publisher',
-            arguments=['0', '0', '0.5', '0', '0', '0', '1', 'livox_frame', 'slice_frame']
+            arguments=['0', '0', '-0.05', '0', '0', '0', '1', 'livox_frame', 'slice_frame']
         ),
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
@@ -35,7 +35,7 @@ def generate_launch_description():
                 'angle_max': 3.1416,  # M_PI/2
                 'angle_increment': 0.0087,  # M_PI/360.0
                 'scan_time': 0.3333,
-                'range_min': 0.45,
+                'range_min': 0.0,
                 'range_max': 4.0,
                 'use_inf': True,
                 'inf_epsilon': 1.0
