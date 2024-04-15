@@ -9,9 +9,9 @@ from launch_ros.actions import Node
 from launch_ros.actions import PushRosNamespace
 import yaml
 
-
-node_list_input_path = '/home/jetson/projects/robocar/src/launch/basestation_launch/param/node_config.yaml'
-node_packages_info_path = '/home/jetson/projects/robocar/src/launch/basestation_launch/param/node_pkg_locations.yaml'
+launch_file_path = os.path.split(os.path.realpath(__file__))[0] + '/'
+node_list_input_path = os.path.join(launch_file_path, '../param/node_config.yaml') # '/home/jetson/projects/robocar/src/launch/basestation_launch/param/node_config.yaml'
+node_packages_info_path = os.path.join(launch_file_path, '../param/node_pkg_locations.yaml') # '/home/jetson/projects/robocar/src/launch/basestation_launch/param/node_pkg_locations.yaml'
 
 def update_parameters(node_list_input_path):
         with open(node_list_input_path, "r") as file:
