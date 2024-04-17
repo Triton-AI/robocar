@@ -13,6 +13,9 @@ all_components: ['basestation_launch', 'all_components.launch.py']
 rosbag_launch: ['basestation_launch', 'rosbag_launch.launch.py']
 ros_bridge_launch: ['basestation_launch', 'ros_bridge_launch.launch.py']
 
+# foxglove usage
+# rosbridge_suite: ['rosbridge_server', 'rosbridge_websocket_launch.xml']
+
 # TODO: Obstacle Avoidance
 # simple_obstacle_detection_launch: ['ucsd_robocar_path2_pkg', 'simple_obstacle_detection_launch.launch.py']
 

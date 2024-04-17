@@ -14,6 +14,8 @@ fi
 
 # sudo apt update && sudo apt upgrade
 sudo apt install ros-foxy-rmw-cyclonedds-cpp -y
+sudo apt install ros-foxy-rosbridge-suite
+
 export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
 cd /home/jetson/projects/robocar

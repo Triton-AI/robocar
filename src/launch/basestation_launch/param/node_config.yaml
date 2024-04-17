@@ -10,6 +10,9 @@ all_components: 1
 rosbag_launch: 0
 ros_bridge_launch: 0
 
+# foxglove Studio
+# rosbridge_suite: 1
+
 # TODO: Obstacle Avoidance
 # simple_obstacle_detection_launch: 0
 
