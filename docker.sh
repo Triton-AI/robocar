@@ -5,7 +5,6 @@ docker run \
     --name ucsd_ros \
     --runtime nvidia \
     -it \
-    --rm \
     --privileged \
     --net=host \
     -e DISPLAY=$DISPLAY \

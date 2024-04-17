@@ -13,17 +13,17 @@ then
 fi
 
 # sudo apt update && sudo apt upgrade
-sudo apt install ros-foxy-rmw-cyclonedds-cpp
-export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+sudo apt install ros-foxy-rmw-cyclonedds-cpp -y
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
 
-cd ~/projects/robocar
+cd /home/jetson/projects/robocar
 source /opt/ros/foxy/setup.bash
 source install/setup.bash
 source src/external/lidar/install/setup.bash
 
 function source_ros2()
 {
-	cd ~/projects/robocar
+	cd /home/jetson/projects/robocar
 	source /opt/ros/foxy/setup.bash
 	source install/setup.bash
 	source src/external/lidar/install/setup.bash
@@ -31,14 +31,14 @@ function source_ros2()
 
 function build_ros2()
 {
-	cd ~/projects/robocar
+	cd /home/jetson/projects/robocar
 	colcon build --packages-ignore livox_ros_driver2 livox_sdk2 --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
 
 function build_ros2_pkg()
 {
-	cd ~/projects/robocar
+	cd /home/jetson/projects/robocar
 	if [[ $1 == "livox_ros_driver2" ]] || [[ $1 == "livox_sdk2" ]]
 	then
   	  echo "Don't try to colcon build livox packages"

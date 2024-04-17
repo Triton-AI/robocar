@@ -25,7 +25,7 @@ image-update:
 .PHONY: rocker-nvidia
 rocker-nvidia:
 	@CONT_NAME="${CONT_NAME}"
-	rocker --nocleanup --network host --nvidia runtime -e NVIDIA_DRIVER_CAPABILITIES=all --git --ssh --x11 --privileged --name ${CONT_NAME} --user --volume ${shell pwd} -- ghcr.io/ucsd-ecemae-148/donkeycontainer:ros
+	rocker --network host --nvidia runtime -e NVIDIA_DRIVER_CAPABILITIES=all --git --ssh --x11 --privileged --name ${CONT_NAME} --user --volume ${shell pwd} -- ghcr.io/ucsd-ecemae-148/donkeycontainer:ros
 
 .PHONY: sick-driver
 sick-driver:

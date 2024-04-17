@@ -17,7 +17,7 @@ ros_bridge_launch: 0
 sensor_visualization: 1
 
 # Wall Following
-wall_follow: 1
+wall_follow: 0
 
 # control
 f1tenth_vesc_joy_launch: 0
