@@ -16,8 +16,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  # build:
-  build_with_nscloud:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -71,7 +70,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5 # 507c2f2dc502c992ad446e3d7a5dfbe311567a96
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:foxy
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
       
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
