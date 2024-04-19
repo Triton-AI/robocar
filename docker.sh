@@ -2,9 +2,10 @@
 
 xhost +
 docker run \
-    --name ucsd_ros \
+    --name ucsd_test \
     --runtime nvidia \
     -it \
+    --rm \
     --privileged \
     --net=host \
     -e DISPLAY=$DISPLAY \
