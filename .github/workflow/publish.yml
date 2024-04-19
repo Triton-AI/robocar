@@ -1,0 +1,18 @@
+name: publish
+on: [push]
+jobs:
+publish-hello-docker-image:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Login to GitHub Container Registry
+uses: docker/login-action@v1
+with:
+registry: ghcr.io
+username: ${{ github.actor }}
+password: ${{ secrets.GITHUB_TOKEN }}
+- name: Build the f1tenth_ros Docker image
+run: |
+       docker build . --tag ghcr.io/Triton-AI/robocar:f1tenth_ros
+       docker run ghcr.io/Triton-AI/robocar:f1tenth_ros
+       docker push ghcr.io/Triton-AI/robocar:f1tenth_ros
