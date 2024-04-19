@@ -16,7 +16,8 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build:
+  # build:
+  build_with_nscloud:
     runs-on: ubuntu-latest
     permissions:
       contents: read
