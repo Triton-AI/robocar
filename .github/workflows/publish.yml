@@ -2,7 +2,7 @@ name: publish
 on: 
   schedule:
     - cron: '38 23 * * *'
-  push:
+  release:
     branches: [ "livox_devel" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
