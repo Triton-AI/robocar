@@ -23,7 +23,7 @@ sensor_visualization: 1
 wall_follow: 0
 
 # control
-f1tenth_vesc_joy_launch: 0
+f1tenth_vesc_joy_launch: 1
 # pid_launch: 0
 # lqr_launch: 0
 # lqg_launch: 0
@@ -35,7 +35,7 @@ f1tenth_vesc_joy_launch: 0
 # tube_follower_launch: 0
 # curve_localizer_launch: 0
 
-urdf: 0
+urdf: 1
 localization: 0
 
 pointcloud_to_laserscan: 1

@@ -9,7 +9,7 @@ import os
 
 def generate_launch_description():
     pkg_name = 'basestation_launch'
-    urdf_file = 'f1tenth_livox.urdf'
+    urdf_file = 'f1tenth_ucsd.urdf'
     desc_dir = get_package_share_directory(pkg_name)
 
     urdf_file_path = os.path.join(

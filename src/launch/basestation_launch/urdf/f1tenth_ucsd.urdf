@@ -3,15 +3,15 @@
 
     <material name="black">
         <color rgba="0.0 0.0 0.0 1"/>
-      </material>
+    </material>
 
     <material name="white">
         <color rgba="1.0 1.0 1.0 1"/>
-      </material>
+    </material>
 
     <material name="grey">
         <color rgba="0.25 0.25 0.25 1"/>
-      </material>
+    </material>
 
     <!-- BASE LINK -->
 
@@ -32,7 +32,7 @@
         <visual>
         <origin rpy="0 0 1.57" xyz="0 0 0.05"/>
         <geometry>
-            <box size="0.26 0.5 0.05"/>
+            <box size="0.20 0.5 0.05"/>
         </geometry>
         </visual>
     </link>
@@ -45,20 +45,20 @@
     <joint name="base_footprint_joint" type="fixed">
         <parent link="base_link"/>
         <child link="base_footprint"/>
-        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <origin xyz="0 0 -0.05" rpy="0 0 0"/>
     </joint>
 
     <!-- LIDAR LINK -->
 
     <link name="lidar_link">
-		    <visual>
-            <origin rpy="0 0 1.57" xyz="0.065 0.0 0.05"/>
+	<visual>
+            <origin rpy="0 0 1.57" xyz="0.01 0.0 0.20"/>
             <geometry>
-                <box size="0.07 0.07 0.1"/>
+                <box size="0.065 0.065 0.06"/>
             </geometry>
             <material name="white"/>
         </visual>
-	  </link>
+    </link>
 
     <joint name="lidar_joint" type="fixed">
         <parent link="base_link"/>
@@ -69,17 +69,17 @@
     <!-- CAMERA LINK -->
 
     <link name="camera_link">
-		    <visual>
-            <origin rpy="0 0 1.57" xyz="0.0825 0.0 0.18"/>
+	<visual>
+            <origin rpy="0 0 1.57" xyz="0.120 0.0 0.145"/>
             <geometry>
-                <box size="0.13 0.03 0.03"/>
+                <box size="0.097 0.03 0.023"/>
             </geometry>
             <material name="grey"/>
         </visual>
-	  </link>
+    </link>
 
     <joint name="camera_joint" type="fixed">
-        <parent link="lidar_link"/>
+        <parent link="base_link"/>
         <child link="camera_link"/>
         <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
     </joint>
@@ -88,9 +88,9 @@
 
     <link name="wheel_FL">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="0.20 0.155 0.05"/>
+            <origin rpy="1.57 0.0 0.0" xyz="0.160 0.120 0.05"/>
             <geometry>
-                <cylinder radius="0.05" length="0.05"/>
+                <cylinder radius="0.05" length="0.045"/>
             </geometry>
             <material name="black"/>
         </visual>
@@ -98,9 +98,9 @@
 
     <link name="wheel_FR">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="0.20 -0.155 0.05"/>
+            <origin rpy="1.57 0.0 0.0" xyz="0.160 -0.120 0.05"/>
             <geometry>
-                <cylinder radius="0.05" length="0.05"/>
+                <cylinder radius="0.05" length="0.045"/>
             </geometry>
             <material name="black"/>
         </visual>
@@ -108,9 +108,9 @@
 
     <link name="wheel_RL">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="-0.20 0.155 0.05"/>
+            <origin rpy="1.57 0.0 0.0" xyz="-0.160 0.120 0.05"/>
             <geometry>
-                <cylinder radius="0.05" length="0.05"/>
+                <cylinder radius="0.05" length="0.045"/>
             </geometry>
             <material name="black"/>
         </visual>
@@ -118,9 +118,9 @@
 
     <link name="wheel_RR">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="-0.20 -0.155 0.05"/>
+            <origin rpy="1.57 0.0 0.0" xyz="-0.160 -0.120 0.05"/>
             <geometry>
-                <cylinder radius="0.05" length="0.05"/>
+                <cylinder radius="0.05" length="0.045"/>
             </geometry>
             <material name="black"/>
         </visual>
