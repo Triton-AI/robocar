@@ -49,4 +49,4 @@ function build_ros2_pkg()
 	colcon build --packages-select $1 --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
-complete -w "basestation_launch vesc_odom"
+complete -W "basestation_launch vesc_odom"
