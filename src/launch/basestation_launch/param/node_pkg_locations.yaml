@@ -9,6 +9,9 @@ all_components: ['basestation_launch', 'all_components.launch.py']
 # camera_nav_calibration: ['ucsd_robocar_lane_detection2_pkg', 'camera_nav_calibration.launch.py']
 # camera_nav: ['ucsd_robocar_lane_detection2_pkg', 'camera_nav.launch.py']
 
+# slam-toolbox online_async_node
+slam: ['basestation_launch', 'online_async_launch.py']
+
 # recording/bridging data 
 rosbag_launch: ['basestation_launch', 'rosbag_launch.launch.py']
 ros_bridge_launch: ['basestation_launch', 'ros_bridge_launch.launch.py']

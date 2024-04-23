@@ -6,6 +6,9 @@ all_components: 1
 # camera_nav_calibration: 0
 # camera_nav: 0
 
+# slam-toolbox
+slam: 1
+
 # recording data 
 rosbag_launch: 0
 ros_bridge_launch: 0
