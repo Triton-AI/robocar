@@ -2,7 +2,7 @@
 
 xhost +
 docker run \
-    --name ucsd_test \
+    --name ucsd_ros \
     --runtime nvidia \
     -it \
     --rm \
