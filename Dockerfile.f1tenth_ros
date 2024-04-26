@@ -2,6 +2,7 @@
 # Getting Base image (ubuntu 20.04)
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 FROM ghcr.io/ucsd-ecemae-148/donkeycontainer:ros
+SHELL ["/bin/bash", "-c"] 
 
 WORKDIR /
 # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -29,13 +30,13 @@ WORKDIR /home/projects/f1tenth_ws
 COPY ./ ./
 
 ########### Build Basic ROS 2 Packages ###########
-RUN source source_ros2.sh \
-    vcs import < common.repos \
-    vcs import < lidar_utils.repos \
-    make rosdep-install \ 
+RUN source source_ros2.sh && \
+    vcs import < common.repos && \
+    vcs import < lidar_utils.repos && \
+    make rosdep-install && \ 
     build_ros2
 
 ########### Build livox_sdk2, livox_ros_driver2 ###########
-RUN source source_ros2.sh \
-    vcs import < racer.repos \ 
+RUN source source_ros2.sh && \
+    vcs import < racer.repos && \ 
     make livox-driver
