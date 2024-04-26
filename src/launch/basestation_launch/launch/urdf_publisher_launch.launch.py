@@ -32,6 +32,14 @@ def generate_launch_description():
         ]
     )
 
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='joint_state_publisher',
+        arguments=[urdf_file_path],
+        # condition=UnlessCondition(LaunchConfiguration('gui'))
+    )
+
     ## tf2 - lidar_link to laser frame
     node_tf2_fp2laser = Node(
         name='tf2_ros_fp_laser',
@@ -43,6 +51,7 @@ def generate_launch_description():
     
     ld = LaunchDescription()
     ld.add_action(robot_state_publisher_node)
+    ld.add_action(joint_state_publisher_node)
     ld.add_action(node_tf2_fp2laser)
 
     return ld
