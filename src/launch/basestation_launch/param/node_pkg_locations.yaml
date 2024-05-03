@@ -1,0 +1,50 @@
+# 
+# param: ['package', 'launch_file']
+#
+# sensors/hardware
+all_components: ['basestation_launch', 'all_components.launch.py']
+# simulator: ['ucsd_robocar_path2_pkg', 'f1_tenth_sim_launch.launch.py']
+
+# camera navigation
+# camera_nav_calibration: ['ucsd_robocar_lane_detection2_pkg', 'camera_nav_calibration.launch.py']
+# camera_nav: ['ucsd_robocar_lane_detection2_pkg', 'camera_nav.launch.py']
+
+# slam-toolbox online_async_node
+slam: ['planner', 'online_async_launch.py']
+
+# recording/bridging data 
+rosbag_launch: ['basestation_launch', 'rosbag_launch.launch.py']
+ros_bridge_launch: ['basestation_launch', 'ros_bridge_launch.launch.py']
+
+# foxglove usage
+# rosbridge_suite: ['rosbridge_server', 'rosbridge_websocket_launch.xml']
+
+# TODO: Obstacle Avoidance
+# simple_obstacle_detection_launch: ['ucsd_robocar_path2_pkg', 'simple_obstacle_detection_launch.launch.py']
+
+# rviz
+sensor_visualization: ['basestation_launch', 'sensor_visualization.launch.py']
+
+# Wall Following
+wall_follow: ['wall_follow', 'wall_follower.launch.py']
+
+# control
+f1tenth_vesc_joy_launch: ['basestation_launch', 'joy.launch.py']
+# pid_launch: ['ucsd_robocar_control2_pkg', 'pid_launch.launch.py']
+# lqr_launch: ['ucsd_robocar_control2_pkg', 'lqr_launch.launch.py']
+# lqg_launch: ['ucsd_robocar_control2_pkg', 'lqg_launch.launch.py']
+# lqg_w_launch: ['ucsd_robocar_control2_pkg', 'lqg_w_launch.launch.py']
+# mpc_launch: ['ucsd_robocar_control2_pkg', 'mpc_launch.launch.py']
+
+
+# path planner
+# path_nav: ['ucsd_robocar_path2_pkg', 'path_provider.launch.py']
+# tube_follower_launch: ['ucsd_robocar_path2_pkg', 'tube_follower_launch.launch.py']
+# curve_localizer_launch: ['ucsd_robocar_path2_pkg', 'curve_localizer_launch.launch.py']
+
+urdf: ['basestation_launch', 'urdf_publisher_launch.launch.py']
+localization: ['basestation_launch', 'robot_localization.launch.py']
+
+pointcloud_to_laserscan: ['sensors', 'pointcloud_to_laserscan_launch.py']
+
+# scan_correction: ['team_7_external', 'scan_correction.launch.py']
