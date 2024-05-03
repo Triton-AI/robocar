@@ -41,12 +41,15 @@ function build_ros2()
 function build_ros2_pkg()
 {
 	cd /home/jetson/projects/robocar
-	if [[ $1 == "livox_ros_driver2" ]] || [[ $1 == "livox_sdk2" ]]
-	then
-  	  echo "Don't try to colcon build livox packages"
- 	  return
-	fi
-	colcon build --packages-select $1 --cmake-args -DCMAKE_BUILD_TYPE=Debug
+	for arg in "$@"
+	do	
+		if [[ $arg == "livox_ros_driver2" ]] || [[ $arg == "livox_sdk2" ]]
+		then
+		echo "Don't try to colcon build livox packages"
+		return
+		fi
+	done
+	colcon build --packages-select $@ --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
 complete -W "basestation_launch vesc_odom" build_ros2_pkg
