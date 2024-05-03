@@ -35,4 +35,3 @@ sick-driver:
 .PHONY: livox-driver
 livox-driver:
 	./scripts/livox_driver.sh
-

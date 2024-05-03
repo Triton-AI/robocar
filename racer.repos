@@ -2,9 +2,9 @@ repositories:
     #VESC
     src/external/lidar/livox/livox_ros_driver2:
         type: git
-        url: https://github.com/Livox-SDK/livox_ros_driver2.git 
+        url: https://github.com/Triton-AI/livox_ros_driver2.git 
         version: master
     src/external/lidar/livox/livox-SDK2:
         type: git
-        url: https://github.com/Livox-SDK/Livox-SDK2.git 
+        url: https://github.com/Triton-AI/Livox-SDK2.git 
         version: master
