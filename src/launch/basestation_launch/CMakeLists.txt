@@ -37,5 +37,4 @@ ament_auto_package(INSTALL_TO_SHARE
 	param
  	rviz
  	urdf
-  livox_config
 	)

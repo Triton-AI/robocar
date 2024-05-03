@@ -45,6 +45,6 @@ f1tenth_vesc_joy_launch: ['basestation_launch', 'joy.launch.py']
 urdf: ['basestation_launch', 'urdf_publisher_launch.launch.py']
 localization: ['basestation_launch', 'robot_localization.launch.py']
 
-pointcloud_to_laserscan: ['basestation_launch', 'livox_pointcloud_to_laserscan_launch.py']
+pointcloud_to_laserscan: ['sensors', 'pointcloud_to_laserscan_launch.py']
 
 # scan_correction: ['team_7_external', 'scan_correction.launch.py']

@@ -2,7 +2,7 @@ from setuptools import setup
 import os
 from glob import glob
 
-package_name = 'planner'
+package_name = 'sensors'
 
 setup(
     name=package_name,
@@ -14,6 +14,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         (os.path.join('share', package_name, 'launch'), glob('launch/*launch.py')),
         (os.path.join('share', package_name, 'param'), glob('param/*.yaml')),
+        (os.path.join('share', package_name, 'livox_config'), glob('livox_config/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

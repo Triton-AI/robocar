@@ -4,7 +4,7 @@
 
 # Lidars
 # sick : ['ucsd_robocar_sensor2_pkg', 'lidar_sicktim.launch.py','lidar', '/scan']
-livox : ['basestation_launch','msg_MID360_launch.py','lidar', '/scan']
+livox : ['sensors','msg_MID360_launch.py','lidar', '/scan']
 # bpearl : ['ucsd_robocar_sensor2_pkg','lidar_bpearl.launch.py','lidar', '/scan']
 # rp_lidar : ['ucsd_robocar_sensor2_pkg', 'lidar_rp.launch.py','lidar', '/scan']
 # ld06 : ['ucsd_robocar_sensor2_pkg','lidar_ld06.launch.py','lidar', '/scan']
