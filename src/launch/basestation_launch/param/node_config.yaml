@@ -13,7 +13,7 @@ slam: 1
 rosbag_launch: 0
 ros_bridge_launch: 0
 
-# foxglove Studio
+# Foxglove Studio
 # rosbridge_suite: 1
 
 # TODO: Obstacle Avoidance

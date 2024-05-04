@@ -29,10 +29,11 @@ rocker-nvidia:
 
 .PHONY: sick-driver
 sick-driver:
-	vcs import < dsc.repos
+	vcs import < repos/dsc.repos
 	./scripts/sick_driver.sh
 	
 .PHONY: livox-driver
 livox-driver:
+	vcs import < repos/racer.repos
 	./scripts/livox_driver.sh
 

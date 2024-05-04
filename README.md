@@ -23,14 +23,14 @@ Don't worry if there's any error regarding no directory at: `install/setup.bash`
 Some useful custom commands can be used after sourcing `source_ros2.sh`:
 - `source_ros2` sets up/sources required ROS environments.
 - `build_ros2` colcon build all packages (except `livox_sdk2`, `livox_ros_driver2`), and then, source the environments.
-- `build_ros2_pkg $1` colcon build the specific package (replace `$1` with desired package name), and then, source the environments.
+- `build_ros2_pkg $arg1 $arg2 ...` colcon build the specific packages (replace `$arg#` with desired package name), and then, source the environments.
 
 Import, and Build every packages (except Livox ones)
 ```
 source_ros2 
-vcs import < common.repos
-vcs import < lidar_utils.repos
-vcs import < ADDITIONAL_REPO_FILE (If you have one)
+vcs import < repos/common.repos
+vcs import < repos/lidar_utils.repos
+vcs import < repos/ADDITIONAL_REPO_FILE (If you have one, please put it into "repos/")
 make rosdep-install
 build_ros2
 ```
@@ -39,7 +39,6 @@ build_ros2
 Import, and Build `livox_sdk2` and `livox_ros_driver2`
 ```
 source_ros2
-vcs import < racer.repos
 make livox-driver
 ```
 #### If using SICK LiDARs,

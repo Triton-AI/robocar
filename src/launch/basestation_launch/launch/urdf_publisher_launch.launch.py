@@ -6,11 +6,31 @@ from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import os
 
+import yaml
+
+launch_file_path = os.path.split(os.path.realpath(__file__))[0] + '/'
+related_param_path = os.path.join(launch_file_path, '../urdf/urdf_related_param.yaml')
+
+def yaml_decode(yaml_input_path):
+        with open(yaml_input_path, "r") as file:
+            yaml_inputs = yaml.load(file, Loader=yaml.FullLoader)
+            numeric_inputs = {}
+            string_inputs = {}
+            for key in yaml_inputs:
+                value = yaml_inputs[key]
+                if isinstance(value, float) or isinstance(value, int):
+                    numeric_inputs[key] = value
+                elif isinstance(value, str):
+                    string_inputs[key] = value
+            return numeric_inputs, string_inputs
 
 def generate_launch_description():
     pkg_name = 'basestation_launch'
     urdf_file = 'f1tenth_ucsd.urdf'
     desc_dir = get_package_share_directory(pkg_name)
+
+    related_param_num, related_param_str = yaml_decode(related_param_path)
+    # print(related_param_num, '\n', related_param_str)
 
     urdf_file_path = os.path.join(
         desc_dir,
@@ -46,7 +66,14 @@ def generate_launch_description():
         package='tf2_ros',
         executable='static_transform_publisher',
         output='screen',
-        arguments=['0', '0', '0', '0.0', '0.0', '3.1416', 'lidar_link', 'livox_frame'],   
+        arguments=[str(related_param_num['x']),
+                   str(related_param_num['y']),
+                   str(related_param_num['z']),
+                   str(related_param_num['yaw']),
+                   str(related_param_num['pitch']),
+                   str(related_param_num['roll']),
+                   related_param_str['frame_id'],
+                   related_param_str['child_frame_id']],   
     )
     
     ld = LaunchDescription()
