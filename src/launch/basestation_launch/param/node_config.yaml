@@ -39,7 +39,7 @@ f1tenth_vesc_joy_launch: 1
 # curve_localizer_launch: 0
 
 urdf: 1
-localization: 0
+odom_sensor_fusion: 0
 
 pointcloud_to_laserscan: 1
 
