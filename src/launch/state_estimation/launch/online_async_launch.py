@@ -10,7 +10,7 @@ from nav2_common.launch import HasNodeParams
 
 
 def generate_launch_description():
-    launch_pkg = "basestation_launch"
+    launch_pkg = "state_estimation"
     use_sim_time = LaunchConfiguration('use_sim_time')
     params_file = LaunchConfiguration('params_file')
     default_params_file = os.path.join(get_package_share_directory(launch_pkg),

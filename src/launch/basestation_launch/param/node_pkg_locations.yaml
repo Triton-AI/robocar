@@ -43,7 +43,7 @@ f1tenth_vesc_joy_launch: ['basestation_launch', 'joy.launch.py']
 # curve_localizer_launch: ['ucsd_robocar_path2_pkg', 'curve_localizer_launch.launch.py']
 
 urdf: ['basestation_launch', 'urdf_publisher_launch.launch.py']
-localization: ['basestation_launch', 'robot_localization.launch.py']
+localization: ['state_estimation', 'robot_localization.launch.py']
 
 pointcloud_to_laserscan: ['sensors', 'pointcloud_to_laserscan_launch.py']
 

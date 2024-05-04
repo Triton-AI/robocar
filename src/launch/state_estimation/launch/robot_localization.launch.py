@@ -8,7 +8,7 @@ import os
 
 
 def generate_launch_description():
-    pkg_name = 'basestation_launch'
+    pkg_name = 'state_estimation'
     config_file = 'ekf.yaml'
     desc_dir = get_package_share_directory(pkg_name)
 
