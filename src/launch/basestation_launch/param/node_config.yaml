@@ -9,6 +9,12 @@ all_components: 1
 # slam-toolbox
 slam: 1
 
+# map_server
+map: 0
+
+# localization_server
+localization: 0
+
 # recording data 
 rosbag_launch: 0
 ros_bridge_launch: 0

@@ -12,6 +12,12 @@ all_components: ['basestation_launch', 'all_components.launch.py']
 # slam-toolbox online_async_node
 slam: ['state_estimation', 'online_async_launch.py']
 
+# map_server
+map: ['state_estimation', 'nav2_map_server.launch.py']
+
+# localization_server
+localization: ['state_estimation', 'nav2_amcl_server.launch.py']
+
 # recording/bridging data 
 rosbag_launch: ['basestation_launch', 'rosbag_launch.launch.py']
 ros_bridge_launch: ['basestation_launch', 'ros_bridge_launch.launch.py']
