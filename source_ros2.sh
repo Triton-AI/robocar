@@ -15,8 +15,9 @@ fi
 # sudo apt update && sudo apt upgrade
 sudo apt install ros-foxy-rmw-cyclonedds-cpp -y
 sudo apt install ros-foxy-rosbridge-suite
+sudo apt install ros-foxy-nav2* -y
 
-export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 cd /home/jetson/projects/robocar
 source /opt/ros/foxy/setup.bash
@@ -52,4 +53,15 @@ function build_ros2_pkg()
 	colcon build --packages-select $@ --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
-complete -W "basestation_launch vesc_odom" build_ros2_pkg
+complete -W "basestation_launch vesc_odom sensors planner state_estimation" build_ros2_pkg
+
+function rmw_switch()
+{
+	if [[ $1 == "cyclonedds" ]]
+	then
+		export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+	else
+		export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+	fi
+}
+complete -W "cyclonedds fastrtps" rmw_switch

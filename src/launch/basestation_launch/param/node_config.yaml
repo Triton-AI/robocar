@@ -7,10 +7,10 @@ all_components: 1
 # camera_nav: 0
 
 # slam-toolbox
-slam: 1
+slam: 0
 
 # map_server
-map: 0
+map: 1
 
 # localization_server
 localization: 0
