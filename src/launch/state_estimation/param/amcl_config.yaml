@@ -46,7 +46,7 @@ amcl:
     # Which model to use, either "differential" (nav2_amcl::DifferentialMotionModel)
     # or "omnidirectional" (nav2_amcl::OmniMotionModel).
     # You should probably use omni models instead of differential drive models if you don't have a diff drive set of kinematics. Omni at least allows for anything, so ackermann is a subset of that (even if imperfect). Adding an ackermann motion model plugin is definitely something that could be done!
-    robot_model_type: "nav2_amcl::OmniMotionModel"
+    robot_model_type: "omnidirectional"
     
     # Maximum rate (Hz) at which to store the last estimated pose and covariance
     # to the parameter server, in the variables ~initialpose and ~initialcov.
