@@ -18,6 +18,9 @@ amcl:
     global_frame_id: "map"
     base_frame_id: "base_footprint"
     odom_frame_id: "odom"
+    
+    map_topic: "/map"
+    scan_topic: "/scanner/scan"
 
     max_particles: 8000
     min_particles: 200

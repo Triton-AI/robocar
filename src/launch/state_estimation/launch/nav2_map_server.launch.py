@@ -51,6 +51,8 @@ def generate_launch_description():
         name='map_server',
         output='screen',
         parameters=[{'use_sim_time': False}, 
+                    {'topic_name': "map"},
+                    {'frame_id': "map"},    # make sure the frame exist to visualize the OccupancyGrid
                     {'yaml_filename':map_file}]
     )
 

@@ -13,14 +13,14 @@ slam: 0
 map: 1
 
 # localization_server
-localization: 0
+localization: 1
 
 # recording data 
 rosbag_launch: 0
 ros_bridge_launch: 0
 
 # Foxglove Studio
-# rosbridge_suite: 1
+# rosbridge_suite: 0
 
 # TODO: Obstacle Avoidance
 # simple_obstacle_detection_launch: 0
@@ -49,4 +49,4 @@ odom_sensor_fusion: 0
 
 pointcloud_to_laserscan: 1
 
-# scan_correction: 1
+# scan_correction: 0
