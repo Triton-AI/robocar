@@ -1,4 +1,4 @@
 ## map selection for map_server
 default_path_prefix: 'maps'
 custom_prefix: 'lab_test'
-map_yaml_file: 'lab_hallway_0505.yaml'  # where your map *.yaml is
+map_yaml_file: 'lab_corner_0508.yaml'  # where your map *.yaml is
