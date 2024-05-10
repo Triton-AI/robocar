@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1
       Splitter Ratio: 0.5
     Tree Height: 434
   - Class: rviz_common/Selection
@@ -171,7 +170,7 @@ Visualization Manager:
       Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
-      Max Intensity: 191
+      Max Intensity: 177
       Min Color: 0; 0; 0
       Min Intensity: 0
       Name: PointCloud2
@@ -266,6 +265,8 @@ Visualization Manager:
           Value: true
         livox_frame:
           Value: true
+        map:
+          Value: true
         odom:
           Value: true
         slice_frame:
@@ -284,24 +285,25 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base_link:
-            base_footprint:
-              {}
-            camera_link:
-              {}
-            lidar_link:
-              livox_frame:
-                slice_frame:
-                  {}
-            wheel_FL:
-              {}
-            wheel_FR:
-              {}
-            wheel_RL:
-              {}
-            wheel_RR:
-              {}
+        map:
+          odom:
+            base_link:
+              base_footprint:
+                {}
+              camera_link:
+                {}
+              lidar_link:
+                livox_frame:
+                  slice_frame:
+                    {}
+              wheel_FL:
+                {}
+              wheel_FR:
+                {}
+              wheel_RL:
+                {}
+              wheel_RR:
+                {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -362,10 +364,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.23539811372756958
+      Pitch: 0.9503981471061707
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.7435810565948486
+      Yaw: 2.8135812282562256
     Saved: ~
 Window Geometry:
   Displays:

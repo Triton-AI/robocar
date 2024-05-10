@@ -14,8 +14,9 @@ fi
 
 # sudo apt update && sudo apt upgrade
 sudo apt install ros-foxy-rmw-cyclonedds-cpp -y
-sudo apt install ros-foxy-rosbridge-suite
-sudo apt install ros-foxy-nav2* -y
+sudo apt install ros-foxy-rosbridge-suite -y
+# sudo apt install ros-foxy-nav2* -y
+# sudo apt install ros-foxy-spatio-temporal-voxel-layer -y
 
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
