@@ -3,7 +3,7 @@ recoveries_server: # "behavior_server" for newer distro of ROS2
     costmap_topic: local_costmap/costmap_raw
     footprint_topic: local_costmap/published_footprint
     cycle_frequency: 10.0
-    behavior_plugins: ["spin", "backup", "wait"]
+    behavior_plugins: ["backup", "wait"]  # exclude "spin"
     spin:
       plugin: "nav2_recoveries/Spin" # "nav2_behaviors/Spin"
     backup:
