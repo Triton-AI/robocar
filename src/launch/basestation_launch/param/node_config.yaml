@@ -9,11 +9,13 @@ all_components: 1
 # slam-toolbox
 slam: 0
 
-# map_server
+## nav2
+# - map_server
 map: 1
-
-# localization_server
+# - localization_server
 localization: 1
+# - Path Planner
+planner: 1
 
 # recording data 
 rosbag_launch: 0

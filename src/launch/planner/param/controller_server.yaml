@@ -132,7 +132,7 @@ local_costmap:
           vertical_fov_angle: 0.8745
           horizontal_fov_angle: 1.048
           decay_acceleration: 15.0
-          model_type: 0
+          model_type: 1
 
       static_layer:
         map_subscribe_transient_local: True

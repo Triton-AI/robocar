@@ -26,7 +26,8 @@ RUN apt update && \
     ros-foxy-rosbridge-suite \
     ros-foxy-nav2* \
     ros-foxy-navigation2 \
-    ros-foxy-spatio-temporal-voxel-layer
+    ros-foxy-spatio-temporal-voxel-layer \
+    ros-foxy-nonpersistent-voxel-layer
 
 WORKDIR /home
 
