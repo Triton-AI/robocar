@@ -19,6 +19,7 @@ map: ['state_estimation', 'nav2_map_server.launch.py']
 localization: ['state_estimation', 'nav2_amcl_server.launch.py']
 # - Path Planner
 planner: ['planner', 'pathplanner.launch.py']
+twist_to_ackermann: ['twist_to_ackermann', 'twist_to_ack.launch.py']
 
 # recording/bridging data 
 rosbag_launch: ['basestation_launch', 'rosbag_launch.launch.py']

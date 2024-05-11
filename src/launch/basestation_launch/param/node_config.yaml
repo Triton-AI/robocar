@@ -16,6 +16,7 @@ map: 1
 localization: 1
 # - Path Planner
 planner: 1
+twist_to_ackermann: 1
 
 # recording data 
 rosbag_launch: 0

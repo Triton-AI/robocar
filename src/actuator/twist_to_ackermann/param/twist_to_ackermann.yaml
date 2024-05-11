@@ -1,0 +1,7 @@
+/**:
+  ros__parameters:
+    use_stamps_on_ackermann: true
+    ackermann_topic: "/drive"
+    twist_topic: "/cmd_vel"
+    frame_id: odom
+    wheelbase: 0.5
