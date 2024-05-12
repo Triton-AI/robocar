@@ -1,5 +1,9 @@
 #include "twist_to_ackermann/twist_to_ackermann_node.hpp"
 
+template <typename T> float sgn(T val)
+{
+    return (T(0) < val) - (val < T(0));
+}
 
 TwistToAckermann::TwistToAckermann()
     : Node("twist_to_ackermann_node")
@@ -17,6 +21,7 @@ TwistToAckermann::TwistToAckermann()
     frame_id = this->declare_parameter("frame_id", "odom");
 
     _wheelbase = this->declare_parameter("wheelbase", 1.0);
+    max_steering_angle_deg = this->declare_parameter("max_steering_angle_deg", 70.0);
 
     if (_use_stamps)
     {
@@ -53,7 +58,13 @@ float TwistToAckermann::convert_trans_rot_vel_to_steering_angle(float vel, float
     vel = std::abs(vel);
 
     auto radius = vel / omega;
-    return std::atan(wheelbase / radius);
+    float desired_steering_angle = std::atan(wheelbase / radius);
+    if (desired_steering_angle > -max_steering_angle_deg || desired_steering_angle < max_steering_angle_deg)
+    {
+        desired_steering_angle = sgn(desired_steering_angle) * max_steering_angle_deg;
+    }
+
+    return desired_steering_angle;
 }
 
 void TwistToAckermann::twist_callback(geometry_msgs::msg::Twist::SharedPtr msg)

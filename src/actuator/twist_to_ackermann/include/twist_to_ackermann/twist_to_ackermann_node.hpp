@@ -5,6 +5,7 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <math.h>
 
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/qos.hpp"
@@ -55,6 +56,9 @@ private:
 
     /// Wheelbase in meters.
     float _wheelbase{};
+
+    /// Maximum Steering Angle in degrees
+    float max_steering_angle_deg;
 
     /// Whether to use stamped messages.
     bool _use_stamps;

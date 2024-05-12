@@ -5,3 +5,4 @@
     twist_topic: "/cmd_vel"
     frame_id: odom
     wheelbase: 0.5
+    max_steering_angle_deg: 70.0
