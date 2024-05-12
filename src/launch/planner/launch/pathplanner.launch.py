@@ -25,10 +25,10 @@ def generate_launch_description():
     pkg_name = 'planner'
     desc_dir = get_package_share_directory(pkg_name)
 
-    controller_yaml = os.path.join(desc_dir, 'param', 'controller.yaml')
+    controller_yaml = os.path.join(desc_dir, 'param', 'controller_server.yaml')
     bt_navigator_yaml = os.path.join(desc_dir, 'param', 'bt_navigator.yaml')
     planner_yaml = os.path.join(desc_dir, 'param', 'planner_server.yaml')
-    recovery_yaml = os.path.join(desc_dir, 'param', 'recovery.yaml')
+    recovery_yaml = os.path.join(desc_dir, 'param', 'recovery_server.yaml')
 
     controller_server = Node(
         package='nav2_controller',
