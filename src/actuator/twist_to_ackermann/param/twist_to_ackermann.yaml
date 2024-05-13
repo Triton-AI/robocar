@@ -6,3 +6,4 @@
     frame_id: odom
     wheelbase: 0.5
     max_steering_angle_deg: 70.0
+    default_steering_direction: 1  # counter-clockwise positive: 0, clockwise positive: 1

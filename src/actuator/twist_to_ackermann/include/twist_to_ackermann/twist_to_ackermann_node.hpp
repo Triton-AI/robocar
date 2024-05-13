@@ -61,6 +61,8 @@ private:
     float max_steering_angle_deg;
     /// Maximum Steering Angle in radians
     float max_steering_angle;
+    /// default_steering_direction: counter-clockwise positive: 0, clockwise positive: 1
+    int default_steering_direction;
 
     /// Whether to use stamped messages.
     bool _use_stamps;
