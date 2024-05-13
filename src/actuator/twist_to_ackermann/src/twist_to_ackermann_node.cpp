@@ -22,6 +22,7 @@ TwistToAckermann::TwistToAckermann()
 
     _wheelbase = this->declare_parameter("wheelbase", 1.0);
     max_steering_angle_deg = this->declare_parameter("max_steering_angle_deg", 70.0);
+    max_steering_angle = max_steering_angle_deg / 180.0 * M_PI;
 
     if (_use_stamps)
     {
@@ -59,9 +60,9 @@ float TwistToAckermann::convert_trans_rot_vel_to_steering_angle(float vel, float
 
     auto radius = vel / omega;
     float desired_steering_angle = std::atan(wheelbase / radius);
-    if (desired_steering_angle > -max_steering_angle_deg || desired_steering_angle < max_steering_angle_deg)
+    if (desired_steering_angle > -max_steering_angle || desired_steering_angle < max_steering_angle)
     {
-        desired_steering_angle = sgn(desired_steering_angle) * max_steering_angle_deg;
+        desired_steering_angle = sgn(desired_steering_angle) * max_steering_angle;
     }
 
     return desired_steering_angle;

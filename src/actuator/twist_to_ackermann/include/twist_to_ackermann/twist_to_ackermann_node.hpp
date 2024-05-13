@@ -59,6 +59,8 @@ private:
 
     /// Maximum Steering Angle in degrees
     float max_steering_angle_deg;
+    /// Maximum Steering Angle in radians
+    float max_steering_angle;
 
     /// Whether to use stamped messages.
     bool _use_stamps;
