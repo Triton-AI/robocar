@@ -36,7 +36,7 @@ function source_ros2()
 function build_ros2()
 {
 	cd /home/jetson/projects/robocar
-	colcon build --packages-ignore livox_ros_driver2 livox_sdk2 --cmake-args -DCMAKE_BUILD_TYPE=Debug
+	colcon build --packages-ignore livox_ros_driver2 livox_sdk2 f1tenth_nav2_ctrl_plugin --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
 
