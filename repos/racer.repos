@@ -1,5 +1,5 @@
 repositories:
-    src/path_planning/gb_optimizer/src/global_racetrajectory_optimization:
+    src/path_planning/gb_optimizer_nav2/gb_optimizer_nav2/global_racetrajectory_optimization:
         type: git
         url: https://github.com/Triton-AI/global_racetrajectory_optimization.git
         version: master

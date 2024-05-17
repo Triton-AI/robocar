@@ -5,4 +5,4 @@ log/**
 install/**
 
 # gb_optimizer dependencies
-src/path_planning/gb_optimizer/src/global_racetrajectory_optimization/*
+src/path_planning/gb_optimizer_nav2/gb_optimizer_nav2/global_racetrajectory_optimization/*
