@@ -52,7 +52,7 @@ function build_ros2_pkg()
 		fi
 		if [[ $arg == "gb_optimizer_nav2" ]]
 		then
-		make racer
+		make gb_optimizer
 		return
 		fi
 	done

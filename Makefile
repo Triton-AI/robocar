@@ -40,4 +40,7 @@ livox-driver:
 .PHONY: racer
 racer:
 	vcs import < repos/racer.repos
+
+.PHONY: gb_optimizer
+gb_optimizer:
 	./scripts/gb_optimizer.sh
