@@ -3,3 +3,6 @@ src/external/*
 build/**
 log/**
 install/**
+
+# gb_optimizer dependencies
+src/path_planning/gb_optimizer/src/global_racetrajectory_optimization/*

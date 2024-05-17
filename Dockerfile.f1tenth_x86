@@ -63,7 +63,7 @@ RUN source source_ros2.sh && \
 
 ########### Build livox_sdk2, livox_ros_driver2 ###########
 RUN source source_ros2.sh && \
-    vcs import < repos/racer.repos && \ 
+    vcs import < repos/livox.repos && \ 
     make livox-driver
 
 # f1tenth gym

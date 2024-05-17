@@ -34,6 +34,6 @@ sick-driver:
 	
 .PHONY: livox-driver
 livox-driver:
-	vcs import < repos/racer.repos
+	vcs import < repos/livox.repos
 	./scripts/livox_driver.sh
 

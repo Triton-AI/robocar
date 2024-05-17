@@ -10,7 +10,7 @@ Then, in the robocar home directory, do
 ```
 source docker.sh
 ```
-This creates a new container based on `ghcr.io/ucsd-ecemae-148/donkeycontainer:ros`, and you should be in the docker container, if not, do `docker exec -it ucsd_ros bash` to get into it.
+This creates a new container based on `ghcr.io/ucsd-ecemae-148/donkeycontainer:ros`, and you should be in the docker container, if not, do `docker exec -it ucsd_ros bash` to get into it. (Dockerfile `WorkInProgress`)
 
 Next, while inside the container, do
 ```
@@ -29,6 +29,7 @@ Import, and Build every packages (except Livox ones)
 ```
 source_ros2 
 vcs import < repos/common.repos
+vcs import < repos/racer.repos
 vcs import < repos/lidar_utils.repos
 vcs import < repos/ADDITIONAL_REPO_FILE (If you have one, please put it into "repos/")
 make rosdep-install
