@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from rospkg import RosPack
-import rospy
+# from rospkg import RosPack
+# import rospy
 import subprocess, os, copy
 
 import csv

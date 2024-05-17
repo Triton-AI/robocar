@@ -50,6 +50,11 @@ function build_ros2_pkg()
 		echo "Don't try to colcon build livox packages"
 		return
 		fi
+		if [[ $arg == "gb_optimizer_nav2" ]]
+		then
+		make racer
+		return
+		fi
 	done
 	colcon build --packages-select $@ --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
