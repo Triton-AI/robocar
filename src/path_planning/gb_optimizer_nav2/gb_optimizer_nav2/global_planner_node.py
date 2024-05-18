@@ -2,6 +2,11 @@
 
 # from rospkg import RosPack
 # import rospy
+
+import rclpy
+from rclpy.node import Node
+from rclpy.qos import ReliabilityPolicy, QoSProfile
+
 import subprocess, os, copy
 
 import csv
@@ -21,22 +26,44 @@ import trajectory_planning_helpers as tph
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Pose, PoseStamped
 from f110_msgs.msg import Wpnt, WpntArray
-from tf.transformations import euler_from_quaternion
+from tf_transformations import euler_from_quaternion
 from visualization_msgs.msg import Marker, MarkerArray
 from std_msgs.msg import String, Bool, Float32
 
 # To write global waypoints
 from readwrite_global_waypoints import write_global_waypoints
 
-class GlobalPlanner:
+from ament_index_python.packages import get_package_share_directory
+
+main_stack_pkg = 'basestation_launch'
+
+class GlobalPlanner(Node):
     """
     Global planner node
     """
-
     def __init__(self):
-        self.input_path = os.path.join(RosPack().get_path('stack_master'), 'config', 'gb_optimizer')
-        self.rate = rospy.get_param('/global_planner/rate')
-        self.test_on_car = rospy.get_param('/global_planner/test_on_car')
+        super().__init__('GlobalPlanner')
+
+        # declare params that can be passed by "wall_follower_config.yaml"
+        self.declare_parameters(
+            namespace='',
+            parameters=[
+                ('rate', 'base_link'),
+                ('laserscan_topic', '/scan'),
+                ('drive_topic', '/drive'),
+                ('max_vel', 1.0),
+                ('kP', 0.5),
+                ('kI', 0.0),
+                ('kD', 0.0),
+                ('laserscan_phase_deg', 0.0),
+                ('scan_angle_type', 0), # 0 is 0_to_360, 1 is -180_to_180
+                ('default_lidar_angle_unit','rad'),
+                ('Ts', 0.05)
+            ])
+
+        self.input_path = os.path.join(get_package_share_directory(main_stack_pkg), 'param', 'gb_optimizer')
+        self.rate = self.get_parameter('rate').value
+        self.test_on_car = self.get_parameter('test_on_car').value
         self.current_key = ''
         
         self.safety_width = rospy.get_param('/global_planner/safety_width')
