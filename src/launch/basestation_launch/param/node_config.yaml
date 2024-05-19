@@ -8,15 +8,14 @@ all_components: 1
 
 # slam-toolbox
 slam: 0
+TUM_global_planner: 0
 
 ## nav2
-# - map_server
-map: 1
-# - localization_server
-localization: 1
-# - Path Planner
-planner: 1
-twist_to_ackermann: 1
+map: 1                    # - map_server
+global_path_publisher: 0  # - enable this only after finished using TUM_global_planner
+localization: 1           # - localization_server
+planner: 1                # - Path Planner (Real-Time planner)
+twist_to_ackermann: 1     # - convert /cmd_vel from nav2_controller to /drive
 
 # recording data 
 rosbag_launch: 0
