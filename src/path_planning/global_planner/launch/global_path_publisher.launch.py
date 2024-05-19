@@ -22,12 +22,8 @@ def yaml_decode(yaml_input_path):
             return numeric_inputs, string_inputs
 
 def generate_launch_description():
-    main_stack_pkg = 'basestation_launch'
     pkg_name = 'global_planner'
-    desc_dir = get_package_share_directory(main_stack_pkg)
 
-    params_yaml = os.path.join(desc_dir, 'param', 'global_planner', 'global_planner_params.yaml')
-    
     map_save_path_pkg = 'basestation_launch'
     map_select_file = 'map_select.yaml'
 
@@ -46,44 +42,25 @@ def generate_launch_description():
         map_info_str['custom_prefix']
     )
 
-    map_name = map_info_str['map_yaml_file'][:map_info_str['map_yaml_file'].index('.')]
-    
-    map_yaml_info_num, map_yaml_info_str = yaml_decode(os.path.join(map_file_dir, map_info_str['map_yaml_file']))
-    map_type = map_yaml_info_str['image'][map_yaml_info_str['image'].index('.')+1:]
-
-    map_name_launch_arg = DeclareLaunchArgument('map_name', default_value=map_name)
     map_dir_launch_arg = DeclareLaunchArgument('map_dir', default_value=map_file_dir)
-    map_type_launch_arg = DeclareLaunchArgument('map_type', default_value=map_type)
 
-    map_arguments = [map_name_launch_arg, map_dir_launch_arg, map_type_launch_arg]
+    map_arguments = [map_dir_launch_arg]
 
     override_params = {
-         'map_name': LaunchConfiguration('map_name'),
-         'map_dir': LaunchConfiguration('map_dir'),
-         'map_type': LaunchConfiguration('map_type')
+         'map_path': LaunchConfiguration('map_dir'),
     }
-
-    global_planner = Node(
-        package='global_planner',
-        executable='global_planner',
-        # namespace='/',
-        name='global_planner',
-        output='screen',
-        parameters=[params_yaml, override_params]
-    )
 
     global_republisher = Node(
         package='global_planner',
         executable='global_trajectory_publisher',
         name='global_republisher',
         output='screen',
-        parameters=[]
+        parameters=[override_params]
     )
 
     ld = LaunchDescription([])
     for arg in map_arguments:
         ld.add_entity(arg)
-    ld.add_action(global_planner)
     ld.add_action(global_republisher)
 
     return ld

@@ -1,4 +1,5 @@
 ## map selection for map_server
+absolute_path_prefix: '/home/jetson/projects/robocar/src/launch/basestation_launch/ros_data' 
 default_path_prefix: 'maps'
-custom_prefix: 'lab_test'
+custom_prefix: 'lab_test/test_planning'
 map_yaml_file: 'test_planning.yaml'  # where your map *.yaml is
