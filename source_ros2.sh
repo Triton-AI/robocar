@@ -59,7 +59,7 @@ function build_ros2_pkg()
 	colcon build --packages-select $@ --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
-complete -W "basestation_launch vesc_odom sensors planner state_estimation" build_ros2_pkg
+complete -W "basestation_launch vesc_odom sensors planner global_planner state_estimation" build_ros2_pkg
 
 function rmw_switch()
 {
