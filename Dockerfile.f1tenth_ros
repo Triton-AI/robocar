@@ -28,7 +28,8 @@ RUN apt update && \
     ros-foxy-navigation2 \
     ros-foxy-smac-planner \
     ros-foxy-spatio-temporal-voxel-layer \
-    ros-foxy-nonpersistent-voxel-layer
+    ros-foxy-nonpersistent-voxel-layer \
+    ros-foxy-tf-transformations
 
 WORKDIR /home
 
@@ -45,6 +46,12 @@ RUN apt-get install -y ros-foxy-behaviortree-cpp-v3 \
     libzmq3-dev \
     libdw-dev
 
+RUN pip install trajectory_planning_helpers==0.76 \
+    casadi \ 
+    scikit-image \
+    transforms3d
+
+
 RUN git clone --recurse-submodules https://github.com/BehaviorTree/Groot.git
 WORKDIR /home/Groot
 RUN cmake -S . -B build
@@ -58,6 +65,8 @@ COPY ./ ./
 RUN source source_ros2.sh && \
     vcs import < repos/common.repos && \
     vcs import < repos/lidar_utils.repos && \
+    vcs import < repos/racer.repos && \ 
+    make gb_opt && \
     make rosdep-install && \ 
     build_ros2
 
@@ -81,4 +90,5 @@ RUN cd ../.. && \
     build_ros2
 
 WORKDIR /home/projects/f1tenth_ws/
+RUN echo 'export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0' >> ~/.bashrc
 ENTRYPOINT ["/bin/bash"]

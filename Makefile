@@ -43,4 +43,5 @@ racer:
 
 .PHONY: gb_opt
 gb_opt:
+	chmod +x scripts/gb_opt_setup.sh
 	./scripts/gb_opt_setup.sh

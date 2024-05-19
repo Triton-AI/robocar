@@ -50,9 +50,9 @@ function build_ros2_pkg()
 		echo "Don't try to colcon build livox packages"
 		return
 		fi
-		if [[ $arg == "gb_optimizer_nav2" ]]
+		if [[ $arg == "gb_opt" ]]
 		then
-		make gb_optimizer
+		make gb_opt
 		return
 		fi
 	done
