@@ -123,8 +123,6 @@ Visualization Manager:
           Value: true
         livox_frame:
           Value: true
-        map:
-          Value: true
         odom:
           Value: true
         slice_frame:
@@ -143,25 +141,7 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        map:
-          odom:
-            base_link:
-              base_footprint:
-                {}
-              camera_link:
-                {}
-              lidar_link:
-                livox_frame:
-                  slice_frame:
-                    {}
-              wheel_FL:
-                {}
-              wheel_FR:
-                {}
-              wheel_RL:
-                {}
-              wheel_RR:
-                {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -442,7 +422,7 @@ Visualization Manager:
             Value: /global_costmap/published_footprint
           Value: true
       Enabled: true
-      Name: Global Planner
+      Name: Planner
     - Class: rviz_common/Group
       Displays:
         - Alpha: 0.699999988079071
@@ -514,6 +494,58 @@ Visualization Manager:
           Value: true
       Enabled: true
       Name: Controller
+    - Class: rviz_common/Group
+      Displays:
+        - Class: rviz_default_plugins/MarkerArray
+          Enabled: true
+          Name: Track Centerline
+          Namespaces:
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /centerline_waypoints/markers
+          Value: true
+        - Class: rviz_default_plugins/MarkerArray
+          Enabled: true
+          Name: Track Bounds
+          Namespaces:
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /trackbounds/markers
+          Value: true
+        - Class: rviz_default_plugins/MarkerArray
+          Enabled: true
+          Name: Global Waypoints
+          Namespaces:
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /global_waypoints/markers
+          Value: true
+        - Class: rviz_default_plugins/MarkerArray
+          Enabled: true
+          Name: Shortest Path Waypoints
+          Namespaces:
+            {}
+          Topic:
+            Depth: 5
+            Durability Policy: Volatile
+            History Policy: Keep Last
+            Reliability Policy: Reliable
+            Value: /global_waypoints/shortest_path/markers
+          Value: true
+      Enabled: false
+      Name: Global Race Path
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -557,7 +589,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 9.215144157409668
+      Distance: 16.240232467651367
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -575,7 +607,7 @@ Visualization Manager:
       Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.158581256866455
+      Yaw: 3.1385810375213623
     Saved: ~
 Window Geometry:
   Displays:
