@@ -22,9 +22,19 @@ find_package(std_msgs REQUIRED)
 find_package(rosidl_default_generators REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
+  "msg/CarState.msg"
+  "msg/CarStateStamped.msg"
+  "msg/GapData.msg"
+  "msg/LapData.msg"
+  "msg/OTWpntArray.msg"
+  "msg/Obstacle.msg"
+  "msg/ObstacleArray.msg"
+  "msg/PidData.msg"
+  "msg/OpponentTrajectory.msg"
+  "msg/OppWpnt.msg"
   "msg/Wpnt.msg"
   "msg/WpntArray.msg"
-  DEPENDENCIES std_msgs
+  DEPENDENCIES std_msgs geometry_msgs
 )
 
 if(BUILD_TESTING)
