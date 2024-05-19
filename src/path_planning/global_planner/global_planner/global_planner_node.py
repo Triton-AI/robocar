@@ -15,6 +15,8 @@ from .global_planner_utils import get_data_path
 from .global_planner_logic import GlobalPlannerLogic
 from .readwrite_global_waypoints import read_global_waypoints
 
+pkg_name = 'global_planner'
+main_pkg = 'basestation_launch'
 
 class GlobalPlanner(Node):
     """
@@ -51,8 +53,8 @@ class GlobalPlanner(Node):
             self.create_map,
             self.map_name,
             self.map_dir,
-            get_data_path('scripts/finish_map.sh'),
-            os.path.join(get_package_share_directory('stack_master'), 'config', 'global_planner'),
+            os.path.join(get_package_share_directory(pkg_name), 'scripts/finish_map.sh'),
+            os.path.join(get_package_share_directory(main_pkg), 'param', 'global_planner'),
             self.show_plots,
             self.filter_kernel_size,
             self.required_laps,

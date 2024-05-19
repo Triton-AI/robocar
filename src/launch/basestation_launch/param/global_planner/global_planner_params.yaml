@@ -11,4 +11,4 @@ global_planner:
     show_plots: False
 
     map_editor: False
-    create_map: True
+    create_map: False

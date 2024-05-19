@@ -1,7 +1,7 @@
 from launch import LaunchDescription
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
 import os
@@ -48,23 +48,36 @@ def generate_launch_description():
 
     map_name = map_info_str['map_yaml_file'][:map_info_str['map_yaml_file'].index('.')]
 
+    map_name_launch_arg = DeclareLaunchArgument('map_name', default_value=map_name)
+    map_dir_launch_arg = DeclareLaunchArgument('map_dir', default_value=map_file_dir)
+
+    map_arguments = [map_name_launch_arg, map_dir_launch_arg]
+
+    override_params = {
+         'map_name': LaunchConfiguration('map_name'),
+         'map_dir': LaunchConfiguration('map_dir')
+    }
+
     global_planner = Node(
         package='global_planner',
         executable='global_planner',
+        # namespace='/',
         name='global_planner',
         output='screen',
-        parameters=[params_yaml, {"map_name": map_name, "map_dir": map_file_dir}]
+        parameters=[params_yaml, override_params]
     )
 
     global_republisher = Node(
         package='global_planner',
-        executable='global_planner',
+        executable='global_trajectory_publisher',
         name='global_republisher',
         output='screen',
         parameters=[]
     )
 
     ld = LaunchDescription([])
+    for arg in map_arguments:
+        ld.add_entity(arg)
     ld.add_action(global_planner)
     ld.add_action(global_republisher)
 

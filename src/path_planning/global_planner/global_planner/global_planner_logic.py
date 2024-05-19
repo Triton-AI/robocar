@@ -171,7 +171,7 @@ class GlobalPlannerLogic:
         def finish_cb(event):
             self.ready_to_plan = True
 
-        def wait_for_input_and_save() -> tuple[bool, str]:
+        def wait_for_input_and_save() -> Tuple[bool, str]:
             """
             Waits for user input and saves the map.
 
@@ -666,7 +666,7 @@ class GlobalPlannerLogic:
     def create_wpnts_markers(self, trajectory: np.ndarray,
                              d_right: np.ndarray,
                              d_left: np.ndarray,
-                             second_traj: bool = False) -> tuple[WpntArray, MarkerArray]:
+                             second_traj: bool = False) -> Tuple[WpntArray, MarkerArray]:
         """
         Create and return a waypoint array and a marker array.
 

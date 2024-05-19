@@ -2,6 +2,7 @@ import cv2
 import csv
 import numpy as np
 from pathlib import Path
+from typing import Tuple, Callable
 import matplotlib.pyplot as plt
 from scipy.signal import savgol_filter
 from skimage.segmentation import watershed
@@ -14,12 +15,13 @@ from geometry_msgs.msg import Point
 from f110_msgs.msg import Wpnt, WpntArray
 from visualization_msgs.msg import Marker, MarkerArray
 
+main_pkg = 'bastation_launch'
 
 def get_data_path(subpath=''):
     """
     Helper function to get an absolute path to the specified (relative) path within the data folder.
     """
-    return Path(get_package_share_directory('stack_master')).parents[3] / 'src/race_stack/stack_master' / subpath
+    return Path(get_package_share_directory(main_pkg)).parents[3] / 'src/race_stack/stack_master' / subpath
 
 
 def extract_centerline(skeleton, cent_length: float, map_resolution: float, map_editor_mode: bool) -> np.ndarray:
@@ -160,7 +162,7 @@ def extract_track_bounds(
         map_resolution: float,
         map_origin: Point,
         initial_position: np.ndarray,
-        show_plots: bool) -> tuple[np.ndarray, np.ndarray]:
+        show_plots: bool) -> Tuple[np.ndarray, np.ndarray]:
     """
     Extract the boundaries of the track.
 
@@ -186,7 +188,7 @@ def extract_track_bounds(
 
     Returns
     -------
-    bound_right, bound_left : tuple[np.ndarray, np.ndarray]
+    bound_right, bound_left : Tuple[np.ndarray, np.ndarray]
         Points of the track bounds right and left in meters
 
     Raises
@@ -300,7 +302,7 @@ def dist_to_bounds(
         centerline: np.ndarray,
         safety_width: float,
         show_plots: bool,
-        reverse: bool = False) -> tuple[np.ndarray, np.ndarray]:
+        reverse: bool = False) -> Tuple[np.ndarray, np.ndarray]:
     """
     Calculate the distance to track bounds for every point on a trajectory.
 
@@ -323,7 +325,7 @@ def dist_to_bounds(
 
     Returns
     -------
-    dists_right, dists_left : tuple[np.ndarray, np.ndarray]
+    dists_right, dists_left : Tuple[np.ndarray, np.ndarray]
         Distances to the right and left track boundaries for every waypoint
     """
     # check format of trajectory
@@ -598,7 +600,7 @@ def publish_track_bounds(bound_r, bound_l, reverse: bool = False) -> MarkerArray
 
 
 def create_wpnts_markers(trajectory: np.ndarray, d_right: np.ndarray, d_left: np.ndarray,
-                         second_traj: bool = False) -> tuple[WpntArray, MarkerArray]:
+                         second_traj: bool = False) -> Tuple[WpntArray, MarkerArray]:
     """
     Create and return a waypoint array and a marker array.
 
@@ -615,7 +617,7 @@ def create_wpnts_markers(trajectory: np.ndarray, d_right: np.ndarray, d_left: np
 
     Returns
     -------
-    global_wpnts, global_markers : tuple[WpntArray, MarkerArray]
+    global_wpnts, global_markers : Tuple[WpntArray, MarkerArray]
         A waypoint array and a marker array with all points of {trajectory}
     """
     max_vx_mps = max(trajectory[:, 5])

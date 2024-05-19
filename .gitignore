@@ -6,3 +6,4 @@ install/**
 
 # gb_optimizer dependencies
 src/path_planning/gb_optimizer_nav2/gb_optimizer_nav2/global_racetrajectory_optimization/*
+src/path_planning/global_planner/global_planner/global_racetrajectory_optimization/*

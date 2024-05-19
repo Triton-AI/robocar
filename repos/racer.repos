@@ -6,4 +6,4 @@ repositories:
     src/path_planning/global_planner/global_planner/global_racetrajectory_optimization:
         type: git
         url: https://github.com/Triton-AI/global_racetrajectory_optimization.git
-        version: master
+        version: pip_package
