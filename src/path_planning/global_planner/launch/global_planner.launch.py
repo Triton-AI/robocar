@@ -47,15 +47,20 @@ def generate_launch_description():
     )
 
     map_name = map_info_str['map_yaml_file'][:map_info_str['map_yaml_file'].index('.')]
+    
+    map_yaml_info_num, map_yaml_info_str = yaml_decode(os.path.join(map_file_dir, map_info_str['map_yaml_file']))
+    map_type = map_yaml_info_str['image'][map_yaml_info_str['image'].index('.')+1:]
 
     map_name_launch_arg = DeclareLaunchArgument('map_name', default_value=map_name)
     map_dir_launch_arg = DeclareLaunchArgument('map_dir', default_value=map_file_dir)
+    map_type_launch_arg = DeclareLaunchArgument('map_type', default_value=map_type)
 
-    map_arguments = [map_name_launch_arg, map_dir_launch_arg]
+    map_arguments = [map_name_launch_arg, map_dir_launch_arg, map_type_launch_arg]
 
     override_params = {
          'map_name': LaunchConfiguration('map_name'),
-         'map_dir': LaunchConfiguration('map_dir')
+         'map_dir': LaunchConfiguration('map_dir'),
+         'map_type': LaunchConfiguration('map_type')
     }
 
     global_planner = Node(

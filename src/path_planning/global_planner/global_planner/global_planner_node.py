@@ -29,6 +29,7 @@ class GlobalPlanner(Node):
 
         self.rate = self.get_parameter('rate').value
         self.map_name = self.get_parameter('map_name').value
+        self.map_type = self.get_parameter('map_type').value
         self.create_map = self.get_parameter('create_map').value
         self.map_editor = self.get_parameter('map_editor').value
         self.reverse_mapping = self.get_parameter('reverse_mapping').value
@@ -53,6 +54,7 @@ class GlobalPlanner(Node):
             self.create_map,
             self.map_name,
             self.map_dir,
+            self.map_type,
             os.path.join(get_package_share_directory(pkg_name), 'scripts/finish_map.sh'),
             os.path.join(get_package_share_directory(main_pkg), 'param', 'global_planner'),
             self.show_plots,

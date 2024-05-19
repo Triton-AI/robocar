@@ -48,6 +48,7 @@ class GlobalPlannerLogic:
                  create_map_: bool,
                  map_name_: str,
                  map_dir_: str,
+                 map_type_: str,
                  finish_script_path_: str,
                  input_path_: str,
                  show_plots_: bool = False,
@@ -77,6 +78,7 @@ class GlobalPlannerLogic:
         '''desired map name.'''
         self.map_dir = map_dir_
         '''full path to desired map directory'''
+        self.img_type = map_type_
 
         # Logging functions -> For compatibilitiy with ROS1 and ROS2
         self.loginfo = loginfo_
@@ -245,9 +247,17 @@ class GlobalPlannerLogic:
         Returns:
             bool: Success or failure
         """
-        # open up png map from file
-        img_path = os.path.join(self.map_dir, self.map_name + '.png')
-        filtered_map = cv2.flip(cv2.imread(img_path, 0), 0)
+        # open up map (png/pgm) from file
+        if self.img_type == 'pgm':
+            img_path = os.path.join(self.map_dir, self.map_name + '.pgm')
+            raw_img = cv2.imread(img_path, 0)
+            modified_img = np.copy(raw_img)
+            modified_img[(modified_img < 254) & (modified_img > 0)] = 0
+        else:
+            img_path = os.path.join(self.map_dir, self.map_name + '.png')
+            modified_img = cv2.imread(img_path, 0)
+        
+        filtered_map = cv2.flip(modified_img, 0)
 
         # skeletonize
         skeleton = skeletonize(filtered_map, method='lee')
