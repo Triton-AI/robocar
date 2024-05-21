@@ -14,7 +14,7 @@ def generate_launch_description():
 
     config_file_path = os.path.join(
         desc_dir,
-        'config',
+        'param',
         config_file
     )
 
@@ -24,8 +24,8 @@ def generate_launch_description():
         name='ekf_filter_node',
         output='screen',
         parameters=[
-            config_file_path, {
-            'use_sim_time': False}
+            config_file_path, 
+            {'use_sim_time': False}
         ]
     )
 

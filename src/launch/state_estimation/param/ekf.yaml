@@ -33,15 +33,26 @@ ekf_filter_node:
         world_frame: odom           # Defaults to the value of odom_frame if unspecified
 
         odom0: /odom
-        odom0_config: [true,  true,  true,
-                       false, false, false,
-                       false, false, false,
-                       false, false, true,
-                       false, false, false]
+        odom0_config: [true,  true,  false,      
+                       false, false, true,       
+                       false, false, false,      
+                       false, false, true,       
+                       false, false, false]      
+        #        [x_pos   , y_pos    , z_pos,
+        #         roll    , pitch    , yaw,
+        #         x_vel   , y_vel    , z_vel,
+        #         roll_vel, pitch_vel, yaw_vel,
+        #         x_accel , y_accel  , z_accel]
 
         imu0: /sensors/imu
-        imu0_config: [false, false, false,
-                      true,  true,  true,
-                      false, false, false,
-                      false, false, false,
-                      false, false, false]
+        imu0_config: [false, false, false,       # Ignore x linear acceleration, use y linear acceleration
+                      true,  true,  true,        # Use x and z angular velocity, ignore y angular velocity
+                      false, false, false,       # Use z orientation (quaternion), ignore others
+                      false, false, false,       # Ignore covariance elements
+                      false, false, false]       # Ignore other fields
+        #        [x_pos   , y_pos    , z_pos,
+        #         roll    , pitch    , yaw,
+        #         x_vel   , y_vel    , z_vel,
+        #         roll_vel, pitch_vel, yaw_vel,
+        #         x_accel , y_accel  , z_accel]
+        imu0_remove_gravitational_acceleration: false
