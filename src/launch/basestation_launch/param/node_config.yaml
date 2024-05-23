@@ -14,6 +14,7 @@ TUM_global_planner: 0
 map: 1                    # - map_server
 global_path_publisher: 0  # - enable this only after finished using TUM_global_planner
 localization: 1           # - localization_server
+odom_ekf: 1               # - ekf sensor fusion from robot_localization pkg
 planner: 1                # - Path Planner (Real-Time planner)
 twist_to_ackermann: 1     # - convert /cmd_vel from nav2_controller to /drive
 
@@ -21,7 +22,7 @@ twist_to_ackermann: 1     # - convert /cmd_vel from nav2_controller to /drive
 rosbag_launch: 0
 ros_bridge_launch: 0
 
-# Foxglove Studio
+## Foxglove Studio
 # rosbridge_suite: 0
 
 # TODO: Obstacle Avoidance
@@ -47,7 +48,6 @@ f1tenth_vesc_joy_launch: 1
 # curve_localizer_launch: 0
 
 urdf: 1
-odom_sensor_fusion: 0
 
 pointcloud_to_laserscan: 1
 

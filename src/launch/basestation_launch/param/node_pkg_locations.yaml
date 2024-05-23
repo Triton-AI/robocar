@@ -17,6 +17,7 @@ TUM_global_planner: ['global_planner', 'global_planner.launch.py']
 map: ['state_estimation', 'nav2_map_server.launch.py']                # - map_server
 global_path_publisher: ['global_planner', 'global_path_publisher.launch.py']
 localization: ['state_estimation', 'nav2_amcl_server.launch.py']      # - localization_server 
+odom_ekf: ['state_estimation', 'ekf.launch.py']                       # - ekf sensor fusion from robot_localization pkg
 planner: ['planner', 'pathplanner.launch.py']                         # - Path Planner (Real-Time planner)
 twist_to_ackermann: ['twist_to_ackermann', 'twist_to_ack.launch.py']  # - convert /cmd_vel from nav2_controller to /drive
 
@@ -24,7 +25,7 @@ twist_to_ackermann: ['twist_to_ackermann', 'twist_to_ack.launch.py']  # - conver
 rosbag_launch: ['basestation_launch', 'rosbag_launch.launch.py']
 ros_bridge_launch: ['basestation_launch', 'ros_bridge_launch.launch.py']
 
-# foxglove usage
+## Foxglove Studio
 # rosbridge_suite: ['rosbridge_server', 'rosbridge_websocket_launch.xml']
 
 # TODO: Obstacle Avoidance
@@ -51,7 +52,6 @@ f1tenth_vesc_joy_launch: ['basestation_launch', 'joy.launch.py']
 # curve_localizer_launch: ['ucsd_robocar_path2_pkg', 'curve_localizer_launch.launch.py']
 
 urdf: ['basestation_launch', 'urdf_publisher_launch.launch.py']
-odom_sensor_fusion: ['state_estimation', 'ekf.launch.py']
 
 pointcloud_to_laserscan: ['sensors', 'pointcloud_to_laserscan_launch.py']
 

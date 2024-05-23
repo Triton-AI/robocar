@@ -30,7 +30,7 @@ ekf_filter_node:
         map_frame: map              # Defaults to "map" if unspecified
         odom_frame: odom            # Defaults to "odom" if unspecified
         base_link_frame: base_footprint  # Defaults to "base_link" if unspecified
-        world_frame: odom           # Defaults to the value of odom_frame if unspecified
+        world_frame: odom          # Defaults to the value of odom_frame if unspecified
 
         odom0: /odom
         odom0_config: [true,  true,  false,      
@@ -44,15 +44,11 @@ ekf_filter_node:
         #         roll_vel, pitch_vel, yaw_vel,
         #         x_accel , y_accel  , z_accel]
 
-        imu0: /sensors/imu
+        imu0: /lidar/imu
         imu0_config: [false, false, false,       # Ignore x linear acceleration, use y linear acceleration
                       true,  true,  true,        # Use x and z angular velocity, ignore y angular velocity
                       false, false, false,       # Use z orientation (quaternion), ignore others
                       false, false, false,       # Ignore covariance elements
                       false, false, false]       # Ignore other fields
-        #        [x_pos   , y_pos    , z_pos,
-        #         roll    , pitch    , yaw,
-        #         x_vel   , y_vel    , z_vel,
-        #         roll_vel, pitch_vel, yaw_vel,
-        #         x_accel , y_accel  , z_accel]
+
         imu0_remove_gravitational_acceleration: false
