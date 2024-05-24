@@ -23,9 +23,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - dockerfile: ./.docker_utils/Dockerfile.f1tenth_x86
+          - dockerfile: .docker_utils/Dockerfile.f1tenth_x86
             tag: x86
-          # - dockerfile: ./.docker_utils/Dockerfile.f1tenth_arm
+          # - dockerfile: .docker_utils/Dockerfile.f1tenth_arm
           #   tag: arm
     permissions:
       contents: read
