@@ -16,6 +16,7 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  ROS_DISTRO: foxy
 
 jobs:
   build:
@@ -79,7 +80,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5 # 507c2f2dc502c992ad446e3d7a5dfbe311567a96
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.ROS_DISTRO }}
           tags: |
             type=raw,value=${{ matrix.tag }}
       
