@@ -3,9 +3,12 @@ on:
   schedule:
     - cron: '38 23 * * *'
   release:
+    types: [published]
     branches: [ "livox_devel" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
+  pull_request:
+    branches: [ "livox_devel" ]
 
 
 env:
