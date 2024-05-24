@@ -134,7 +134,12 @@ RUN cmake --build build
 ### Create f1tenth workspace
 WORKDIR $WORKSPACE
 
-COPY ./ ./
+RUN git clone -b foxy_devel https://github.com/Triton-AI/robocar.git && \
+    mv robocar .. && \
+    cd .. && \
+    rm -rf $WORKSPACE && \
+    mv robocar/ $WORKSPACE && \
+    cd $WORKSPACE
 
 # Global Planner Dependencies
 RUN pip install trajectory_planning_helpers==0.78 \

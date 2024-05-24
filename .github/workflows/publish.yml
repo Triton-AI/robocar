@@ -80,9 +80,9 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5 # 507c2f2dc502c992ad446e3d7a5dfbe311567a96
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/${{ env.ROS_DISTRO }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=${{ matrix.tag }}
+            type=raw,value=${{ env.ROS_DISTRO }}-${{ matrix.tag }}
       
       # Build and push Docker image with Buildx (don't push on PR)
       # https://github.com/docker/build-push-action
