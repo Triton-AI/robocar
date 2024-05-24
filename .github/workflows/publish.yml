@@ -9,7 +9,7 @@ on:
   pull_request:
     branches: [ "livox_devel" ]
 
-env:
+vars:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
@@ -23,9 +23,9 @@ jobs:
       matrix:
         include:
           - dockerfile: ./.docker_utils/Dockerfile.f1tenth_x86
-            image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:x86
+            image: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:x86
           # - dockerfile: ./.docker_utils/Dockerfile.f1tenth_arm
-          #   image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:arm
+          #   image: ${{ vars.REGISTRY }}/${{ vars.IMAGE_NAME }}:arm
     permissions:
       contents: read
       packages: write
@@ -63,11 +63,11 @@ jobs:
 
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
-      - name: Log into registry ${{ env.REGISTRY }}
+      - name: Log into registry ${{ vars.REGISTRY }}
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v3 # f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ${{ vars.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
@@ -92,7 +92,7 @@ jobs:
           platforms: linux/arm64/v8
           labels: ${{ steps.meta.outputs.labels }}
           ssh: |
-            default=${{ env.SSH_AUTH_SOCK }}
+            default=${{ vars.SSH_AUTH_SOCK }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -104,7 +104,7 @@ jobs:
       # https://github.com/sigstore/cosign
 #       - name: Sign the published Docker image
 #         if: ${{ github.event_name != 'pull_request' }}
-#         env:
+#         vars:
 #           COSIGN_EXPERIMENTAL: "true"
 #         # This step uses the identity token to provision an ephemeral certificate
 #         # against the sigstore community Fulcio instance.
