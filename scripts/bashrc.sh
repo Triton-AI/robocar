@@ -58,9 +58,9 @@ function markup_git_branch {
     echo -e "$1"
   else
     if [[ $(git status 2> /dev/null | tail -n1) = "nothing to commit, working tree clean" ]]; then
-      echo -e '\033[1;32m('"$1"')\033[0;0m'
+      echo -e '\001\033[1;32m('"$1"')\033[0;0m\002'
     else
-      echo -e '\033[1;31m('"$1"')\033[0;0m'
+      echo -e '\001\033[1;31m('"$1"')\033[0;0m\002'
     fi
   fi
 }
