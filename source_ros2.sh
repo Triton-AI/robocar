@@ -5,44 +5,45 @@ if [[ $1 == "-h" ]] || [[ $1 == "--help" ]]
 then
   echo "Usage: source_ros2"
   echo
-  echo "Sources the ROS distribution and workspace at WORKSPACE_DIR."
+  echo "Sources the ROS distribution and workspace at WORKSPACE."
   echo 
   echo "containing the name of the target ROS distribution."
   echo "Supported distros: foxy"
   return
 fi
 
+export ROS_DISTRO=foxy
 # sudo apt update && sudo apt upgrade
-sudo apt install ros-foxy-rmw-cyclonedds-cpp -y
-sudo apt install ros-foxy-rosbridge-suite -y
-# sudo apt install ros-foxy-nav2* -y
-# sudo apt install ros-foxy-spatio-temporal-voxel-layer -y
+sudo apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp -y
+sudo apt install ros-$ROS_DISTRO-rosbridge-suite -y
+# sudo apt install ros-$ROS_DISTRO-nav2* -y
+# sudo apt install ros-$ROS_DISTRO-spatio-temporal-voxel-layer -y
 
 export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-cd /home/jetson/projects/robocar
-source /opt/ros/foxy/setup.bash
+cd ${WORKSPACE}
+source /opt/ros/$ROS_DISTRO/setup.bash
 source install/setup.bash
 source src/external/lidar/install/setup.bash
 
 function source_ros2()
 {
-	cd /home/jetson/projects/robocar
-	source /opt/ros/foxy/setup.bash
+	cd ${WORKSPACE}
+	source /opt/ros/$ROS_DISTRO/setup.bash
 	source install/setup.bash
 	source src/external/lidar/install/setup.bash
 }
 
 function build_ros2()
 {
-	cd /home/jetson/projects/robocar
-	colcon build --packages-ignore livox_ros_driver2 livox_sdk2 f1tenth_nav2_ctrl_plugin --cmake-args -DCMAKE_BUILD_TYPE=Debug
+	cd ${WORKSPACE}
+	colcon build --packages-ignore livox_ros_driver2 livox_sdk2 f1tenth_nav2_ctrl_plugin foxy_addon_behavior_tree --cmake-args -DCMAKE_BUILD_TYPE=Debug
 	source install/setup.bash
 }
 
 function build_ros2_pkg()
 {
-	cd /home/jetson/projects/robocar
+	cd ${WORKSPACE}
 	for arg in "$@"
 	do	
 		if [[ $arg == "livox_ros_driver2" ]] || [[ $arg == "livox_sdk2" ]]
@@ -53,6 +54,11 @@ function build_ros2_pkg()
 		if [[ $arg == "gb_opt" ]]
 		then
 		make gb_opt
+		return
+		fi
+		if [[ $arg == "sick_scan_xd" ]]
+		then
+		make sick-driver
 		return
 		fi
 	done

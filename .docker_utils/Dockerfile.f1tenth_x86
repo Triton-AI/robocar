@@ -4,6 +4,8 @@
 FROM ros:foxy
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+ARG WORKSPACE=/home/projects/f1tenth_ws/
+
 WORKDIR /
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # apt update & upgrade
@@ -89,6 +91,7 @@ RUN apt-get -y dist-upgrade
 
 WORKDIR /home/projects
 ####### CREATE VIRTUAL ENVIRONMENTS #######
+RUN apt install python3.8-venv
 RUN echo "alias python=python3" >> ~/.bashrc
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv "${VIRTUAL_ENV}/donkey" --system-site-packages
@@ -128,7 +131,7 @@ RUN cmake -S . -B build
 RUN cmake --build build
 
 ### Create f1tenth workspace
-WORKDIR /home/projects/f1tenth_ws
+WORKDIR $WORKSPACE
 
 COPY ./ ./
 
@@ -156,15 +159,14 @@ RUN source source_ros2.sh && \
     make livox-driver
 
 # f1tenth gym
-WORKDIR /home/projects/f1tenth_ws/src/f1tenth_sim
+WORKDIR $WORKSPACE/src/external/f1tenth_sim
 RUN git clone https://github.com/f1tenth/f1tenth_gym
-RUN cd f1tenth_gym && \
-    pip3 install -e .
-
+RUN cd f1tenth_gym
+RUN pip3 install -e .
 # ros2 gym bridge
-WORKDIR /home/projects/f1tenth_ws/src/f1tenth_sim
+RUN cd ..
 RUN git clone https://github.com/f1tenth/f1tenth_gym_ros
-RUN cd ../.. && \
+RUN cd ../../.. && \
     source source_ros2.sh && \
     apt-get update --fix-missing && \
     build_ros2
@@ -174,6 +176,7 @@ WORKDIR /home/scripts/
 COPY scripts/bashrc.sh ./bashrc.sh
 RUN ["/bin/bash", "-c", "echo '. /home/scripts/bashrc.sh' >> /root/.bashrc"]
 
-WORKDIR /home/projects/f1tenth_ws/
-RUN echo 'export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0' >> ~/.bashrc
+WORKDIR $WORKSPACE
+RUN ["/bin/bash", "-c", "echo 'export WORKSPACE=$(pwd)' >> /root/.bashrc"]
+# RUN echo 'export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0' >> ~/.bashrc
 ENTRYPOINT ["/bin/bash"]
