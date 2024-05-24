@@ -161,8 +161,8 @@ RUN source source_ros2.sh && \
 # f1tenth gym
 WORKDIR $WORKSPACE/src/external/f1tenth_sim
 RUN git clone https://github.com/f1tenth/f1tenth_gym
-RUN cd f1tenth_gym
-RUN pip3 install -e .
+RUN cd f1tenth_gym && \
+    pip install -e .
 # ros2 gym bridge
 RUN cd ..
 RUN git clone https://github.com/f1tenth/f1tenth_gym_ros
