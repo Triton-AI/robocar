@@ -11,12 +11,19 @@ import yaml
 def generate_launch_description():
     pkg_name = 'state_estimation'
     config_file = 'ekf_config.yaml'
+    select_file = 'ekf_select'
     desc_dir = get_package_share_directory(pkg_name)
 
     config_file_path = os.path.join(
         desc_dir,
         'param',
         config_file
+    )
+
+    select_file_path = os.path.join(
+        desc_dir,
+        'param',
+        select_file
     )
 
     robot_localization_node = Node(
