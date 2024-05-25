@@ -1,0 +1,5 @@
+ekf_select: # select which source to disable (0) or enable (1)
+    override_ekf_config: True   # override default config in ekf_config.yaml
+    odom:
+      vesc_odom: 1
+      rf2o: 0

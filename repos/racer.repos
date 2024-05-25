@@ -3,3 +3,7 @@ repositories:
         type: git
         url: https://github.com/Triton-AI/global_racetrajectory_optimization.git
         version: pip_package
+    src/external/state_estimation/rf2o_laser_odometry:
+        type: git
+        url: https://github.com/MAPIRlab/rf2o_laser_odometry.git
+        version: ros2

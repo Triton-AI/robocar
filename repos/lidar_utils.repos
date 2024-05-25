@@ -3,7 +3,7 @@ repositories:
         type: git
         url: https://github.com/ros-perception/pointcloud_to_laserscan.git
         version: foxy
-    src/external/wall-following-utils:
+    src/external/lidar_utils/wall-following-utils:
         type: git
         url: https://github.com/Triton-AI/wall-following-utils.git
-        version: main
+        version: Obstacle_Avoidance

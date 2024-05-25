@@ -1,0 +1,24 @@
+/**:
+  ros__parameters:
+    freq : 20.0
+    laser_scan_topic : '/scanner/scan'
+    odom_topic : '/rf2o/odom'
+    odom_frame_id : 'odom'
+    base_frame_id : 'base_footprint'
+
+    # Enable if you want to let rf2o_node publish tf between odom_frame and base_frame
+    publish_tf : True
+    init_pose_from_topic : ''
+
+ekf_config: # addition config for ekf using launch file, it's not really used in ros yaml format
+  ros__parameters: 
+    odom_config: [true,  true,  false,      
+                  false, false, true,       
+                  false, false, false,      
+                  false, false, true,       
+                  false, false, false]
+        #        [x_pos   , y_pos    , z_pos,
+        #         roll    , pitch    , yaw,
+        #         x_vel   , y_vel    , z_vel,
+        #         roll_vel, pitch_vel, yaw_vel,
+        #         x_accel , y_accel  , z_accel]
