@@ -10,7 +10,19 @@ Then, in the robocar home directory, do
 ```
 source docker.sh
 ```
-This creates a new container based on `ghcr.io/ucsd-ecemae-148/donkeycontainer:ros`, and you should be in the docker container, if not, do `docker exec -it ucsd_ros bash` to get into it. (Dockerfile `WorkInProgress`)
+This creates a new container based on `ghcr.io/triton-ai/robocar:foxy-x86`, and you should be in the docker container, if not, do `docker exec -it ucsd_ros bash` to get into it.
+
+`car_config.yaml` contains the car's components. This includes lidar, oakd camera, etc.
+
+- `node_config.yaml` contains selections of nodes and launch files to be used.
+    - `SLAM` will be outputting a `pgm` or `png` file.
+    - `TUM_global_planner` will be turned to `1` only after `SLAM` is used. It will be used once. The output will be global waypoints in `.json` format. 
+
+- Then go to `map_select.yaml` to specify the new map to be used. 
+
+TODO:
+- vehicle dynamic
+
 
 Next, while inside the container, do
 ```
