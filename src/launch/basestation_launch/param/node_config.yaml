@@ -16,7 +16,7 @@ global_path_publisher: 0  # - enable this only after finished using TUM_global_p
 localization: 1           # - localization_server
 odom_ekf: 1               # - ekf sensor fusion from robot_localization pkg
 odom_rf2o: 0              # - rf2o laser odometry
-planner: 1                # - Path Planner (Real-Time planner)
+planner: 1                # - Path Planner (Real-Time planner). Nav2 Local Planner.
 twist_to_ackermann: 1     # - convert /cmd_vel from nav2_controller to /drive
 
 # recording data 
