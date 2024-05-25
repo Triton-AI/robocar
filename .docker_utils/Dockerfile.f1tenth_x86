@@ -155,7 +155,7 @@ RUN source source_ros2.sh && \
     vcs import < repos/common.repos && \
     vcs import < repos/lidar_utils.repos && \
     vcs import < repos/racer.repos && \ 
-    sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp \
+    sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp && \
     make gb_opt && \
     make rosdep-install && \ 
     build_ros2
