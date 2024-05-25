@@ -33,16 +33,11 @@ ekf_filter_node:
         world_frame: odom          # Defaults to the value of odom_frame if unspecified
 
         odom0: /odom
-        odom0_config: [true,  true,  false,      
-                       false, false, true,       
-                       false, false, false,      
-                       false, false, true,       
-                       false, false, false]      
-        #        [x_pos   , y_pos    , z_pos,
-        #         roll    , pitch    , yaw,
-        #         x_vel   , y_vel    , z_vel,
-        #         roll_vel, pitch_vel, yaw_vel,
-        #         x_accel , y_accel  , z_accel]
+        odom0_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                       false, false, true,       #  roll    , pitch    , yaw,
+                       false, false, false,      #  x_vel   , y_vel    , z_vel,
+                       false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                       false, false, false]      #  x_accel , y_accel  , z_accel]
 
         imu0: /lidar/imu
         imu0_config: [false, false, false,       # Ignore x linear acceleration, use y linear acceleration

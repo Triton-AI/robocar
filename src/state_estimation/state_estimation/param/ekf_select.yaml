@@ -1,5 +1,19 @@
 ekf_select: # select which source to disable (0) or enable (1)
     override_ekf_config: True   # override default config in ekf_config.yaml
     odom:
-      default_odom: 1   # it should be vesc_odom
-      rf2o: 0
+      vesc_odom:
+        enable: 1
+        odom_topic: "/odom"
+        odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                      false, false, true,       #  roll    , pitch    , yaw,
+                      false, false, false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false]      #  x_accel , y_accel  , z_accel]
+      rf2o:
+        enable: 0
+        odom_topic: "/rf2o/odom"
+        odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                      false, false, true,       #  roll    , pitch    , yaw,
+                      false, false, false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false]      #  x_accel , y_accel  , z_accel]

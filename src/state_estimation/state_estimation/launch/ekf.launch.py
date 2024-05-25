@@ -8,10 +8,15 @@ import os
 
 import yaml
 
+def read_yaml(yaml_input_path):
+    with open(yaml_input_path, "r") as file:
+        yaml_inputs = yaml.load(file, Loader=yaml.SafeLoader)
+        return yaml_inputs
+
 def generate_launch_description():
     pkg_name = 'state_estimation'
     config_file = 'ekf_config.yaml'
-    select_file = 'ekf_select'
+    select_file = 'ekf_select.yaml'
     desc_dir = get_package_share_directory(pkg_name)
 
     config_file_path = os.path.join(
@@ -25,6 +30,9 @@ def generate_launch_description():
         'param',
         select_file
     )
+
+    select_yaml = read_yaml(select_file_path)
+    # if select_yaml['ekf_select']['override_ekf_config'] == 
 
     robot_localization_node = Node(
         package='robot_localization',
