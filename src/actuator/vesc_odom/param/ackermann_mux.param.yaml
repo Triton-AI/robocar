@@ -2,10 +2,10 @@
     ros__parameters:
       topics:
         navigation:
-          topic: drive
+          topic: /ego_racecar/drive
           timeout : 0.2
           priority: 100
         joystick:
-          topic: teleop
+          topic: /ego_racecar/teleop
           timeout : 0.2
           priority: 10
