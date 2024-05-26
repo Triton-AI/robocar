@@ -1,5 +1,5 @@
 # 
-# param: ['package', 'launch_file', 'sensor_type', 'topics_published']
+# param: ['package', 'launch_file', 'sensor_type', 'topics_published'] # Currently, it cannot remmap new topic names
 #
 
 # Lidars

@@ -20,7 +20,7 @@ amcl:
     odom_frame_id: "odom"
     
     map_topic: "/map"
-    scan_topic: "/scanner/scan"
+    scan_topic: "/ego_racecar/scan"
 
     max_particles: 8000
     min_particles: 200
