@@ -1,12 +1,3 @@
----
-name: ISSUE_TEMPLATE
-about: Bug Report & Feature Request
-title: ''
-labels: ''
-assignees: ''
-
----
-
 <!--
 For general questions, please ask on ROS answers: https://answers.ros.org, make sure to include at least the `ros2` tag and the rosdistro version you are running, e.g. `foxy`.
 For general design discussions, please post on discourse: https://discourse.ros.org/c/ng-ros
