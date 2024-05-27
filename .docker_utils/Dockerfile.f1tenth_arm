@@ -57,6 +57,7 @@ RUN apt-get update && \
     nano \
     iputils-ping \
     x11-apps \
+    xauth \
     nautilus \
     usbutils \
     vim \
