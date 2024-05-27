@@ -37,7 +37,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         DeclareLaunchArgument(
-            name='scanner', default_value='scanner',
+            name='scanner', default_value='ego_racecar',
             description='Namespace for sample topics'
         ),
         # Node(

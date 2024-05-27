@@ -1,7 +1,7 @@
 /**:
   ros__parameters:
     freq : 20.0
-    laser_scan_topic : '/scanner/scan'
+    laser_scan_topic : '/ego_racecar/scan'
     odom_topic : '/rf2o/odom'
     odom_frame_id : 'odom'
     base_frame_id : 'base_footprint'

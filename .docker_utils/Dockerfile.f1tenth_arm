@@ -43,6 +43,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-foxy-serial-driver \
     ros-foxy-depthai-ros \
     ros-foxy-pcl-ros \
+    ros-foxy-robot-state-publisher \
+    ros-foxy-joint-state-publisher \
     && rm -rf /var/lib/apt/lists/*
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -70,9 +72,9 @@ RUN apt-get update && \
     cheese \
     jstest-gtk \
     joystick \
-    gedit \
-    gedit-plugin-multi-edit \
-    gedit-plugins \
+    # gedit \
+    # gedit-plugin-multi-edit \
+    # gedit-plugins \
     python3-tk \
     python3-rosdep \
     python3-vcstool \

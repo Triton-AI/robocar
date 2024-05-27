@@ -95,7 +95,7 @@ global_costmap:
       #   enabled: True
       #   observation_sources: scan
       #   scan:
-      #     topic: /scanner/scan
+      #     topic: /ego_racecar/scan
       #     max_obstacle_height: 2.0
       #     clearing: True
       #     marking: True

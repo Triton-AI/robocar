@@ -1,5 +1,5 @@
 # 
-# param: ['package', 'launch_file', 'sensor_type', 'topics_published']
+# param: ['package', 'launch_file', 'sensor_type', 'topics_published'] # Currently, it cannot remmap new topic names
 #
 
 # Lidars
@@ -21,7 +21,7 @@ livox : ['sensors','msg_MID360_launch.py','lidar', '/scan']
 # oakd: ['ucsd_robocar_sensor2_pkg', 'camera_oakd.launch.py', 'camera', '/camera/color/image_raw']
 
 # Odometry
-vesc_with_odom: ['vesc_odom', 'vesc_odom.launch.py','motor', '/drive']
+vesc_with_odom: ['vesc_odom', 'vesc_odom.launch.py','motor', '/ego_racecar/drive']
 
 # Actuator
 # vesc_without_odom: ['ucsd_robocar_actuator2_pkg', 'vesc_twist.launch.py','motor', '/cmd_vel']

@@ -12,4 +12,4 @@ child_frame_id: 'slice_frame'
 
 pointcloud_topic: '/livox/lidar'
 slice_scan_topic: '/scan' # type custom topic name here, 
-                          # eventually, it would be '/scanner/${CUSTOM_TOPIC}'
+                          # eventually, it would be '/ego_racecar/${CUSTOM_TOPIC}'

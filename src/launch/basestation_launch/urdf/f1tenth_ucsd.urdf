@@ -229,7 +229,7 @@
             </range>
             </ray>
             <plugin name="scan" filename="libgazebo_ros_gpu_laser.so">
-            <topicName>/scan</topicName>
+            <topicName>/ego_racecar/scan</topicName>
             <frameName>lidar_link</frameName>
             </plugin>
         </sensor>

@@ -48,8 +48,12 @@ def generate_launch_description():
         output='screen',
         parameters=[
             {'robot_description':urdf_content,
-            'use_sim_time': False}
-        ]
+             'use_sim_time': False}
+        ],
+        remappings=[
+            ('/robot_description', '/ego_racecar/robot_description'),
+            ('/joint_states', '/ego_racecar/joint_states'),
+        ],
     )
 
     joint_state_publisher_node = Node(
@@ -58,6 +62,10 @@ def generate_launch_description():
         name='joint_state_publisher',
         arguments=[urdf_file_path],
         # condition=UnlessCondition(LaunchConfiguration('gui'))
+        remappings=[
+            ('/robot_description', '/ego_racecar/robot_description'),
+            ('/joint_states', '/ego_racecar/joint_states'),
+        ],
     )
 
     ## tf2 - lidar_link to laser frame
