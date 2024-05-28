@@ -1,6 +1,6 @@
 from launch import LaunchDescription
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, Command
 from launch.actions import DeclareLaunchArgument
 from launch_ros.actions import Node
 from ament_index_python.packages import get_package_share_directory
@@ -26,28 +26,28 @@ def yaml_decode(yaml_input_path):
 
 def generate_launch_description():
     pkg_name = 'basestation_launch'
-    urdf_file = 'f1tenth_ucsd.urdf'
+    xacro_file = 'ucsd_racercar.xacro'
     desc_dir = get_package_share_directory(pkg_name)
 
     related_param_num, related_param_str = yaml_decode(related_param_path)
     # print(related_param_num, '\n', related_param_str)
 
-    urdf_file_path = os.path.join(
+    xacro_file_path = os.path.join(
         desc_dir,
         'urdf',
-        urdf_file
+        xacro_file
     )
 
-    with open(urdf_file_path, 'r') as infile:
-        urdf_content = infile.read()
+    # with open(urdf_file_path, 'r') as infile:
+    #     urdf_content = infile.read()
 
     robot_state_publisher_node = Node(
         package='robot_state_publisher',
         executable='robot_state_publisher',
-        name='robot_state_publisher_node',
+        name='ego_robot_state_publisher',
         output='screen',
         parameters=[
-            {'robot_description':urdf_content,
+            {'robot_description':Command(['xacro',' ', xacro_file_path]),
              'use_sim_time': False}
         ],
         remappings=[
@@ -59,8 +59,8 @@ def generate_launch_description():
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
         executable='joint_state_publisher',
-        name='joint_state_publisher',
-        arguments=[urdf_file_path],
+        name='ego_joint_state_publisher',
+        arguments=[xacro_file_path],
         # condition=UnlessCondition(LaunchConfiguration('gui'))
         remappings=[
             ('/robot_description', '/ego_racecar/robot_description'),

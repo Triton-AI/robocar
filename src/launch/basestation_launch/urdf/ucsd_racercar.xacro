@@ -1,5 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<robot name="my_robot">
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="racecar">
+
+    <xacro:property name="wheelbase" value="0.3302" />
+    <xacro:property name="width" value="0.2032" />
+    <xacro:property name="height" value="0.05" />
+    <!-- <xacro:property name="ground_offset" value="0.04" /> -->
+    <xacro:property name="wheel_radius" value="0.0508" />
+    <xacro:property name="wheel_length" value="0.0381" />
+    <xacro:property name="laser_distance_from_base_link" value="0.275" />
+    <!-- <xacro:property name="laser_height" value="0.05" /> -->
+    <!-- <xacro:property name="laser_radius" value="0.026" /> -->
+    <xacro:property name="car_name" value="ego_racecar" />
 
     <material name="black">
         <color rgba="0.0 0.0 0.0 1"/>
@@ -12,6 +23,10 @@
     <material name="grey">
         <color rgba="0.25 0.25 0.25 1"/>
     </material>
+    
+    <material name="blue">
+        <color rgba="0.3 0.57 1. 1."/>
+    </material>
 
     <!-- BASE LINK -->
 
@@ -21,19 +36,18 @@
             <mass value="0.18" />
             <inertia ixx="0.0002835" ixy="0.0" ixz="0.0" iyy="0.0002835" iyz="0.0" izz="0.000324"/>
         </inertial>
-
         <collision>
             <origin xyz="0 0 0.05" rpy="0 0 0"/>
             <geometry>
                 <cylinder radius="0.06" length="0.09"/>
             </geometry>
         </collision>
-
         <visual>
-        <origin rpy="0 0 1.57" xyz="0 0 0"/>
-        <geometry>
-            <box size="0.20 0.5 0.05"/>
-        </geometry>
+            <origin rpy="0 0 0" xyz="0 0 0"/>
+            <geometry>
+                <box size="${wheelbase} ${width} ${height}"/>
+            </geometry>
+            <material name="blue"/>
         </visual>
     </link>
 
@@ -45,14 +59,14 @@
     <joint name="base_footprint_joint" type="fixed">
         <parent link="base_footprint"/>
         <child link="base_link"/>
-        <origin xyz="0 0 0.05" rpy="0 0 0"/>
+        <origin xyz="0 0 ${wheel_radius}" rpy="0 0 0"/>
     </joint>
 
     <!-- LIDAR LINK -->
 
     <link name="lidar_link">
 	<visual>
-            <origin rpy="0 0 1.57" xyz="0.0 0.0 0.0"/>
+            <origin rpy="0 0 ${pi/2}" xyz="0.0 0.0 0.0"/>
             <geometry>
                 <box size="0.065 0.065 0.06"/>
             </geometry>
@@ -63,14 +77,14 @@
     <joint name="lidar_joint" type="fixed">
         <parent link="base_link"/>
         <child link="lidar_link"/>
-        <origin xyz="0.01 0.0 0.20" rpy="0 0 0"/>
+        <origin xyz="0.05 0.0 0.10" rpy="0 0 0"/>
     </joint>
 
     <!-- CAMERA LINK -->
 
     <link name="camera_link">
 	    <visual>
-            <origin rpy="0 0 1.57" xyz="0.0 0.0 0.0"/>
+            <origin rpy="0 0 ${pi/2}" xyz="0.0 0.0 0.0"/>
             <geometry>
                 <box size="0.097 0.03 0.023"/>
             </geometry>
@@ -84,49 +98,67 @@
         <origin xyz="0.120 0.0 0.145" rpy="0 0 0"/>
     </joint>
 
-    <!-- WHEEL LINKS -->
+    <!-- WHEEL FL LINK -->
 
-    <link name="wheel_FL">
+    <link name="${car_name}/wheel_FL">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <origin rpy="${pi/2} 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <geometry>
-                <cylinder radius="0.05" length="0.045"/>
+                <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
             </geometry>
             <material name="black"/>
         </visual>
     </link>
+
+    <link name="${car_name}/hinge_FL"/>
+
+    <joint name="base_to_hinge_FL" type="fixed">
+        <parent link="base_link"/>
+        <child link="${car_name}/hinge_FL"/>
+        <origin xyz="${wheelbase/2} ${(wheel_length+width)/2} 0.0" rpy="0 0 0"/>
+    </joint>
 
     <joint name="wheel_FL_joint" type="revolute">
-        <parent link="base_link"/>
-        <child link="wheel_FL"/>
-        <origin xyz="0.160 0.120 0.0" rpy="0 0 0"/>
-        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <parent link="${car_name}/hinge_FL"/>
+        <child link="${car_name}/wheel_FL"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.05"/>
         <axis xyz="1 0 0"/>
     </joint>
 
-    <link name="wheel_FR">
+    <!-- WHEEL FR LINK -->
+
+    <link name="${car_name}/wheel_FR">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <origin rpy="${pi/2} 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <geometry>
-                <cylinder radius="0.05" length="0.045"/>
+                <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
             </geometry>
             <material name="black"/>
         </visual>
     </link>
 
-    <joint name="wheel_FR_joint" type="revolute">
+    <link name="${car_name}/hinge_FR"/>
+
+    <joint name="base_to_hinge_FR" type="fixed">
         <parent link="base_link"/>
-        <child link="wheel_FR"/>
-        <origin xyz="0.160 -0.120 0.0" rpy="0 0 0"/>
-        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <child link="${car_name}/hinge_FR"/>
+        <origin xyz="${wheelbase/2} -${(wheel_length+width)/2} 0.0" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="wheel_FR_joint" type="revolute">
+        <parent link="${car_name}/hinge_FR"/>
+        <child link="${car_name}/wheel_FR"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.05"/>
         <axis xyz="1 0 0"/>
     </joint>
 
-    <link name="wheel_RL">
+    <!-- WHEEL RL LINK -->
+
+    <link name="${car_name}/wheel_RL">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <origin rpy="${pi/2} 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <geometry>
-                <cylinder radius="0.05" length="0.045"/>
+                <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
             </geometry>
             <material name="black"/>
         </visual>
@@ -134,17 +166,19 @@
 
     <joint name="wheel_RL_joint" type="revolute">
         <parent link="base_link"/>
-        <child link="wheel_RL"/>
-        <origin xyz="-0.160 0.120 0.0" rpy="0 0 0"/>
-        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
+        <child link="${car_name}/wheel_RL"/>
+        <origin xyz="-${wheelbase/2} ${(wheel_length+width)/2} 0.0" rpy="0 0 0"/>
+        <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.05"/>
         <axis xyz="1 0 0"/>
     </joint>
 
-    <link name="wheel_RR">
+    <!-- WHEEL RR LINK -->
+
+    <link name="${car_name}/wheel_RR">
         <visual>
-            <origin rpy="1.57 0.0 0.0" xyz="0.0 0.0 0.0"/>
+            <origin rpy="${pi/2} 0.0 0.0" xyz="0.0 0.0 0.0"/>
             <geometry>
-                <cylinder radius="0.05" length="0.045"/>
+                <cylinder radius="${wheel_radius}" length="${wheel_length}"/>
             </geometry>
             <material name="black"/>
         </visual>
@@ -152,11 +186,13 @@
 
     <joint name="wheel_RR_joint" type="revolute">
         <parent link="base_link"/>
-        <child link="wheel_RR"/>
-        <origin xyz="-0.160 -0.120 0.0" rpy="0 0 0"/>
+        <child link="${car_name}/wheel_RR"/>
+        <origin xyz="-${wheelbase/2} -${(wheel_length+width)/2} 0.0" rpy="0 0 0"/>
         <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.005"/>
         <axis xyz="1 0 0"/>
     </joint>
+
+    <!-- GAZEBO -->
 
     <gazebo reference="base_link">
         <kp>100000.0</kp>
