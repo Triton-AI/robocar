@@ -15,9 +15,18 @@ install/**
 # py
 *.pyc
 
+#vscode
+.vscode
+.vscode/build
+.vscode/log
+.vscode/c_cpp_properties.json
+
 # gb_optimizer dependencies
 src/path_planning/gb_optimizer_nav2/gb_optimizer_nav2/global_racetrajectory_optimization/*
 src/path_planning/global_planner/global_planner/global_racetrajectory_optimization/*
+
+# ros2 frames
+src/launch/basestation_launch/ros_data/frames/frames.gv
 
 # self_test map data
 src/launch/basestation_launch/ros_data/maps/self_test/*/*
