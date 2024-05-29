@@ -9,4 +9,4 @@ src/path_planning/gb_optimizer_nav2/gb_optimizer_nav2/global_racetrajectory_opti
 src/path_planning/global_planner/global_planner/global_racetrajectory_optimization/*
 
 # self_test map data
-src/launch/basestation_launch/ros_data/map/self_test/**/*
+src/launch/basestation_launch/ros_data/maps/self_test/*/*
