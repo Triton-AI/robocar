@@ -3,7 +3,7 @@
 #
 # sensors/hardware
 all_components: ['basestation_launch', 'all_components.launch.py']
-# simulator: ['ucsd_robocar_path2_pkg', 'f1_tenth_sim_launch.launch.py']
+# simulator: ['basestation_launch', 'sim.launch.py']
 
 # camera navigation
 # camera_nav_calibration: ['ucsd_robocar_lane_detection2_pkg', 'camera_nav_calibration.launch.py']
