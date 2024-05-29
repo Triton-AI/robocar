@@ -37,11 +37,11 @@ TwistToAckermann::TwistToAckermann()
                                                                       10, 
                                                                       std::bind(&TwistToAckermann::twist_callback, this, std::placeholders::_1));
 
-    current_time = this->get_clock()->now();
-    timer = this->create_wall_timer(
-        std::chrono::milliseconds(20),
-        std::bind(&TwistToAckermann::timer_callback, this)
-    );
+    // current_time = this->get_clock()->now();
+    // timer = this->create_wall_timer(
+    //     std::chrono::milliseconds(20),
+    //     std::bind(&TwistToAckermann::timer_callback, this)
+    // );
 }
 
 TwistToAckermann::~TwistToAckermann()
@@ -78,7 +78,7 @@ void TwistToAckermann::twist_callback(geometry_msgs::msg::Twist::SharedPtr msg)
     {
         ackermann_msgs::msg::AckermannDriveStamped out{};
         out.header.frame_id = this->frame_id;
-        out.header.stamp = this->current_time;
+        out.header.stamp = this->get_clock()->now();
 
         out.drive.speed = msg->linear.x;
         out.drive.steering_angle = convert_trans_rot_vel_to_steering_angle(msg->linear.x,
@@ -97,11 +97,11 @@ void TwistToAckermann::twist_callback(geometry_msgs::msg::Twist::SharedPtr msg)
     }
 }
 
-void TwistToAckermann::timer_callback()
-{
-    // RCLCPP_INFO(this->get_logger(), "timer working");
-    current_time = this->get_clock()->now();
-}
+// void TwistToAckermann::timer_callback()
+// {
+//     // RCLCPP_INFO(this->get_logger(), "timer working");
+//     current_time = this->get_clock()->now();
+// }
 
 int main(int argc, char *argv[])
 {
