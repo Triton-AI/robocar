@@ -41,6 +41,11 @@ livox-driver:
 racer:
 	vcs import < repos/racer.repos
 
+.PHONY: sim
+sim:
+	vcs import < repos/sim.repos
+	pip install -e src/external/f1tenth_sim/f1tenth_gym
+
 .PHONY: gb_opt
 gb_opt:
 	chmod +x scripts/gb_opt_setup.sh

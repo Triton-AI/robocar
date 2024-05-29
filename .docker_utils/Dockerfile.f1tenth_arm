@@ -153,33 +153,24 @@ RUN pip install trajectory_planning_helpers==0.78 \
     scikit-learn \
     transforms3d
 
-########### Build Basic ROS 2 Packages ###########
+########### Clone Basic ROS 2 Packages ###########
 RUN source source_ros2.sh && \
     vcs import < repos/common.repos && \
     vcs import < repos/lidar_utils.repos && \
     vcs import < repos/racer.repos && \ 
     sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp && \
-    make gb_opt && \
-    make rosdep-install && \ 
+    make gb_opt
+
+### f1tenth gym && ros2 gym bridge ###
+RUN make sim
+
+# COLCON BUILD ROS2 PACKAGES
+RUN make rosdep-install && \ 
     build_ros2
 
 ########### Build livox_sdk2, livox_ros_driver2 ###########
-RUN source source_ros2.sh && \
-    vcs import < repos/livox.repos && \ 
+RUN source source_ros2.sh && \ 
     make livox-driver
-
-# f1tenth gym
-WORKDIR $WORKSPACE/src/external/f1tenth_sim
-RUN git clone https://github.com/f1tenth/f1tenth_gym
-RUN cd f1tenth_gym && \
-    pip install -e .
-# ros2 gym bridge
-RUN cd ..
-RUN git clone https://github.com/f1tenth/f1tenth_gym_ros
-RUN cd ../../.. && \
-    source source_ros2.sh && \
-    apt-get update --fix-missing && \
-    build_ros2
 
 ########### ADD CUSTOM FUNCTIONS ###########
 WORKDIR /home/scripts/
