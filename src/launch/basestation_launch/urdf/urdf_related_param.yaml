@@ -7,5 +7,5 @@ yaw: 0.0
 pitch: 0.0
 roll: 3.1416
 
-frame_id: 'lidar_link'
+frame_id: 'ego_racecar/lidar_link'
 child_frame_id: 'livox_frame'
