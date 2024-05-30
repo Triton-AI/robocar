@@ -36,10 +36,10 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
-        DeclareLaunchArgument(
-            name='scanner', default_value='ego_racecar',
-            description='Namespace for sample topics'
-        ),
+        # DeclareLaunchArgument(
+        #     name='scanner', default_value='scanner',
+        #     description='Namespace for sample topics'
+        # ),
         # Node(
         #     package='pointcloud_to_laserscan', executable='dummy_pointcloud_publisher',
         #     remappings=[('cloud', [LaunchConfiguration(variable_name='scanner'), '/cloud'])],
@@ -62,7 +62,8 @@ def generate_launch_description():
         Node(
             package='pointcloud_to_laserscan', executable='pointcloud_to_laserscan_node',
             remappings=[('cloud_in', slice_info_str['pointcloud_topic']),
-                        ('scan', [LaunchConfiguration(variable_name='scanner'), slice_info_str['slice_scan_topic']])],
+                        # ('scan', [LaunchConfiguration(variable_name='scanner'), slice_info_str['slice_scan_topic']]),
+                        ('scan', slice_info_str['slice_scan_topic'])],
             parameters=[pcl_to_scan_config],
             name='pointcloud_to_laserscan'
         )
