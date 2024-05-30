@@ -159,7 +159,7 @@ RUN source source_ros2.sh && \
     vcs import < repos/lidar_utils.repos && \
     vcs import < repos/racer.repos && \ 
     sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp && \
-    make gb_op
+    make gb_opt
 
 ### f1tenth gym && ros2 gym bridge ###
 RUN make sim
