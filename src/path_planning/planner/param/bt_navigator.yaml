@@ -2,7 +2,7 @@ bt_navigator:
   ros__parameters:
     use_sim_time: False
     global_frame: map
-    robot_base_frame: base_link
+    robot_base_frame: ego_racecar/base_link
     odom_topic: /odom
 
     enable_groot_monitoring: True

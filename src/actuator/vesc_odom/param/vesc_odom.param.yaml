@@ -1,7 +1,7 @@
 /**:
   ros__parameters:
     odom_frame: odom
-    base_frame: base_footprint
+    base_frame: ego_racecar/base_footprint
         
     publish_tf: false   # Disable if using Sensor Fusion
     use_servo_cmd_to_calc_angular_velocity: true

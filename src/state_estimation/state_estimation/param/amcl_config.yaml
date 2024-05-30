@@ -16,7 +16,7 @@ amcl:
     always_reset_initial_pose: false  # Requires that AMCL is provided an initial pose either via topic or initial_pose* parameter (with parameter set_initial_pose: true) when reset. Otherwise, by default AMCL will use the last known pose to initialize.
 
     global_frame_id: "map"
-    base_frame_id: "base_footprint"
+    base_frame_id: "ego_racecar/base_footprint"
     odom_frame_id: "odom"
     
     map_topic: "/map"

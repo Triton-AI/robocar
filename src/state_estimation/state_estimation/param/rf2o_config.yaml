@@ -4,7 +4,7 @@
     laser_scan_topic : '/ego_racecar/scan'
     odom_topic : '/rf2o/odom'
     odom_frame_id : 'odom'
-    base_frame_id : 'base_footprint'
+    base_frame_id : 'ego_racecar/base_footprint'
 
     # Enable if you want to let rf2o_node publish tf between odom_frame and base_frame
     publish_tf : False
