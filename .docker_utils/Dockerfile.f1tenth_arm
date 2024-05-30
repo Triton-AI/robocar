@@ -165,7 +165,8 @@ RUN source source_ros2.sh && \
 RUN make sim
 
 # COLCON BUILD ROS2 PACKAGES
-RUN make rosdep-install && \ 
+RUN source source_ros2.sh && \
+    make rosdep-install && \ 
     build_ros2
 
 ########### Build livox_sdk2, livox_ros_driver2 ###########
