@@ -6,7 +6,7 @@ on:
     types: [published]
     branches: [ "foxy_devel" ]
     # Publish semver tags as releases.
-    tags: [ 'v*.*.*-a' ]
+    tags: [ 'ARM-v*.*.*' ]
   pull_request:
     branches: [ "foxy_devel" ]  # TBD
 
