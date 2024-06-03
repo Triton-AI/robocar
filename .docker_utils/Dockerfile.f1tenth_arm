@@ -22,13 +22,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean
 
 # Install nvidia-tensorrt-dev for TensorRT developer packages
-RUN mkdir -p /lib/firmware/
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nvidia-tensorrt-dev \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
 # Install nvidia-vpi-dev for VPI developer packages
+RUN mkdir -p /lib/firmware/
 RUN apt-get update && apt-get install -y --no-install-recommends \
     nvidia-vpi-dev \
     && rm -rf /var/lib/apt/lists/* \
