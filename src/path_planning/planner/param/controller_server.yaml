@@ -45,7 +45,7 @@ controller_server:
       max_angular_accel: 3.2
       
       use_velocity_scaled_lookahead_dist: true
-      min_approach_linear_velocity: 0.2
+      min_approach_linear_velocity: 0.15
       approach_velocity_scaling_dist: 0.6
 
       use_collision_detection: true
@@ -58,7 +58,7 @@ controller_server:
       regulated_linear_scaling_min_radius: 0.9
       regulated_linear_scaling_min_speed: 0.25
 
-      allow_reversing: false
+      allow_reversing: true
       max_robot_pose_search_dist: 10.0
     
 local_costmap:
