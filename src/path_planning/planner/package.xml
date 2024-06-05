@@ -14,6 +14,7 @@
   <depend>std_msgs</depend>
   <depend>geometry_msgs</depend>
   <depend>ackermann_msgs</depend>
+  <depend>f110_msgs</depend>
 
   <exec_depend>rviz</exec_depend>
   <exec_depend>robot_localization</exec_depend>
