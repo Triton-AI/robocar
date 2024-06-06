@@ -153,7 +153,7 @@ RUN echo 'export PYTHONPATH=/usr/local/lib/python3.8/site-packages/:$PYTHONPATH'
 RUN python3 -m pip install --upgrade pip && \
     apt-get install -y --no-install-recommends \
     pkg-config \
-    libhdf5-100 \
+    libhdf5-103 \
     libhdf5-dev
 
 ARG JP_VERSION=512
