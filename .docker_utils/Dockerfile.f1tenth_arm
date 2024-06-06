@@ -154,7 +154,8 @@ RUN python3 -m pip install --upgrade pip && \
     apt-get install -y --no-install-recommends \
     pkg-config \
     libhdf5-103 \
-    libhdf5-dev
+    libhdf5-dev \
+    libopenblas-dev
 
 ARG JP_VERSION=512
 ARG TF_VERSION=2.12.0
