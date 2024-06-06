@@ -150,7 +150,11 @@ RUN echo 'export PYTHONPATH=/usr/local/lib/python3.8/site-packages/:$PYTHONPATH'
 
 # FROM cv2 as dl_gpu
 
-RUN python3 -m pip install --upgrade pip 
+RUN python3 -m pip install --upgrade pip && \
+    apt-get install -y --no-install-recommends \
+    pkg-config \
+    libhdf5-100 \
+    libhdf5-dev
 
 ARG JP_VERSION=512
 ARG TF_VERSION=2.12.0
