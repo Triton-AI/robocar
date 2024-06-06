@@ -168,7 +168,7 @@ RUN git clone --branch $TORCHVISION_INSTALL https://github.com/pytorch/vision to
     python3 setup.py install --user && \
     rm -rf /torchvision
 
-FROM dl_gpu as utils
+# FROM dl_gpu as utils
 
 # install useful packages
 RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | debconf-set-selections && \
@@ -195,7 +195,7 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | debco
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-FROM utils as ros
+# FROM utils as ros
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # Install ROS2 Foxy 
