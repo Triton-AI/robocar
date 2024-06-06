@@ -148,7 +148,7 @@ RUN ldconfig
 
 RUN echo 'export PYTHONPATH=/usr/local/lib/python3.8/site-packages/:$PYTHONPATH' >> ~/.bashrc
 
-FROM cv2 as dl_gpu
+# FROM cv2 as dl_gpu
 
 RUN python3 -m pip install --upgrade pip 
 
