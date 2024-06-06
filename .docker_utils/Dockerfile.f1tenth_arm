@@ -3,7 +3,8 @@
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # FROM ghcr.io/ucsd-ecemae-148/donkeycontainer:ros
 # FROM nvcr.io/nvidia/l4t-base:35.4.1 as base
-FROM dustynv/opencv:r35.4.1 as base
+# FROM dustynv/opencv:r35.4.1 as base
+FROM dustynv/l4t-ml:r35.4.1 as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG WORKSPACE=/home/projects/f1tenth_ws/
@@ -150,28 +151,28 @@ RUN echo 'export PYTHONPATH=/usr/local/lib/python3.8/site-packages/:$PYTHONPATH'
 
 # FROM cv2 as dl_gpu
 
-RUN python3 -m pip install --upgrade pip && \
-    apt-get install -y --no-install-recommends \
-    pkg-config \
-    libhdf5-103 \
-    libhdf5-dev \
-    libopenblas-dev 
+# RUN python3 -m pip install --upgrade pip && \
+#     apt-get install -y --no-install-recommends \
+#     pkg-config \
+#     libhdf5-103 \
+#     libhdf5-dev \
+#     libopenblas-dev 
 
-ARG JP_VERSION=512
-ARG TF_VERSION=2.12.0
-ARG NV_VERSION=23.06
-RUN pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v$JP_VERSION tensorflow==$TF_VERSION+nv$NV_VERSION
+# ARG JP_VERSION=512
+# ARG TF_VERSION=2.12.0
+# ARG NV_VERSION=23.06
+# RUN pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v$JP_VERSION tensorflow==$TF_VERSION+nv$NV_VERSION
 
-######### PyTorch for Jetpack #########
-ARG TORCH_INSTALL=https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
-RUN python3 -m pip install --no-cache $TORCH_INSTALL
+# ######### PyTorch for Jetpack #########
+# ARG TORCH_INSTALL=https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+# RUN python3 -m pip install --no-cache $TORCH_INSTALL
 
-######### TorchVision for Jetpack #########
-ARG TORCHVISION_INSTALL=release/0.16
-RUN git clone --branch $TORCHVISION_INSTALL https://github.com/pytorch/vision torchvision  && \
-    cd torchvision && \
-    python3 setup.py install --user && \
-    rm -rf /torchvision
+# ######### TorchVision for Jetpack #########
+# ARG TORCHVISION_INSTALL=release/0.16
+# RUN git clone --branch $TORCHVISION_INSTALL https://github.com/pytorch/vision torchvision  && \
+#     cd torchvision && \
+#     python3 setup.py install --user && \
+#     rm -rf /torchvision
 
 # FROM dl_gpu as utils
 
