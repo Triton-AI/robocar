@@ -155,7 +155,7 @@ RUN python3 -m pip install --upgrade pip && \
     pkg-config \
     libhdf5-103 \
     libhdf5-dev \
-    libopenblas-dev
+    libopenblas-dev 
 
 ARG JP_VERSION=512
 ARG TF_VERSION=2.12.0
@@ -180,21 +180,13 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | debco
     apt-get update && \
     apt-get install -y --no-install-recommends \
         python3-dev \
-        nano \
-        iputils-ping \
-        x11-apps \
         nautilus \
         firefox \
         git-all \
-        cheese \
-        vim \
         wireshark \
         python3-argcomplete \
         jstest-gtk \
         joystick \
-        gedit \
-        gedit-plugin-multi-edit \
-        gedit-plugins \
         python3-tk \
         python3.8-venv \
     && rm -rf /var/lib/apt/lists/* \
@@ -228,7 +220,9 @@ RUN apt-get update --fix-missing && \
                     vim \
                     libeigen3-dev \
                     tmux \
-                    ros-foxy-rviz2
+                    ros-foxy-rviz2 \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-foxy-desktop \
@@ -283,7 +277,9 @@ RUN apt-get update && \
     python3-tk \
     python3-rosdep \
     python3-vcstool \
-    ros-dev-tools
+    ros-dev-tools \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
