@@ -228,7 +228,7 @@ RUN apt-get update --fix-missing && \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop \
     ros-$ROS_DISTRO-message-filters \
     ros-$ROS_DISTRO-image-transport \
