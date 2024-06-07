@@ -8,6 +8,7 @@ FROM dustynv/opencv:r35.4.1 as base
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG WORKSPACE=/home/projects/f1tenth_ws/
+ARG ROS_DISTRO=foxy
 
 WORKDIR /
 # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -196,7 +197,7 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | debco
 # FROM utils as ros
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
-# Install ROS2 Foxy 
+# Install ROS2 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 RUN apt update &&\
     apt install software-properties-common -y && \
@@ -207,9 +208,9 @@ RUN apt update &&\
 
 WORKDIR /
 
-RUN export ROS_DISTRO=foxy
-RUN echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
-# RUN source /opt/ros/foxy/setup.bash && \
+RUN export ROS_DISTRO=$ROS_DISTRO
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+# RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 #     rosdep init
 
 ####################################################################################################################################################
@@ -222,30 +223,30 @@ RUN apt-get update --fix-missing && \
                     vim \
                     libeigen3-dev \
                     tmux \
-                    ros-foxy-rviz2 \
+                    ros-$ROS_DISTRO-rviz2 \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-foxy-desktop \
-    ros-foxy-message-filters \
-    ros-foxy-image-transport \
-    ros-foxy-teleop-twist-joy \
-    ros-foxy-joy \
-    ros-foxy-joy-teleop \
-    ros-foxy-rviz-default-plugins \
-    ros-foxy-rviz-rendering \
-    ros-foxy-ros2bag \
-    ros-foxy-rosbag2-converter-default-plugins \
-    ros-foxy-rosbag2-storage-default-plugins \
-    ros-foxy-robot-localization \
-    ros-foxy-slam-toolbox \
-    ros-foxy-ackermann-msgs \
-    ros-foxy-serial-driver \
-    ros-foxy-depthai-ros \
-    ros-foxy-pcl-ros \
-    ros-foxy-robot-state-publisher \
-    ros-foxy-joint-state-publisher \
+    ros-$ROS_DISTRO-desktop \
+    ros-$ROS_DISTRO-message-filters \
+    ros-$ROS_DISTRO-image-transport \
+    ros-$ROS_DISTRO-teleop-twist-joy \
+    ros-$ROS_DISTRO-joy \
+    ros-$ROS_DISTRO-joy-teleop \
+    ros-$ROS_DISTRO-rviz-default-plugins \
+    ros-$ROS_DISTRO-rviz-rendering \
+    ros-$ROS_DISTRO-ros2bag \
+    ros-$ROS_DISTRO-rosbag2-converter-default-plugins \
+    ros-$ROS_DISTRO-rosbag2-storage-default-plugins \
+    ros-$ROS_DISTRO-robot-localization \
+    ros-$ROS_DISTRO-slam-toolbox \
+    ros-$ROS_DISTRO-ackermann-msgs \
+    ros-$ROS_DISTRO-serial-driver \
+    ros-$ROS_DISTRO-depthai-ros \
+    ros-$ROS_DISTRO-pcl-ros \
+    ros-$ROS_DISTRO-robot-state-publisher \
+    ros-$ROS_DISTRO-joint-state-publisher \
     && rm -rf /var/lib/apt/lists/*
 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -285,14 +286,14 @@ RUN apt-get update && \
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    ros-foxy-rmw-cyclonedds-cpp \
-    ros-foxy-rosbridge-suite \
-    ros-foxy-nav2* \
-    ros-foxy-navigation2 \
-    ros-foxy-smac-planner \
-    ros-foxy-spatio-temporal-voxel-layer \
-    ros-foxy-nonpersistent-voxel-layer \
-    ros-foxy-tf-transformations
+    ros-$ROS_DISTRO-rmw-cyclonedds-cpp \
+    ros-$ROS_DISTRO-rosbridge-suite \
+    ros-$ROS_DISTRO-nav2* \
+    ros-$ROS_DISTRO-navigation2 \
+    ros-$ROS_DISTRO-smac-planner \
+    ros-$ROS_DISTRO-spatio-temporal-voxel-layer \
+    ros-$ROS_DISTRO-nonpersistent-voxel-layer \
+    ros-$ROS_DISTRO-tf-transformations
 
 RUN apt-get -y dist-upgrade
 
@@ -320,7 +321,7 @@ RUN echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | tee /etc/ude
 WORKDIR /home
 
 RUN apt-get update --fix-missing
-RUN apt-get install -y --no-install-recommends ros-foxy-behaviortree-cpp-v3 \
+RUN apt-get install -y --no-install-recommends ros-$ROS_DISTRO-behaviortree-cpp-v3 \
     libtool \
     pkg-config \
     build-essential \
@@ -340,7 +341,7 @@ RUN cmake --build build
 ### Create f1tenth workspace
 WORKDIR $WORKSPACE
 
-RUN git clone -b foxy_devel https://github.com/Triton-AI/robocar.git && \
+RUN git clone -b $ROS_DISTRO_devel https://github.com/Triton-AI/robocar.git && \
     mv robocar .. && \
     cd .. && \
     rm -rf $WORKSPACE && \
