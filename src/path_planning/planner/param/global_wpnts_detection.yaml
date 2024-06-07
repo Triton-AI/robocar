@@ -1,0 +1,11 @@
+# Waypoint Detection: the interface between global and local planner
+/**:
+  ros__parameters:
+    map_frame: map
+    pose_topic: '/amcl_pose'
+    drive_topic: '/ego_racecar/drive'
+    goal_topic: 'goal_pose'
+
+    lookahead_radius_m: 1.0
+    shortest_path_enable: False
+    Ts: 1.0

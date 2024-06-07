@@ -1,0 +1,33 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "${default}",
+                "limitSymbolsToIncludedHeaders": false
+            },
+            "includePath": [
+                "/home/jetson/projects/robocar/install/vesc_driver/include/**",
+                "/home/jetson/projects/robocar/install/vesc_ackermann/include/**",
+                "/home/jetson/projects/robocar/install/vesc_msgs/include/**",
+                "/home/jetson/projects/robocar/install/teleop_tools_msgs/include/**",
+                "/home/jetson/projects/robocar/install/pointcloud_to_laserscan/include/**",
+                "/home/jetson/projects/robocar/install/ackermann_mux/include/**",
+                "/home/jetson/projects/robocar/src/external/lidar/install/livox_ros_driver2/include/**",
+                "/opt/ros/foxy/include/**",
+                "/home/jetson/projects/robocar/src/external/lidar/livox/livox-SDK2/include/**",
+                "/home/jetson/projects/robocar/src/external/lidar_utils/pointcloud_to_laserscan/include/**",
+                "/home/jetson/projects/robocar/src/external/vesc/ackermann_mux/include/**",
+                "/home/jetson/projects/robocar/src/external/vesc/vesc/vesc_ackermann/include/**",
+                "/home/jetson/projects/robocar/src/external/vesc/vesc/vesc_driver/include/**",
+                "/usr/include/**",
+                "/home/jetson/projects/robocar/src/actuator/twist_to_ackermann/include"
+            ],
+            "name": "ROS",
+            "intelliSenseMode": "gcc-arm64",
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "gnu11",
+            "cppStandard": "c++14"
+        }
+    ],
+    "version": 4
+}
