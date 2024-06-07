@@ -205,12 +205,12 @@ RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | debco
 # --------------------------------------------------------------------------------------------------------------------------------------------------
 # Install ROS2 
 # --------------------------------------------------------------------------------------------------------------------------------------------------
-# RUN apt update &&\
-#     apt install software-properties-common -y && \
-#     add-apt-repository universe && \
-#     apt update && sudo apt install curl -y && \
-#     curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
-#     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+RUN apt update && \
+    apt install software-properties-common -y && \
+    add-apt-repository universe && \
+    apt update && sudo apt install curl -y && \
+    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 
 WORKDIR /
 
@@ -232,6 +232,9 @@ RUN apt-get update --fix-missing && \
                     ros-$ROS_DISTRO-rviz2 \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
+
+### hold the libopencv packages, force not to upgrade
+RUN apt-mark hold libopencv*
 
 RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop \
