@@ -234,7 +234,7 @@ RUN apt-get update --fix-missing && \
     && apt-get clean
 
 ### hold the libopencv packages, force not to upgrade
-RUN apt-mark hold libopencv*
+RUN apt-mark hold manual *opencv*
 
 RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop \
