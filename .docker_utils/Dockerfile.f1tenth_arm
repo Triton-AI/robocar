@@ -9,6 +9,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 ARG WORKSPACE=/home/projects/f1tenth_ws/
 ARG ROS_DISTRO=foxy
+ARG BRANCH_NAME=foxy_devel
 
 WORKDIR /
 # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -341,7 +342,7 @@ RUN cmake --build build
 ### Create f1tenth workspace
 WORKDIR $WORKSPACE
 
-RUN git clone -b $ROS_DISTRO_devel https://github.com/Triton-AI/robocar.git && \
+RUN git clone -b $BRANCH_NAME https://github.com/Triton-AI/robocar.git && \
     mv robocar .. && \
     cd .. && \
     rm -rf $WORKSPACE && \
