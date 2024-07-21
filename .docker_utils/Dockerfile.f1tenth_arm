@@ -233,8 +233,46 @@ RUN apt-get update --fix-missing && \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-### hold the libopencv packages, force not to upgrade
-RUN apt-mark hold manual *opencv*
+WORKDIR /tmp/
+
+### create a dummpy opencv package for apt
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends\
+    equivs \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create and install dummy package for python3-opencv
+RUN equivs-control /tmp/python3-opencv-dummy.control && \
+    echo "Section: misc" > /tmp/python3-opencv-dummy.control && \
+    echo "Priority: optional" >> /tmp/python3-opencv-dummy.control && \
+    echo "Standards-Version: 3.9.2" >> /tmp/python3-opencv-dummy.control && \
+    echo "Package: python3-opencv-dummy" >> /tmp/python3-opencv-dummy.control && \
+    echo "Version: 1.0" >> /tmp/python3-opencv-dummy.control && \
+    echo "Maintainer: Your Name <your.email@example.com>" >> /tmp/python3-opencv-dummy.control && \
+    echo "Provides: python3-opencv" >> /tmp/python3-opencv-dummy.control && \
+    echo "Description: Dummy package to satisfy python3-opencv dependency" >> /tmp/python3-opencv-dummy.control && \
+    echo " This package provides nothing but exists to satisfy dependencies." >> /tmp/python3-opencv-dummy.control && \
+    equivs-build /tmp/python3-opencv-dummy.control && \
+    dpkg -i /tmp/python3-opencv-dummy_1.0_all.deb
+
+# List of OpenCV development libraries
+ENV OPENCV_LIBS="libopencv-core-dev libopencv-flann-dev libopencv-imgproc-dev libopencv-imgcodecs-dev libopencv-videoio-dev libopencv-highgui-dev libopencv-ml-dev libopencv-features2d-dev libopencv-calib3d-dev libopencv-dnn-dev libopencv-objdetect-dev libopencv-photo-dev libopencv-video-dev libopencv-shape-dev libopencv-stitching-dev libopencv-superres-dev libopencv-videostab-dev libopencv-contrib-dev libopencv-dev"
+
+# Create and install dummy packages for OpenCV development libraries
+RUN for lib in $OPENCV_LIBS; do \
+        equivs-control /tmp/${lib}-dummy.control && \
+        echo "Section: misc" > /tmp/${lib}-dummy.control && \
+        echo "Priority: optional" >> /tmp/${lib}-dummy.control && \
+        echo "Standards-Version: 3.9.2" >> /tmp/${lib}-dummy.control && \
+        echo "Package: ${lib}-dummy" >> /tmp/${lib}-dummy.control && \
+        echo "Version: 1.0" >> /tmp/${lib}-dummy.control && \
+        echo "Maintainer: Your Name <your.email@example.com>" >> /tmp/${lib}-dummy.control && \
+        echo "Provides: ${lib}" >> /tmp/${lib}-dummy.control && \
+        echo "Description: Dummy package to satisfy ${lib} dependency" >> /tmp/${lib}-dummy.control && \
+        echo " This package provides nothing but exists to satisfy dependencies." >> /tmp/${lib}-dummy.control && \
+        equivs-build /tmp/${lib}-dummy.control && \
+        dpkg -i /tmp/${lib}-dummy_1.0_all.deb; \
+    done
 
 RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
     ros-$ROS_DISTRO-desktop \
