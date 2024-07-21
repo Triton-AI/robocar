@@ -342,7 +342,7 @@ RUN apt-get update && \
     ros-$ROS_DISTRO-nonpersistent-voxel-layer \
     ros-$ROS_DISTRO-tf-transformations
 
-RUN apt-get -y dist-upgrade
+# RUN apt-get -y dist-upgrade
 
 WORKDIR /home/projects/
 ####### CREATE VIRTUAL ENVIRONMENTS #######
