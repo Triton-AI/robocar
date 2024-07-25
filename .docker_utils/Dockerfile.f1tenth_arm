@@ -216,8 +216,8 @@ WORKDIR /
 
 RUN export ROS_DISTRO=$ROS_DISTRO
 RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
-# RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
-#     rosdep init
+RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+    rosdep init
 
 ####################################################################################################################################################
 # Install required packages/dependencies for f1tenth_arm
