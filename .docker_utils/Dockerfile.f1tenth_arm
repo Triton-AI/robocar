@@ -413,7 +413,7 @@ RUN source source_ros2.sh && \
     make gb_opt
 
 ### f1tenth gym && ros2 gym bridge ###
-RUN make sim
+# RUN make sim
 
 # COLCON BUILD ROS2 PACKAGES
 RUN source source_ros2.sh && \
