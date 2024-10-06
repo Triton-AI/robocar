@@ -11,11 +11,11 @@ simulator: ['basestation_launch', 'sim.launch.py']
 
 # slam-toolbox online_async_node
 slam: ['state_estimation', 'online_async_launch.py']
-TUM_global_planner: ['global_planner', 'global_planner.launch.py']
+TUM_global_planner: ['planner', 'global_planner.launch.py']
 
 ## nav2
 map: ['state_estimation', 'nav2_map_server.launch.py']                # - map_server
-global_path_publisher: ['global_planner', 'global_path_publisher.launch.py']
+global_path_publisher: ['planner', 'global_path_publisher.launch.py']
 localization: ['state_estimation', 'nav2_amcl_server.launch.py']      # - localization_server 
 ekf: ['state_estimation', 'ekf.launch.py']                            # - ekf sensor fusion from robot_localization pkg
 odom_rf2o: ['state_estimation', 'rf2o.launch.py']                     # - rf2o laser odometry
