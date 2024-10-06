@@ -1,9 +1,0 @@
-<class_libraries>
-    <library path="f1tenth_pursuit_controller_plugin_core">
-        <class type="f1tenth_nav2_controller_plugin_namespace_name::RegulatedPurePursuitController" base_class_type="nav2_core::Controller">
-            <description>
-                Pure Pursuit Controller
-            </description>
-        </class>
-    </library>
-</class_libraries>
