@@ -38,32 +38,37 @@ Some useful custom commands can be used after sourcing `source_ros2.sh`:
 - `build_ros2_pkg $arg1 $arg2 ...` colcon build the specific packages (replace `$arg#` with desired package name), and then, source the environments.
 
 Import, and Build every packages (except Livox ones)
-```
+```bash
 source_ros2 
-vcs import < repos/common.repos
-vcs import < repos/racer.repos
-vcs import < repos/lidar_utils.repos
+make racer
+
 vcs import < repos/ADDITIONAL_REPO_FILE (If you have one, please put it into "repos/")
+
 make rosdep-install
 build_ros2
 ```
 
 #### If using Livox LiDARs,
 Import, and Build `livox_sdk2` and `livox_ros_driver2`
-```
+```bash
 source_ros2
 make livox-driver
 ```
 #### If using SICK LiDARs,
 Import, and Build
-```
+```bash
 source_ros2
 make sick-driver
 ```
 
 ## Base Structure
-1. `src/launch/basestation_launch` is the stack master package of this repo
+1. **Master Stack**: `src/launch/basestation_launch/`
     - `nano src/launch/basestation_launch/param/car_config.yaml` to turn on/off any component of the racer
     - `nano src/launch/basestation_launch/param/node_config.yaml` to turn on/off any nodes you want
-2. `src/external/` is the directory of any external repo you clone
-3. `src/actuator/` is the directory is where you have actuator launch packages
+
+2. **Libraries**: `src/external/`
+    - any external repo you clone will be here.
+
+3. **Control - _Low level_**: `src/actuator/`
+
+4. **Planning** & **Control - _High level_**: `src/planner/`
