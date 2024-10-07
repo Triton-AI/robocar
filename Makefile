@@ -40,7 +40,7 @@ livox-driver:
 .PHONY: racer
 racer:
 	vcs import < repos/common.repos
-	vcs import < repos/racer.repos
+	vcs import < repos/racer.repos --recursive
 	vcs import < repos/lidar_utils.repos
 
 .PHONY: gb_opt

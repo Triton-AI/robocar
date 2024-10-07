@@ -11,3 +11,7 @@ repositories:
         type: git
         url: https://github.com/MAPIRlab/rf2o_laser_odometry.git
         version: ros2
+    src/external/state_estimation/FAST_LIO:
+        type: git
+        url: https://github.com/Triton-AI/FAST_LIO.git
+        version: foxy
