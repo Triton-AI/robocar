@@ -23,9 +23,20 @@ ekf_select: # select which source to disable (0) or enable (1)
         odom_queue_size: 1
         odom_relative: true
 
+      FAST_LIO:
+        enable: 1
+        odom_topic: /odom_FAST_LIO
+        odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                      true,  true,  true,       #  roll    , pitch    , yaw,
+                      false, false, false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                      true,  true,  true]      #  x_accel , y_accel  , z_accel]
+        odom_queue_size: 1
+        odom_relative: true
+
     imu:
       livox_imu:
-        enable: 1
+        enable: 0
         imu_topic: /lidar/imu
         imu_config: [false, false, false,       # [x_pos   , y_pos    , z_pos,
                       true,  true,  true,       #  roll    , pitch    , yaw,
