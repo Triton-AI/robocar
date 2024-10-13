@@ -22,9 +22,13 @@ options = {
   pose_publish_period_sec = 5e-3,
   trajectory_publish_period_sec = 30e-3,
   rangefinder_sampling_ratio = 1.,
-  odometry_sampling_ratio = 1.,
+  odometry_sampling_ratio = 0.5,
   fixed_frame_pose_sampling_ratio = 1.,
   imu_sampling_ratio = 1.,
+  publish_to_tf = true,
+  use_landmarks = false,
+  publish_tracked_pose = true,
+  publish_frame_projected_to_2d = true,
   landmarks_sampling_ratio = 1.,
 }
 

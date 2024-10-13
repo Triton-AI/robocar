@@ -20,12 +20,16 @@ def generate_launch_description():
         output='screen',
         parameters=[{'use_sim_time': False}],
         arguments=['-configuration_directory', cartographer_config_dir,
-                    '-configuration_basename', configuration_basename]
+                    '-configuration_basename', configuration_basename],
+        remappings=[
+            ('/scan', '/ego_racecar/scan'),
+            ('/odom', '/odometry/filtered'),
+        ]
     )
 
     occupancy_grid_node =Node(
         package='cartographer_ros',
-        executable='cartographer_occupancy_grid_node',
+        executable='occupancy_grid_node', # 'cartographer_occupancy_grid_node' for ROS 2 Humble
         output='screen',
         name='occupancy_grid_node',
         parameters=[{'use_sim_time': False}],

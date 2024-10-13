@@ -5,9 +5,9 @@ ekf_select: # select which source to disable (0) or enable (1)
         enable: 1
         odom_topic: /odom
         odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
-                      false, false, true,       #  roll    , pitch    , yaw,
-                      false, false, false,      #  x_vel   , y_vel    , z_vel,
-                      false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false,       #  roll    , pitch    , yaw,
+                      true,  true,  false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, false,       #  roll_vel, pitch_vel, yaw_vel,
                       false, false, false]      #  x_accel , y_accel  , z_accel]
         odom_queue_size: 1
         odom_relative: true
@@ -30,7 +30,7 @@ ekf_select: # select which source to disable (0) or enable (1)
                       true,  true,  true,       #  roll    , pitch    , yaw,
                       false, false, false,      #  x_vel   , y_vel    , z_vel,
                       false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
-                      true,  true,  true]      #  x_accel , y_accel  , z_accel]
+                      false, false, false]      #  x_accel , y_accel  , z_accel]
         odom_queue_size: 1
         odom_relative: true
 
