@@ -10,7 +10,7 @@ import os.path
 from ament_index_python.packages import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, ExecuteProcess
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch.conditions import IfCondition
 
@@ -71,6 +71,13 @@ def generate_launch_description():
         condition=IfCondition(rviz_use)
     )
 
+    custom_lidar_msg_execute = ExecuteProcess(
+        name='execute_ros_bridge',
+        cmd=['ros2', 'launch', 'sensors', 'custom_msg_MID360_launch.py'],
+        output='screen',
+        shell='True'
+        )
+
     ld = LaunchDescription()
     ld.add_action(declare_use_sim_time_cmd)
     ld.add_action(declare_config_path_cmd)
@@ -80,5 +87,6 @@ def generate_launch_description():
 
     ld.add_action(fast_lio_node)
     ld.add_action(rviz_node)
+    ld.add_action(custom_lidar_msg_execute)
 
     return ld
