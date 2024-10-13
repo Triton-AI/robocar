@@ -1,0 +1,3 @@
+bridge:
+  ros__parameters:
+    launch_rviz: True
