@@ -19,6 +19,7 @@ global_path_publisher: ['planner', 'global_path_publisher.launch.py']
 localization: ['state_estimation', 'nav2_amcl_server.launch.py']      # - localization_server 
 ekf: ['state_estimation', 'ekf.launch.py']                            # - ekf sensor fusion from robot_localization pkg
 odom_rf2o: ['state_estimation', 'rf2o.launch.py']                     # - rf2o laser odometry
+odom_FAST_LIO: ['state_estimation', 'fast_lio.launch.py']                 # - FAST LIO odometry
 planner: ['planner', 'pathplanner.launch.py']                         # - Path Planner (Real-Time planner)
 twist_to_ackermann: ['twist_to_ackermann', 'twist_to_ack.launch.py']  # - convert /cmd_vel from nav2_controller to /drive
 
