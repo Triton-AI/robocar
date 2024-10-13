@@ -1,0 +1,9 @@
+/**:
+  ros__parameters:
+    use_stamps_on_ackermann: true
+    ackermann_topic: "/ego_racecar/drive"
+    twist_topic: "/cmd_vel"
+    frame_id: odom
+    wheelbase: 0.5
+    max_steering_angle_deg: 70.0
+    default_steering_direction: 1  # counter-clockwise positive: 0, clockwise positive: 1

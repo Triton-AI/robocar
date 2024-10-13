@@ -1,0 +1,11 @@
+## tf2 - lidar_link to laser frame
+x: 0.0
+y: 0.0
+z: 0.0
+
+yaw: 1.571
+pitch: 0.0
+roll: 0.0
+
+frame_id: 'ego_racecar/lidar_link'
+child_frame_id: 'livox_frame'

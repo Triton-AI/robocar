@@ -2,7 +2,7 @@
 
 pushd `pwd` > /dev/null
 
-LIVOX_SDK=src/external/lidar/livox/livox-SDK2
+LIVOX_SDK=src/external/sensors/lidar/livox/livox-SDK2
 if [ -d $LIVOX_SDK ]; then
 	cd $LIVOX_SDK
 	mkdir build
@@ -15,7 +15,7 @@ popd > /dev/null
 
 pushd `pwd` > /dev/null
 
-LIVOX_ROS_DRIVER=src/external/lidar/livox/livox_ros_driver2
+LIVOX_ROS_DRIVER=src/external/sensors/lidar/livox/livox_ros_driver2
 if [ -d $LIVOX_ROS_DRIVER ]; then
 	cd $LIVOX_ROS_DRIVER
 	./build.sh ROS2

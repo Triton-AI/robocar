@@ -1,0 +1,56 @@
+# sensors/hardware
+all_components: 1
+simulator: 0      # simulator may publish its own urdf or launch rviz, please check your setting in sim.yaml.
+
+# camera navigation
+# camera_nav_calibration: 0
+# camera_nav: 0
+
+# slam-toolbox
+slam: 0
+TUM_global_planner: 0
+
+## nav2
+map: 1                    # - map_server
+global_path_publisher: 0  # - enable this only after finished using TUM_global_planner
+localization: 1           # - localization_server
+ekf: 1                    # - ekf sensor fusion from robot_localization pkg
+odom_rf2o: 0              # - rf2o laser odometry
+odom_FAST_LIO: 0          # - FAST LIO odometry
+planner: 1                # - Path Planner (Real-Time planner). Nav2 Local Planner.
+twist_to_ackermann: 1     # - convert /cmd_vel from nav2_controller to /drive
+
+# recording data 
+rosbag_launch: 0
+ros_bridge_launch: 0
+
+## Foxglove Studio
+# rosbridge_suite: 0
+
+# TODO: Obstacle Avoidance
+# simple_obstacle_detection_launch: 0
+
+# rviz
+sensor_visualization: 1
+
+# Wall Following
+wall_follow: 0
+
+# control
+f1tenth_vesc_joy_launch: 1
+# pid_launch: 0
+# lqr_launch: 0
+# lqg_launch: 0
+# lqg_w_launch: 0
+# mpc_launch: 0
+
+# path planner
+# path_nav: 0
+# tube_follower_launch: 0
+# curve_localizer_launch: 0
+
+urdf: 1
+
+pointcloud_to_laserscan: 1
+
+# scan_correction: 0

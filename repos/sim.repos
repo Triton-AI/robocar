@@ -1,0 +1,9 @@
+repositories:
+    src/external/f1tenth_sim/f1tenth_gym:
+        type: git
+        url: https://github.com/Triton-AI/f1tenth_gym.git
+        version: main
+    src/external/f1tenth_sim/f1tenth_gym_ros:
+        type: git
+        url: https://github.com/Triton-AI/f1tenth_gym_ros.git
+        version: main

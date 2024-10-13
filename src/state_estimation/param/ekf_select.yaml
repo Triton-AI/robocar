@@ -1,0 +1,48 @@
+ekf_select: # select which source to disable (0) or enable (1)
+    override_ekf_config: True   # override default config in ekf_config.yaml
+    odom:
+      vesc_odom:
+        enable: 1
+        odom_topic: /odom
+        odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                      false, false, false,       #  roll    , pitch    , yaw,
+                      true,  true,  false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, false,       #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false]      #  x_accel , y_accel  , z_accel]
+        odom_queue_size: 1
+        odom_relative: true
+
+      rf2o:
+        enable: 0
+        odom_topic: /rf2o/odom
+        odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                      false, false, true,       #  roll    , pitch    , yaw,
+                      false, false, false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false]      #  x_accel , y_accel  , z_accel]
+        odom_queue_size: 1
+        odom_relative: true
+
+      FAST_LIO:
+        enable: 1
+        odom_topic: /odom_FAST_LIO
+        odom_config: [true,  true,  false,      # [x_pos   , y_pos    , z_pos,
+                      true,  true,  true,       #  roll    , pitch    , yaw,
+                      false, false, false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, true,       #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false]      #  x_accel , y_accel  , z_accel]
+        odom_queue_size: 1
+        odom_relative: true
+
+    imu:
+      livox_imu:
+        enable: 0
+        imu_topic: /lidar/imu
+        imu_config: [false, false, false,       # [x_pos   , y_pos    , z_pos,
+                      true,  true,  true,       #  roll    , pitch    , yaw,
+                      false, false, false,      #  x_vel   , y_vel    , z_vel,
+                      false, false, false,      #  roll_vel, pitch_vel, yaw_vel,
+                      false, false, false]      #  x_accel , y_accel  , z_accel]
+        imu_queue_size: 5
+        imu_relative: true
+        remove_gravitational_acceleration: false
