@@ -46,6 +46,9 @@ def generate_launch_description():
         executable='livox_to_pointcloud2_node',
         name='livox_converter',
         output='screen',
+        remappings=[
+            ('/livox2/lidar', '/livox/lidar')
+        ]
     )
 
     return LaunchDescription([
