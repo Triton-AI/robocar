@@ -74,12 +74,13 @@ def generate_launch_description():
         condition=IfCondition(rviz_use)
     )
 
-    custom_lidar_msg_execute = ExecuteProcess(
-        name='execute_ros_bridge',
-        cmd=['ros2', 'launch', 'sensors', 'custom_msg_MID360_launch.py'],
-        output='screen',
-        shell='True'
-        )
+    # No need to launch MID360 lidar here
+    # custom_lidar_msg_execute = ExecuteProcess(
+    #     name='execute_ros_bridge',
+    #     cmd=['ros2', 'launch', 'sensors', 'custom_msg_MID360_launch.py'],
+    #     output='screen',
+    #     shell='True'
+    #     )
 
     ld = LaunchDescription()
     ld.add_action(declare_use_sim_time_cmd)
@@ -90,6 +91,6 @@ def generate_launch_description():
 
     ld.add_action(fast_lio_node)
     ld.add_action(rviz_node)
-    ld.add_action(custom_lidar_msg_execute)
+    # ld.add_action(custom_lidar_msg_execute)
 
     return ld
