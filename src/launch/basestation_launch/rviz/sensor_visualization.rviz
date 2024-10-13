@@ -113,13 +113,60 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: true
+        ego_racecar/base_footprint:
+          Value: true
+        ego_racecar/base_link:
+          Value: true
+        ego_racecar/camera_link:
+          Value: true
+        ego_racecar/hinge_FL:
+          Value: true
+        ego_racecar/hinge_FR:
+          Value: true
+        ego_racecar/lidar_link:
+          Value: true
+        ego_racecar/wheel_FL:
+          Value: true
+        ego_racecar/wheel_FR:
+          Value: true
+        ego_racecar/wheel_RL:
+          Value: true
+        ego_racecar/wheel_RR:
+          Value: true
+        livox_frame:
+          Value: true
+        map:
+          Value: true
+        odom:
+          Value: true
+        slice_frame:
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        {}
+        map:
+          odom:
+            ego_racecar/base_footprint:
+              ego_racecar/base_link:
+                ego_racecar/camera_link:
+                  {}
+                ego_racecar/hinge_FL:
+                  ego_racecar/wheel_FL:
+                    {}
+                ego_racecar/hinge_FR:
+                  ego_racecar/wheel_FR:
+                    {}
+                ego_racecar/lidar_link:
+                  livox_frame:
+                    slice_frame:
+                      {}
+                ego_racecar/wheel_RL:
+                  {}
+                ego_racecar/wheel_RR:
+                  {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -140,6 +187,53 @@ Visualization Manager:
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        ego_racecar/base_footprint:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        ego_racecar/base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ego_racecar/camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ego_racecar/hinge_FL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        ego_racecar/hinge_FR:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        ego_racecar/lidar_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ego_racecar/wheel_FL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ego_racecar/wheel_FR:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ego_racecar/wheel_RL:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        ego_racecar/wheel_RR:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       TF Prefix: ""
       Update Interval: 0
@@ -209,7 +303,7 @@ Visualization Manager:
           Enabled: true
           Invert Rainbow: false
           Max Color: 255; 255; 255
-          Max Intensity: 180
+          Max Intensity: 179
           Min Color: 0; 0; 0
           Min Intensity: 0
           Name: PointCloud2
@@ -222,8 +316,8 @@ Visualization Manager:
             Depth: 5
             Durability Policy: Volatile
             History Policy: Keep Last
-            Reliability Policy: Reliable
-            Value: /livox/lidar
+            Reliability Policy: Best Effort
+            Value: /livox/points
           Use Fixed Frame: true
           Use rainbow: true
           Value: true
