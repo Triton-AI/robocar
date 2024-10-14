@@ -52,6 +52,13 @@ def generate_launch_description():
                     {'autostart': True},
                     {'node_names': ['map_server']}]
     )
+    ackermann_odom_node = Node(
+        package='ackermann_odom',
+        executable='ackermann_odom_node',
+        name='ackermann_odom',
+        prefix=['gdb -ex run --args'],  # For GDB within the launch terminal
+        parameters=[{'use_sim_time': False}],
+    )
     # ego_robot_publisher = Node(
     #     package='robot_state_publisher',
     #     executable='robot_state_publisher',
@@ -73,6 +80,7 @@ def generate_launch_description():
     ld.add_action(bridge_node)
     ld.add_action(nav_lifecycle_node)
     ld.add_action(map_server_node)
+    ld.add_action(ackermann_odom_node)
 
     if config_dict['bridge']['ros__parameters']['launch_rviz']:
         ld.add_action(rviz_node)
