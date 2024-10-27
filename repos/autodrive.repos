@@ -1,6 +1,6 @@
 repositories:
     src/external/ackermann_odom:
         type: git
-        url: https://github.com/chenyenru/ackermann-odom-ros2.git 
+        url: https://github.com/Triton-AI/ackermann-odom-ros2.git 
         version: main
 
