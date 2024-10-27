@@ -165,6 +165,7 @@ RUN pip install trajectory_planning_helpers==0.78 \
 
 ########### Clone Basic ROS 2 Packages ###########
 RUN source source_ros2.sh && \
+    make livox-driver && \
     make racer && \
     make autodrive && \
     sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp && \
@@ -200,10 +201,6 @@ RUN wget https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE-F1TENTH-Sim-Racing/rel
 RUN source source_ros2.sh && \
     make rosdep-install && \
     build_ros2
-
-########### Build livox_sdk2, livox_ros_driver2 ###########
-RUN source source_ros2.sh && \
-    make livox-driver 
 
 ########### ADD CUSTOM FUNCTIONS ###########
 WORKDIR /home/scripts/
