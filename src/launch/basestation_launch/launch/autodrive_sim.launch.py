@@ -34,24 +34,24 @@ def generate_launch_description():
         arguments=['-d', [FindPackageShare("autodrive_f1tenth"), '/rviz', '/simulator.rviz',]]
         # arguments=['-d', os.path.join(get_package_share_directory('autodrive_f1tenth'), '/rviz', 'simulator.rviz')]
     )
-    map_server_node = Node(
-        package='nav2_map_server',
-        executable='map_server',
-        parameters=[{'yaml_filename': config_dict['bridge']['ros__parameters']['map_path'] + '.yaml'},
-                    {'topic': 'map'},
-                    {'frame_id': 'map'},
-                    {'output': 'screen'},
-                    {'use_sim_time': True}]
-    )
-    nav_lifecycle_node = Node(
-        package='nav2_lifecycle_manager',
-        executable='lifecycle_manager',
-        name='lifecycle_manager_localization',
-        output='screen',
-        parameters=[{'use_sim_time': True},
-                    {'autostart': True},
-                    {'node_names': ['map_server']}]
-    )
+    # map_server_node = Node(
+    #     package='nav2_map_server',
+    #     executable='map_server',
+    #     parameters=[{'yaml_filename': config_dict['bridge']['ros__parameters']['map_path'] + '.yaml'},
+    #                 {'topic': 'map'},
+    #                 {'frame_id': 'map'},
+    #                 {'output': 'screen'},
+    #                 {'use_sim_time': True}]
+    # )
+    # nav_lifecycle_node = Node(
+    #     package='nav2_lifecycle_manager',
+    #     executable='lifecycle_manager',
+    #     name='lifecycle_manager_localization',
+    #     output='screen',
+    #     parameters=[{'use_sim_time': True},
+    #                 {'autostart': True},
+    #                 {'node_names': ['map_server']}]
+    # )
     ackermann_odom_node = Node(
         package='ackermann_odom',
         executable='ackermann_odom_node',
@@ -78,8 +78,8 @@ def generate_launch_description():
 
     # finalize
     ld.add_action(bridge_node)
-    ld.add_action(nav_lifecycle_node)
-    ld.add_action(map_server_node)
+    # ld.add_action(nav_lifecycle_node)
+    # ld.add_action(map_server_node)
     ld.add_action(ackermann_odom_node)
 
     if config_dict['bridge']['ros__parameters']['launch_rviz']:
