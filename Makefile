@@ -31,7 +31,7 @@ image-update:
 sick-driver:
 	vcs import < repos/dsc.repos
 	./scripts/sick_driver.sh
-	
+
 .PHONY: livox-driver
 livox-driver:
 	vcs import < repos/livox.repos
@@ -52,3 +52,7 @@ gb_opt:
 sim:
 	vcs import < repos/sim.repos
 	pip install -e src/external/f1tenth_sim/f1tenth_gym
+
+.PHONY: autodrive
+autodrive:
+	vcs import < repos/autodrive.repos
