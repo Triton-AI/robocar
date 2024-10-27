@@ -165,10 +165,8 @@ RUN pip install trajectory_planning_helpers==0.78 \
 
 ########### Clone Basic ROS 2 Packages ###########
 RUN source source_ros2.sh && \
-    vcs import < repos/common.repos && \
-    vcs import < repos/lidar_utils.repos && \
-    vcs import < repos/racer.repos && \
-    vcs import < repos/autodrive.repos && \
+    make racer && \
+    make autodrive && \
     sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp && \
     make gb_opt
 
