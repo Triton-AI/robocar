@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ -z "$XAUTH" ]
+then
+      echo "\$XAUTH is empty"
+      return
+else
+      echo "\$XAUTH is NOT empty"
+      xauth_path=$XAUTH
+fi
+
 xhost +
 docker run \
     --name sim_test \
@@ -10,5 +19,5 @@ docker run \
     -e DISPLAY=$DISPLAY \
     -v /dev/bus/usb:/dev/bus/usb \
     --device /dev/video0 \
-    -v  /run/user/1000/gdm/Xauthority:/root/.Xauthority:rw \
+    -v  $xauth_path:/root/.Xauthority:rw \
     ghcr.io/triton-ai/robocar:foxy-x86
