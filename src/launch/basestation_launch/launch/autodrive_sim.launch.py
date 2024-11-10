@@ -56,7 +56,7 @@ def generate_launch_description():
         package='ackermann_odom',
         executable='ackermann_odom_node',
         name='ackermann_odom',
-        prefix=['gdb -ex run --args'],  # For GDB within the launch terminal
+        # prefix=['gdb -ex run --args'],  # For GDB within the launch terminal
         parameters=[{'use_sim_time': False}],
     )
     # ego_robot_publisher = Node(
