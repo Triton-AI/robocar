@@ -59,20 +59,24 @@ def generate_launch_description():
         # prefix=['gdb -ex run --args'],  # For GDB within the launch terminal
         parameters=[{'use_sim_time': False}],
     )
-    # ego_robot_publisher = Node(
-    #     package='robot_state_publisher',
-    #     executable='robot_state_publisher',
-    #     name='ego_robot_state_publisher',
-    #     parameters=[{'robot_description': Command(['xacro ', os.path.join(get_package_share_directory('f1tenth_gym_ros'), 'launch', 'ego_racecar.xacro')])}],
-    #     remappings=[('/robot_description', '/ego_racecar/robot_description')]
-    # )
-    # opp_robot_publisher = Node(
-    #     package='robot_state_publisher',
-    #     executable='robot_state_publisher',
-    #     name='opp_robot_state_publisher',
-    #     parameters=[{'robot_description': Command(['xacro ', os.path.join(get_package_share_directory('f1tenth_gym_ros'), 'launch', 'opp_racecar.xacro')])}],
-    #     remappings=[('/robot_description', '/opp_racecar/robot_description')]
-    # )
+    ego_robot_publisher = Node(
+        package='robot_state_publisher',
+        executable='robot_state_publisher',
+        name='ego_robot_state_publisher',
+        parameters=[{'robot_description': Command(['xacro ', os.path.join(get_package_share_directory('basestation_launch'), 'urdf', 'autodrive_racecar.xacro')])}],
+        remappings=[('/robot_description', '/ego_racecar/robot_description')]
+    )
+    joint_state_publisher_node = Node(
+        package='joint_state_publisher',
+        executable='joint_state_publisher',
+        name='ego_joint_state_publisher',
+        arguments=[os.path.join(get_package_share_directory('basestation_launch'), 'urdf', 'autodrive_racecar.xacro')],
+        # condition=UnlessCondition(LaunchConfiguration('gui'))
+        remappings=[
+            ('/robot_description', '/ego_racecar/robot_description'),
+            ('/joint_states', '/ego_racecar/joint_states'),
+        ],
+    )
 
     ld = LaunchDescription()
 
@@ -85,8 +89,9 @@ def generate_launch_description():
     if config_dict['bridge']['ros__parameters']['launch_rviz']:
         ld.add_action(rviz_node)
 
-    # if config_dict['bridge']['ros__parameters']['ego_urdf_pub']:
-    #     ld.add_action(ego_robot_publisher)
+    if config_dict['bridge']['ros__parameters']['ego_urdf_pub']:
+        ld.add_action(ego_robot_publisher)
+        ld.add_action(joint_state_publisher_node)
     # if has_opp:
     #     if config_dict['bridge']['ros__parameters']['opp_urdf_pub']:
     #         ld.add_action(opp_robot_publisher)
