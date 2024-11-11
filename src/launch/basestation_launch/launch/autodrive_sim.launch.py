@@ -26,6 +26,10 @@ def generate_launch_description():
         name='autodrive_bridge',
         emulate_tty=True,
         output='screen',
+        remappings=[
+            ('/autodrive/f1tenth_1/lidar', '/ego_racecar/scan'),
+            ('/autodrive/f1tenth_1/front_camera', '/ego_racecar/front_camera'),
+        ],
     )
     rviz_node = Node(
         package='rviz2',
