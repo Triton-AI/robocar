@@ -1,6 +1,7 @@
 # sensors/hardware
 all_components: 1
 simulator: 0      # simulator may publish its own urdf or launch rviz, please check your setting in sim.yaml.
+autodrive_sim: 0
 
 # camera navigation
 # camera_nav_calibration: 0
