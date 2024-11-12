@@ -193,9 +193,11 @@ RUN pip3 install attrdict \
     transforms3d
 
 # Copy and install AutoDRIVE Devkit (ROS 2 API)
-RUN wget https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE-F1TENTH-Sim-Racing/releases/download/2024-cdc/autodrive_devkit.zip && \
-    unzip autodrive_devkit.zip -d ${WORKSPACE}src/external/ && \
-    rm autodrive_devkit.zip
+# RUN wget https://github.com/AutoDRIVE-Ecosystem/AutoDRIVE-F1TENTH-Sim-Racing/releases/download/2024-cdc/autodrive_devkit.zip && \
+#     unzip autodrive_devkit.zip -d ${WORKSPACE}src/external/ && \
+#     rm autodrive_devkit.zip
+RUN cd ${WORKSPACE}src/external/ && \
+    git clone -b dev/2024-cdc https://github.com/Triton-AI/AutoDRIVE-F1TENTH-Sim-Racing.git
 
 # COLCON BUILD ROS2 PACKAGES
 RUN source source_ros2.sh && \
