@@ -136,7 +136,7 @@
         <origin xyz="${wheelbase/2} ${(wheel_length+width)/2} 0.0" rpy="0 0 0"/>
     </joint>
 
-    <joint name="wheel_FL_joint" type="revolute">
+    <joint name="wheel_FL_joint" type="continuous">
         <parent link="${car_name}/hinge_FL"/>
         <child link="${car_name}/wheel_FL"/>
         <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.05"/>
@@ -163,7 +163,7 @@
         <origin xyz="${wheelbase/2} -${(wheel_length+width)/2} 0.0" rpy="0 0 0"/>
     </joint>
 
-    <joint name="wheel_FR_joint" type="revolute">
+    <joint name="wheel_FR_joint" type="continuous">
         <parent link="${car_name}/hinge_FR"/>
         <child link="${car_name}/wheel_FR"/>
         <limit lower="-0.2" upper="0.2" effort="0.1" velocity="0.05"/>
