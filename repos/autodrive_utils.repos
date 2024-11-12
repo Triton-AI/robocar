@@ -1,6 +1,5 @@
 repositories:
-    src/external/ackermann_odom:
+    src/external/autodrive_utils/ackermann_odom:
         type: git
         url: https://github.com/Triton-AI/ackermann-odom-ros2.git 
         version: main
-
