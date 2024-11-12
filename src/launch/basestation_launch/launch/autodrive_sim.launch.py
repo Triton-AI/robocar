@@ -29,6 +29,9 @@ def generate_launch_description():
         remappings=[
             ('/autodrive/f1tenth_1/lidar', '/ego_racecar/scan'),
             ('/autodrive/f1tenth_1/front_camera', '/ego_racecar/front_camera'),
+            ('/autodrive/f1tenth_1/imu', '/ego_racecar/imu'),
+            ('/autodrive/f1tenth_1/left_encoder', '/ego_racecar/left_encoder'),
+            ('/autodrive/f1tenth_1/right_encoder', '/ego_racecar/right_encoder'),
         ],
     )
     rviz_node = Node(
