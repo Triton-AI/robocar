@@ -55,4 +55,4 @@ sim:
 
 .PHONY: autodrive
 autodrive:
-	vcs import < repos/autodrive.repos
+	vcs import < repos/autodrive_utils.repos
