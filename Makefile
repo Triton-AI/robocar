@@ -56,3 +56,5 @@ sim:
 .PHONY: autodrive
 autodrive:
 	vcs import < repos/autodrive_utils.repos
+	cd src/external/AutoDRIVE-F1TENTH-Sim-Racing/; \
+	git pull
