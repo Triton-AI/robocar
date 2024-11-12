@@ -68,7 +68,10 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='ego_robot_state_publisher',
         parameters=[{'robot_description': Command(['xacro ', os.path.join(get_package_share_directory('basestation_launch'), 'urdf', 'autodrive_racecar.xacro')])}],
-        remappings=[('/robot_description', '/ego_racecar/robot_description')]
+        remappings=[
+            ('/robot_description', '/ego_racecar/robot_description'),
+            ('/joint_states', '/ego_racecar/joint_states'),
+        ]
     )
     joint_state_publisher_node = Node(
         package='joint_state_publisher',
