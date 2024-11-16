@@ -1,0 +1,4 @@
+bridge:
+  ros__parameters:
+    launch_rviz: False
+    ego_urdf_pub: True

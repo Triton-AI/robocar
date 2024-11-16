@@ -35,4 +35,7 @@ endif()
 ament_auto_package(INSTALL_TO_SHARE
 	launch
 	param
+ 	rviz
+ 	urdf
+  ros_data/maps
 	)
