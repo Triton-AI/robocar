@@ -1,0 +1,435 @@
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# Getting Base image (ubuntu 20.04)
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# FROM ghcr.io/ucsd-ecemae-148/donkeycontainer:ros
+# FROM nvcr.io/nvidia/l4t-base:35.4.1 as base
+
+### dustynv/**:r35.4.1 has opencv version 4.5.0 built-with-cuda
+### dustynv/ros has ros distro built-from-source
+
+FROM dustynv/opencv:r35.4.1 as base
+# FROM dustynv/l4t-ml:r35.4.1 as base
+# FROM dustynv/ros:foxy-desktop-l4t-r35.4.1 as base
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+ARG WORKSPACE=/home/projects/f1tenth_ws/
+ARG ROS_DISTRO=foxy
+ARG BRANCH_NAME=foxy_devel
+
+WORKDIR /
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# apt update & upgrade
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# RUN apt update &&\
+#     apt upgrade -y
+
+# ######### JETPACK FOR JETSON #########
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     nvidia-cuda-dev \
+#     nvidia-cudnn8-dev \
+#     && rm -rf /var/lib/apt/lists/* \
+#     && apt-get clean
+
+# Install nvidia-tensorrt-dev for TensorRT developer packages
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nvidia-tensorrt-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Install nvidia-vpi-dev for VPI developer packages
+RUN mkdir -p /lib/firmware/
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    nvidia-vpi-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Install Multimedia API samples & libs
+RUN apt-get update && apt-get download nvidia-l4t-jetson-multimedia-api \
+    && dpkg-deb -R ./nvidia-l4t-jetson-multimedia-api_*_arm64.deb ./mm-api \
+    && cp -r ./mm-api/usr/src/jetson_multimedia_api /usr/src/jetson_multimedia_api \
+    && ./mm-api/DEBIAN/postinst \
+    && rm -rf ./nvidia-l4t-jetson-multimedia-api_*_arm64.deb ./mm-api
+
+# Setup environment variables
+ENV CUDA_HOME="/usr/local/cuda"
+ENV PATH="/usr/local/cuda/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/usr/local/cuda/lib64:${LD_LIBRARY_PATH}"
+
+#Update libraries
+RUN ldconfig
+
+# FROM base AS cv2
+
+# ARG DEBIAN_FRONTEND=noninteractive
+# ARG OPENCV_VERSION=4.9.0
+
+# RUN apt-get update && apt-get upgrade -y &&\
+#     # Install build tools, build dependencies and python
+#     apt-get install -y \
+# 	python3-pip \
+#         build-essential \
+#         cmake \
+#         git \
+#         wget \
+#         unzip \
+#         yasm \
+#         libopenblas-dev \
+#         curl \
+#         sudo \
+#         pkg-config \
+#         libswscale-dev \
+#         libtbb2 \
+#         libtbb-dev \
+#         libjpeg-dev \
+#         libpng-dev \
+#         libtiff-dev \
+#         libavformat-dev \
+#         libpq-dev \
+#         libxine2-dev \
+#         libglew-dev \
+#         libtiff5-dev \
+#         zlib1g-dev \
+#         libjpeg-dev \
+#         libavcodec-dev \
+#         libavformat-dev \
+#         libavutil-dev \
+#         libpostproc-dev \
+#         libswscale-dev \
+#         libeigen3-dev \
+#         libtbb-dev \
+#         libgtk2.0-dev \
+#         pkg-config \
+#         python3-dev \
+#         python3-numpy \
+#     && rm -rf /var/lib/apt/lists/*
+
+# RUN cd /opt/ &&\
+#     # Download and unzip OpenCV and opencv_contrib and delte zip files
+#     wget https://github.com/opencv/opencv/archive/$OPENCV_VERSION.zip &&\
+#     unzip $OPENCV_VERSION.zip &&\
+#     rm $OPENCV_VERSION.zip &&\
+#     wget https://github.com/opencv/opencv_contrib/archive/$OPENCV_VERSION.zip &&\
+#     unzip ${OPENCV_VERSION}.zip &&\
+#     rm ${OPENCV_VERSION}.zip &&\
+#     # Create build folder and switch to it
+#     mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build && \
+#     # Cmake configure
+#     cmake -D CMAKE_BUILD_TYPE=RELEASE \
+#         -D OPENCV_EXTRA_MODULES_PATH=/opt/opencv_contrib-${OPENCV_VERSION}/modules \
+#         -D EIGEN_INCLUDE_PATH=/usr/include/eigen3 \
+#         -D WITH_OPENCL=OFF \
+#         -D WITH_CUDA=ON \
+#         -D CUDA_ARCH_BIN= 5.0,7.2,8.7 \
+#         -D CUDA_ARCH_PTX="" \
+#         -D WITH_CUDNN=ON \
+#         -D WITH_CUBLAS=ON \
+#         -D ENABLE_FAST_MATH=ON \
+#         -D CUDA_FAST_MATH=ON \
+#         -D OPENCV_DNN_CUDA=ON \
+#         -D ENABLE_NEON=ON \
+#         -D WITH_QT=OFF \
+#         -D WITH_OPENMP=ON \
+#         -D BUILD_TIFF=ON \
+#         -D WITH_FFMPEG=ON \
+#         -D WITH_GSTREAMER=ON \
+#         -D WITH_TBB=ON \
+#         -D BUILD_TBB=ON \
+#         -D BUILD_TESTS=OFF \
+#         -D WITH_EIGEN=ON \
+#         -D WITH_V4L=ON \
+#         -D WITH_LIBV4L=ON \
+#         -D OPENCV_ENABLE_NONFREE=ON \
+#         -D INSTALL_C_EXAMPLES=OFF \
+#         -D INSTALL_PYTHON_EXAMPLES=OFF \
+#         -D BUILD_NEW_PYTHON_SUPPORT=ON \
+#         -D BUILD_opencv_python3=TRUE \
+#         -D OPENCV_GENERATE_PKGCONFIG=ON \
+#         -D BUILD_EXAMPLES=OFF \
+#         .. &&\
+#     # Make
+#     make -j"$(nproc)" && \
+#     # Install to /usr/local/lib
+#     make install && \
+#     ldconfig && \
+#     # # Remove OpenCV sources and build folder
+#     rm -rf /opt/opencv-${OPENCV_VERSION} && rm -rf /opt/opencv_contrib-${OPENCV_VERSION}
+
+RUN echo 'export PYTHONPATH=/usr/local/lib/python3.8/site-packages/:$PYTHONPATH' >> ~/.bashrc
+
+# FROM cv2 as dl_gpu
+
+RUN python3 -m pip install --upgrade pip && \
+    apt-get install -y --no-install-recommends \
+    pkg-config \
+    libhdf5-103 \
+    libhdf5-dev \
+    libopenblas-dev 
+
+ARG JP_VERSION=512
+ARG TF_VERSION=2.12.0
+ARG NV_VERSION=23.06
+RUN pip3 install --extra-index-url https://developer.download.nvidia.com/compute/redist/jp/v$JP_VERSION tensorflow==$TF_VERSION+nv$NV_VERSION
+
+######### PyTorch for Jetpack #########
+ARG TORCH_INSTALL=https://developer.download.nvidia.com/compute/redist/jp/v512/pytorch/torch-2.1.0a0+41361538.nv23.06-cp38-cp38-linux_aarch64.whl
+RUN python3 -m pip install --no-cache $TORCH_INSTALL
+
+######### TorchVision for Jetpack #########
+ARG TORCHVISION_INSTALL=release/0.16
+RUN git clone --branch $TORCHVISION_INSTALL https://github.com/pytorch/vision torchvision  && \
+    cd torchvision && \
+    python3 setup.py install --user && \
+    rm -rf /torchvision
+
+# FROM dl_gpu as utils
+
+# install useful packages
+RUN echo "wireshark-common wireshark-common/install-setuid boolean true" | debconf-set-selections && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
+        python3-dev \
+        nautilus \
+        firefox \
+        git-all \
+        wireshark \
+        python3-argcomplete \
+        jstest-gtk \
+        joystick \
+        python3-tk \
+        python3.8-venv \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# FROM utils as ros
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# Install ROS2 
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+RUN apt update && \
+    apt install software-properties-common -y && \
+    add-apt-repository universe && \
+    apt update && sudo apt install curl -y && \
+    curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+
+WORKDIR /
+
+RUN export ROS_DISTRO=$ROS_DISTRO
+RUN echo "source /opt/ros/$ROS_DISTRO/setup.bash" >> ~/.bashrc
+RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
+    rosdep init
+
+####################################################################################################################################################
+# Install required packages/dependencies for f1tenth_arm
+####################################################################################################################################################
+RUN apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends \
+                    git \
+                    nano \
+                    vim \
+                    libeigen3-dev \
+                    tmux \
+                    ros-$ROS_DISTRO-rviz2 \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+WORKDIR /tmp/
+
+### create a dummpy opencv package for apt
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends\
+    equivs \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create and install dummy package for python3-opencv
+RUN equivs-control /tmp/python3-opencv-dummy.control && \
+    echo "Section: misc" > /tmp/python3-opencv-dummy.control && \
+    echo "Priority: optional" >> /tmp/python3-opencv-dummy.control && \
+    echo "Standards-Version: 3.9.2" >> /tmp/python3-opencv-dummy.control && \
+    echo "Package: python3-opencv-dummy" >> /tmp/python3-opencv-dummy.control && \
+    echo "Version: 1.0" >> /tmp/python3-opencv-dummy.control && \
+    echo "Maintainer: Your Name <your.email@example.com>" >> /tmp/python3-opencv-dummy.control && \
+    echo "Provides: python3-opencv" >> /tmp/python3-opencv-dummy.control && \
+    echo "Description: Dummy package to satisfy python3-opencv dependency" >> /tmp/python3-opencv-dummy.control && \
+    echo " This package provides nothing but exists to satisfy dependencies." >> /tmp/python3-opencv-dummy.control && \
+    equivs-build /tmp/python3-opencv-dummy.control && \
+    dpkg -i /tmp/python3-opencv-dummy_1.0_all.deb
+
+# List of OpenCV development libraries
+ENV OPENCV_LIBS="libopencv-core-dev libopencv-flann-dev libopencv-imgproc-dev libopencv-imgcodecs-dev libopencv-videoio-dev libopencv-highgui-dev libopencv-ml-dev libopencv-features2d-dev libopencv-calib3d-dev libopencv-dnn-dev libopencv-objdetect-dev libopencv-photo-dev libopencv-video-dev libopencv-shape-dev libopencv-stitching-dev libopencv-superres-dev libopencv-videostab-dev libopencv-contrib-dev libopencv-dev"
+
+# Create and install dummy packages for OpenCV development libraries
+RUN for lib in $OPENCV_LIBS; do \
+        equivs-control /tmp/${lib}-dummy.control && \
+        echo "Section: misc" > /tmp/${lib}-dummy.control && \
+        echo "Priority: optional" >> /tmp/${lib}-dummy.control && \
+        echo "Standards-Version: 3.9.2" >> /tmp/${lib}-dummy.control && \
+        echo "Package: ${lib}-dummy" >> /tmp/${lib}-dummy.control && \
+        echo "Version: 1.0" >> /tmp/${lib}-dummy.control && \
+        echo "Maintainer: Your Name <your.email@example.com>" >> /tmp/${lib}-dummy.control && \
+        echo "Provides: ${lib}" >> /tmp/${lib}-dummy.control && \
+        echo "Description: Dummy package to satisfy ${lib} dependency" >> /tmp/${lib}-dummy.control && \
+        echo " This package provides nothing but exists to satisfy dependencies." >> /tmp/${lib}-dummy.control && \
+        equivs-build /tmp/${lib}-dummy.control && \
+        dpkg -i /tmp/${lib}-dummy_1.0_all.deb; \
+    done
+
+RUN apt-get update --fix-missing && apt-get install -y --no-install-recommends \
+    ros-$ROS_DISTRO-desktop \
+    ros-$ROS_DISTRO-message-filters \
+    ros-$ROS_DISTRO-image-transport \
+    ros-$ROS_DISTRO-teleop-twist-joy \
+    ros-$ROS_DISTRO-joy \
+    ros-$ROS_DISTRO-joy-teleop \
+    ros-$ROS_DISTRO-rviz-default-plugins \
+    ros-$ROS_DISTRO-rviz-rendering \
+    ros-$ROS_DISTRO-ros2bag \
+    ros-$ROS_DISTRO-rosbag2-converter-default-plugins \
+    ros-$ROS_DISTRO-rosbag2-storage-default-plugins \
+    ros-$ROS_DISTRO-robot-localization \
+    ros-$ROS_DISTRO-slam-toolbox \
+    ros-$ROS_DISTRO-ackermann-msgs \
+    ros-$ROS_DISTRO-serial-driver \
+    ros-$ROS_DISTRO-depthai-ros \
+    ros-$ROS_DISTRO-pcl-ros \
+    ros-$ROS_DISTRO-robot-state-publisher \
+    ros-$ROS_DISTRO-joint-state-publisher \
+    && rm -rf /var/lib/apt/lists/*
+
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+# install useful packages
+# --------------------------------------------------------------------------------------------------------------------------------------------------
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3-pip \
+    python3-dev \
+    python3-argcomplete \
+    cmake \
+    nano \
+    iputils-ping \
+    x11-apps \
+    xauth \
+    nautilus \
+    usbutils \
+    vim \
+    tmux \
+    tmuxp \
+    htop \
+    network-manager \
+    firefox \
+    git-all \
+    cheese \
+    jstest-gtk \
+    joystick \
+    # gedit \
+    # gedit-plugin-multi-edit \
+    # gedit-plugins \
+    python3-tk \
+    python3-rosdep \
+    python3-vcstool \
+    ros-dev-tools \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    ros-$ROS_DISTRO-rmw-cyclonedds-cpp \
+    ros-$ROS_DISTRO-rosbridge-suite \
+    ros-$ROS_DISTRO-nav2* \
+    ros-$ROS_DISTRO-navigation2 \
+    ros-$ROS_DISTRO-smac-planner \
+    ros-$ROS_DISTRO-spatio-temporal-voxel-layer \
+    ros-$ROS_DISTRO-nonpersistent-voxel-layer \
+    ros-$ROS_DISTRO-tf-transformations
+
+# RUN apt-get -y dist-upgrade
+
+WORKDIR /home/projects/
+####### CREATE VIRTUAL ENVIRONMENTS #######
+RUN apt install python3.8-venv
+RUN echo "alias python=python3" >> ~/.bashrc
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv "${VIRTUAL_ENV}/donkey" --system-site-packages
+
+################ DEPTHAI ##################
+WORKDIR /home/projects/
+RUN git clone https://github.com/luxonis/depthai.git && \
+    git clone https://github.com/luxonis/depthai-python.git && \
+    cd depthai && \
+    source ${VIRTUAL_ENV}/donkey/bin/activate && \
+    curl -fL https://docs.luxonis.com/install_dependencies.sh | bash && \
+    python3 install_requirements.py && \
+    cd ../depthai-python/examples && \
+    python3 install_requirements.py 
+RUN echo "export OPENBLAS_CORETYPE=ARMV8" >> ~/.bashrc
+RUN echo 'SUBSYSTEM=="usb", ATTRS{idVendor}=="03e7", MODE="0666"' | tee /etc/udev/rules.d/80-movidius.rules
+
+########### Install Groot ###########
+WORKDIR /home
+
+RUN apt-get update --fix-missing
+RUN apt-get install -y --no-install-recommends ros-$ROS_DISTRO-behaviortree-cpp-v3 \
+    libtool \
+    pkg-config \
+    build-essential \
+    autoconf \
+    automake \
+    # libzmq-dev \
+    qtbase5-dev \
+    libqt5svg5-dev \
+    libzmq3-dev \
+    libdw-dev
+
+RUN git clone --recurse-submodules https://github.com/BehaviorTree/Groot.git
+WORKDIR /home/Groot
+RUN cmake -S . -B build
+RUN cmake --build build
+
+### Create f1tenth workspace
+WORKDIR $WORKSPACE
+
+RUN git clone -b $BRANCH_NAME https://github.com/Triton-AI/robocar.git && \
+    mv robocar .. && \
+    cd .. && \
+    rm -rf $WORKSPACE && \
+    mv robocar/ $WORKSPACE && \
+    cd $WORKSPACE
+
+# Global Planner Dependencies
+RUN pip install trajectory_planning_helpers==0.78 \
+    scipy==1.7.3 \
+    matplotlib==3.5.1 \
+    casadi \ 
+    scikit-image==0.19.2 \
+    scikit-learn \
+    transforms3d
+
+########### Clone Basic ROS 2 Packages ###########
+RUN source source_ros2.sh && \
+    vcs import < repos/common.repos && \
+    vcs import < repos/lidar_utils.repos && \
+    vcs import < repos/racer.repos && \ 
+    sed -i '/#include <tf2_geometry_msgs/d' src/external/state_estimation/rf2o_laser_odometry/include/rf2o_laser_odometry/CLaserOdometry2DNode.hpp && \
+    make gb_opt
+
+### f1tenth gym && ros2 gym bridge ###
+# RUN make sim
+
+# COLCON BUILD ROS2 PACKAGES
+RUN source source_ros2.sh && \
+    make rosdep-install && \ 
+    build_ros2
+
+########### Build livox_sdk2, livox_ros_driver2 ###########
+RUN source source_ros2.sh && \ 
+    make livox-driver
+
+########### ADD CUSTOM FUNCTIONS ###########
+WORKDIR /home/scripts/
+COPY scripts/bashrc.sh ./bashrc.sh
+RUN ["/bin/bash", "-c", "echo '. /home/scripts/bashrc.sh' >> /root/.bashrc"]
+
+WORKDIR $WORKSPACE
+RUN echo export WORKSPACE=$WORKSPACE >> /root/.bashrc
+# RUN echo 'export LD_PRELOAD=/usr/local/lib/python3.8/dist-packages/sklearn/__check_build/../../scikit_learn.libs/libgomp-d22c30c5.so.1.0.0' >> ~/.bashrc
+ENTRYPOINT ["/bin/bash"]
