@@ -12,6 +12,7 @@ then
   return
 fi
 
+export WORKSPACE=/home/jetson/projects/robocar/
 export ROS_DISTRO=foxy
 # sudo apt update && sudo apt upgrade
 sudo apt install ros-$ROS_DISTRO-rmw-cyclonedds-cpp -y

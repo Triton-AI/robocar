@@ -30,12 +30,12 @@ image-update:
 .PHONY: sick-driver
 sick-driver:
 	vcs import < repos/dsc.repos
-	./scripts/sick_driver.sh
+	./tools/scripts/sick_driver.sh
 	
 .PHONY: livox-driver
 livox-driver:
 	vcs import < repos/livox.repos
-	./scripts/livox_driver.sh
+	./tools/scripts/livox_driver.sh
 
 .PHONY: racer
 racer:
@@ -44,7 +44,7 @@ racer:
 .PHONY: gb_opt
 gb_opt:
 	chmod +x scripts/gb_opt_setup.sh
-	./scripts/gb_opt_setup.sh
+	./tools/scripts/gb_opt_setup.sh
 
 .PHONY: sim
 sim:
