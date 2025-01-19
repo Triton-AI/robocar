@@ -1,7 +1,6 @@
 .ONESHELL:
 SHELL := /bin/bash
 .DEFAULT_GOAL := build
-
 .PHONY: build
 build:
 	colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
@@ -44,6 +43,11 @@ pointonenav:
 	cd src/external/sensors/gps/pointonenav/fusion-engine-driver
 	rosdep install -i --from-path ./ --rosdistro foxy -y
 	colcon build --packages-select fusion-engine-driver
+	source install/local_setup.bash
+	
+	cd ..
+	cd ntrip_client
+	colcon build --packages-select ntrip_client
 	source install/local_setup.bash
 
 .PHONY: racer

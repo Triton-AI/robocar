@@ -56,7 +56,7 @@ check_package() {
 	fi
 }
 
-packages=("ros-foxy-gps-msgs" "ros-foxy-nmea-msgs" "ros-foxy-mavros-msgs")
+packages=("ros-foxy-gps-msgs" "ros-foxy-nmea-msgs" "ros-foxy-mavros-msgs", "ros-foxy-rtcm-msgs")
 all_installed=true
 
 for package in "${packages[@]}"; do
