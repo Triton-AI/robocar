@@ -56,7 +56,7 @@ check_package() {
 	fi
 }
 
-packages=("ros-foxy-gps-msgs" "ros-foxy-nmea-msgs" "ros-foxy-mavros-msgs", "ros-foxy-rtcm-msgs")
+packages=("ros-foxy-gps-msgs" "ros-foxy-nmea-msgs" "ros-foxy-mavros-msgs" "ros-foxy-rtcm-msgs")
 all_installed=true
 
 for package in "${packages[@]}"; do
@@ -73,13 +73,10 @@ done
 
 # Configurations
 if $all_installed; then
-	echo "All required ROS Foxy packages are installed. Proceeding with FusionEngine configuration."
-	cd tools/
-	if [ ! -d "p1-host-tools" ]; then
-		git clone https://github.com/PointOneNav/p1-host-tools.git
-	fi
+	echo "All required ROS2 Foxy packages are installed. Proceeding with FusionEngine and NTRIPClient installation."
+	cd src/external/sensors/gps/pointonenav/
 	cd p1-host-tools
-	python3 -m venv p1_tools
+	python3 -m venv p1_tools_venv
 	source p1_tools/bin/activate
 	pip3 install -r requirements.txt	
 	python3 bin/config_tool.py apply uart2_message_rate fe ROSPoseMessage 100ms
@@ -87,9 +84,17 @@ if $all_installed; then
 	python3 bin/config_tool.py apply uart2_message_rate fe ROSIMUMessage 100ms
 	python3 bin/config_tool.py save
 	deactivate
-	cd ../..
+	
+	cd ../fusion-engine-driver
+	rosdep install -i --from-path ./ --rosdistro foxy -y
+	colcon build --packages-select fusion-engine-driver
+	source install/local_setup.bash
+	
+	cd ../ntrip_client
+	colcon build --packages-select ntrip_client
+	source install/local_setup.bash
 
-	echo "FusionEngine device configured and tools installed successfully."
+	echo "FusionEngine and NTRIPClient configured and available as ROS2 packages."
 else
-	echo "Some required ROS Foxy packages are missing. Please install them before configuring the FusionEngine device."
+	echo "Some required ROS2 Foxy packages are missing. Please install them before proceeding"
 fi

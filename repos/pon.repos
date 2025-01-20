@@ -3,8 +3,4 @@ repositories:
         type: git
         url: https://github.com/Triton-AI/ros2-fusion-engine-driver.git
         version: main
-    src/external/sensors/gps/pointonenav/ntrip_client:
-        type: git
-        url: https://github.com/LORD-MicroStrain/ntrip_client.git
-        version: ros2
 

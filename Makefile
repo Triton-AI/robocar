@@ -38,17 +38,8 @@ livox-driver:
 
 .PHONY: pointonenav
 pointonenav:
-	./scripts/pon.sh
 	vcs import < repos/pon.repos
-	cd src/external/sensors/gps/pointonenav/fusion-engine-driver
-	rosdep install -i --from-path ./ --rosdistro foxy -y
-	colcon build --packages-select fusion-engine-driver
-	source install/local_setup.bash
-	
-	cd ..
-	cd ntrip_client
-	colcon build --packages-select ntrip_client
-	source install/local_setup.bash
+	./scripts/pon.sh
 
 .PHONY: racer
 racer:
