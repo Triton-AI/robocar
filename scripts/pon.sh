@@ -71,26 +71,26 @@ for package in "${packages[@]}"; do
 	fi
 done
 
+POINTONENAV=/home/jetson/projects/robocar/src/external/sensors/gps/pointonenav
 # Configurations
 if $all_installed; then
 	echo "All required ROS2 Foxy packages are installed. Proceeding with FusionEngine and NTRIPClient installation."
-	cd src/external/sensors/gps/pointonenav/
-	cd p1-host-tools
+	cd $POINTONENAV/p1-host-tools/
 	python3 -m venv p1_tools_venv
-	source p1_tools/bin/activate
+	source p1_tools_venv/bin/activate
 	pip3 install -r requirements.txt	
-	python3 bin/config_tool.py apply uart2_message_rate fe ROSPoseMessage 100ms
-	python3 bin/config_tool.py apply uart2_message_rate fe ROSGPSFixMessage 100ms
-	python3 bin/config_tool.py apply uart2_message_rate fe ROSIMUMessage 100ms
-	python3 bin/config_tool.py save
+	bin/config_tool.py apply uart2_message_rate fe ROSPoseMessage 100ms
+	bin/config_tool.py apply uart2_message_rate fe ROSGPSFixMessage 100ms
+	bin/config_tool.py apply uart2_message_rate fe ROSIMUMessage 100ms
+	bin/config_tool.py save
 	deactivate
 	
-	cd ../fusion-engine-driver
+	cd $POINTONENAV/fusion-engine-driver/
 	rosdep install -i --from-path ./ --rosdistro foxy -y
 	colcon build --packages-select fusion-engine-driver
 	source install/local_setup.bash
 	
-	cd ../ntrip_client
+	cd $POINTONENAV/ntrip_client/	
 	colcon build --packages-select ntrip_client
 	source install/local_setup.bash
 
