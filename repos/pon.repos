@@ -7,8 +7,8 @@ repositories:
         type: git
         url: https://github.com/LORD-MicroStrain/ntrip_client
         version: ros2
-    src/external/sensors/gps/pointonenav/p1-host-tools:
+    src/external/sensors/gps/pointonenav/quectel:
         type: git
-        url: https://github.com/PointOneNav/p1-host-tools.git
+        url: https://github.com/UCSD-ECEMAE-148/quectel.git
         version: main
 
