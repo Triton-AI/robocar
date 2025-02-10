@@ -424,6 +424,10 @@ RUN source source_ros2.sh && \
 RUN source source_ros2.sh && \ 
     make livox-driver
 
+########## Build fusion-engine-driver, ntrip_client, and p1_tools for PointOneNav GPS #########
+RUN source source_ros2.sh && \
+    make pointonenav	
+
 ########### ADD CUSTOM FUNCTIONS ###########
 WORKDIR /home/scripts/
 COPY scripts/bashrc.sh ./bashrc.sh

@@ -1,7 +1,6 @@
 .ONESHELL:
 SHELL := /bin/bash
 .DEFAULT_GOAL := build
-
 .PHONY: build
 build:
 	colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release
@@ -36,6 +35,11 @@ sick-driver:
 livox-driver:
 	vcs import < repos/livox.repos
 	./scripts/livox_driver.sh
+
+.PHONY: pointonenav
+pointonenav:
+	vcs import < repos/pon.repos
+	./scripts/pon.sh
 
 .PHONY: racer
 racer:
