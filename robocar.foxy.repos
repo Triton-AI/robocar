@@ -12,8 +12,3 @@ repositories:
         type: git
         url: https://github.com/f1tenth/teleop_tools.git 
         version: foxy-devel
-    #OAKD
-    src/external/oakd/multi_cam_oak_lite:
-        type: git
-        url: https://github.com/Triton-AI/multi_cam_oak_lite.git 
-        version: master

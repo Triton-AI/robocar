@@ -1,0 +1,13 @@
+repositories:
+    src/external/drivers/livox_driver:
+        type: git
+        url: git@github.com:Ericsii/livox_ros_driver2.git
+        version: feature/merge-ros
+    src/external/drivers/depthai-ros:
+        type: git
+        url: git@github.com:luxonis/depthai-ros.git
+        version: humble
+    src/external/drivers/ldlidar:
+        type: git
+        url: https://github.com/linorobot/ldlidar.git
+        version: ros2
