@@ -1,5 +1,5 @@
 # self_test map data
-src/common/common_metadata/ros_data/maps/self_test/*/*
+src/common/common_metadata/maps/self_test/*/*
 
 # big binary file
 core
