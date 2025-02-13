@@ -29,6 +29,10 @@ def generate_launch_description():
             {"autorepeat_rate": 20.0},
             {"coalesce_interval": 0.01},
         ],
+        remappings=[
+            ('/joy', '/joystick/joy'),
+            ('/joy/set_feedback', '/joystick/joy/set_feedback'),
+        ],
     )
 
     joy_teleop_node = Node(
@@ -37,6 +41,9 @@ def generate_launch_description():
         name='joy_teleop',
         parameters=[
             config,
+        ],
+        remappings=[
+            ('/joy', '/joystick/joy'),
         ],
         condition=IfCondition(
             check_val_in_list(
