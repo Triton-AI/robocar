@@ -158,8 +158,8 @@ build-docker-gpu-foxy-jetpack5:
 		--ssh default=${SSH_AUTH_SOCK} \
 		--build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r35.4.1 \
 		--build-arg ROS_DISTRO=foxy \
-		--build-arg ROS_SOURCE="foxy/install" \
-		--build-arg ROS_INSTALL=ros-jetson-install.sh \
+		--build-arg ROS_SOURCE="foxy" \
+		--build-arg ROS_INSTALL=ros-install.sh \
 		--build-arg SKIP_KEYS=skip-keys \
 		--build-arg APT_FILE=apt-packages-jetson \
 		--build-arg APT_GPU_FILE=empty-deps \
