@@ -1,36 +1,58 @@
-from launch import LaunchDescription
+import launch
+import launch_ros.actions
 from launch_ros.actions import Node
-from ament_index_python.packages import get_package_share_directory
-import os
+import launch.substitutions
+from launch.substitutions import LaunchConfiguration
+from launch.actions import DeclareLaunchArgument
+from base_common import check_val_in_list, get_param_file
+from launch.conditions import IfCondition
+from environs import Env
 
 def generate_launch_description():
-    joy_teleop_config = os.path.join(
-        get_package_share_directory('basestation_launch'),
-        'param',
-        'joy.param.yaml'
-    )
-    joy_config = os.path.join(
-        get_package_share_directory('basestation_launch'),
-        'param',
-        'joy_teleop.param.yaml'
-    )
 
-    ld = LaunchDescription([])
+    env = Env()
+    env.read_env("race.env")
+    controller_name = env.str("CONTROLLER_NAME")
+    vehicle_name_arg = DeclareLaunchArgument("vehicle_name")
+
+    # Default joystick translator params
+    config = get_param_file(
+        "basestation_launch", controller_name, "vehicle_name"
+    )
 
     joy_node = Node(
         package='joy',
         executable='joy_node',
         name='joy',
-        parameters=[joy_config]
+        parameters=[
+            {"deadzone": 0.01},
+            {"autorepeat_rate": 20.0},
+            {"coalesce_interval": 0.01},
+        ],
     )
 
     joy_teleop_node = Node(
         package='joy_teleop',
         executable='joy_teleop',
         name='joy_teleop',
-        parameters=[joy_config]
+        parameters=[
+            config,
+        ],
+        condition=IfCondition(
+            check_val_in_list(
+                "vehicle_name",
+                [
+                    "UCSD_BLUE",
+                    "UCSD_YELLOW",
+                ],
+            )
+        ),
     )
 
-    ld.add_action(joy_node)
-    ld.add_action(joy_teleop_node)
-    return ld
+    return launch.LaunchDescription(
+        [
+            vehicle_name_arg,
+            joy_node,
+            joy_teleop_node,
+        ]
+    )
