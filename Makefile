@@ -235,6 +235,9 @@ join-session:
 image-update:
 	docker pull ghcr.io/ucsd-ecemae-148/donkeycontainer:ros
 
+.PHONY: docker-cache-clean
+docker-cache-clean:
+	docker builder prune --all --force
 
 .PHONY: sick-driver
 sick-driver:
