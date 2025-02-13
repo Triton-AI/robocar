@@ -122,7 +122,7 @@ build-docker-cpu-foxy:
 	DOCKER_BUILDKIT=1 docker build \
 		--network=host \
 		-f tools/image/Dockerfile \
-		--target frc_image \
+		--target robocar_image \
 		--ssh default=${SSH_AUTH_SOCK} \
 		--build-arg BASE_IMAGE=ubuntu:20.04 \
 		--build-arg ROS_DISTRO=foxy \
@@ -154,7 +154,7 @@ build-docker-gpu-foxy-jetpack5:
 	DOCKER_BUILDKIT=1 docker build \
 		--network=host \
 		-f tools/image/Dockerfile \
-		--target frc_image \
+		--target robocar_image \
 		--ssh default=${SSH_AUTH_SOCK} \
 		--build-arg BASE_IMAGE=dustynv/ros:foxy-pytorch-l4t-r35.3.1 \
 		--build-arg ROS_DISTRO=foxy \
@@ -205,7 +205,7 @@ session:
 			--volume='/dev/input:/dev/input' \
 			--volume='${HOME}/.Xauthority:/root/.Xauthority:rw' \
 			--volume='/tmp/.X11-unix/:/tmp/.X11-unix' \
-			--volume='${PWD}:/opt/frc-ros' \
+			--volume='${PWD}:/opt/robocar' \
 			${IMG_NAME} $${ENTRYPOINT}
 	else
 		xhost +
@@ -222,7 +222,7 @@ session:
 			--volume='/dev/input:/dev/input' \
 			--volume='${HOME}/.Xauthority:/root/.Xauthority:rw' \
 			--volume='/tmp/.X11-unix/:/tmp/.X11-unix' \
-			--volume='${PWD}:/opt/frc-ros' \
+			--volume='${PWD}:/opt/robocar' \
 			${IMG_NAME} $${ENTRYPOINT}
 	fi
 

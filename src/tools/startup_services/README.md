@@ -2,7 +2,7 @@
 
 ## Setup
 
-This will create an environment file that contains `ROS_DISTRO` and `ROBOCAR_DIR` those will be used to run the services, it will be stored in /etc/default/frc-ros.
+This will create an environment file that contains `ROS_DISTRO` and `ROBOCAR_DIR` those will be used to run the services, it will be stored in /etc/default/robocar.
 It also creates symbolic links to the user folder `$HOME/.config/systemd/user/` for each service.
 
 ```bash

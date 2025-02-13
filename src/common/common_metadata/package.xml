@@ -3,7 +3,7 @@
 <package format="3">
   <name>common_metadata</name>
   <version>1.0.0</version>
-  <description>ROS2 package containing metadata for FRC-ROS</description>
+  <description>ROS2 package containing metadata for Robocar</description>
   <maintainer email="winston.h.chou@gmail.com">Winston Chou</maintainer>
   <license>LGPLv3</license>
   <author email="winston.h.chou@gmail.com">Winston Chou</author>

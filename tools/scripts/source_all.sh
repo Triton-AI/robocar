@@ -18,9 +18,9 @@ if [ -f "${ROS_DISTRO_SOURCE}" ]; then
     source ${ROS_DISTRO_SOURCE}
 fi
 
-FRC_ROS_LOCAL=install/setup.bash;
-if [ -f "${FRC_ROS_LOCAL}" ]; then
-    source ${FRC_ROS_LOCAL};
+ROBOCAR_LOCAL=install/setup.bash;
+if [ -f "${ROBOCAR_LOCAL}" ]; then
+    source ${ROBOCAR_LOCAL};
 fi;
 
 function RMW()

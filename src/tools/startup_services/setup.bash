@@ -6,11 +6,11 @@ if [ -z ${ROS_DISTRO+x} ]; then
     exit 1
 fi
 
-# add some env variables to /etc/default/frc-ros
-echo "ROBOCAR_DIR=${PWD}" | sudo tee /etc/default/frc-ros
-echo "ROS_DISTRO=${ROS_DISTRO}" | sudo tee -a /etc/default/frc-ros
-echo "ROSBAG_DIR=${ROSBAG_DIR}" | sudo tee -a /etc/default/frc-ros
-echo "CONT_NAME=frc-ros-container" | sudo tee -a /etc/default/frc-ros
+# add some env variables to /etc/default/robocar
+echo "ROBOCAR_DIR=${PWD}" | sudo tee /etc/default/robocar
+echo "ROS_DISTRO=${ROS_DISTRO}" | sudo tee -a /etc/default/robocar
+echo "ROSBAG_DIR=${ROSBAG_DIR}" | sudo tee -a /etc/default/robocar
+echo "CONT_NAME=robocar-container" | sudo tee -a /etc/default/robocar
 
 
 # check if user is root
