@@ -156,7 +156,7 @@ build-docker-gpu-foxy-jetpack5:
 		-f tools/image/Dockerfile \
 		--target robocar_image \
 		--ssh default=${SSH_AUTH_SOCK} \
-		--build-arg BASE_IMAGE=dustynv/ros:foxy-pytorch-l4t-r35.3.1 \
+		--build-arg BASE_IMAGE=nvcr.io/nvidia/l4t-jetpack:r35.4.1 \
 		--build-arg ROS_DISTRO=foxy \
 		--build-arg ROS_SOURCE="foxy/install" \
 		--build-arg ROS_INSTALL=ros-jetson-install.sh \
