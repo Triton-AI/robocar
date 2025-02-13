@@ -1,2 +1,2 @@
 vcs import < robocar.foxy.repos
-vcs import < drivers.humble.repos
+vcs import < drivers.foxy.repos
