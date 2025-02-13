@@ -131,6 +131,7 @@ ARG ROS_DISTRO
 ARG ROS_SOURCE
 ARG EXPORTS_SCRIPT
 ARG EXPORTS_GPU_SCRIPT
+ARG CYCLONEDDS_SCRIPT
 
 ENV ROS_DISTRO=${ROS_DISTRO}
 
@@ -141,7 +142,7 @@ RUN  cd /robocar_tmp && \
     ./${EXPORTS_SCRIPT} && \
     rm -rf /robocar_tmp/
 
-COPY tools/image/cyclonedds.xml /etc/cyclone/cyclonedds.xml
+COPY tools/image/${CYCLONEDDS_SCRIPT} /etc/cyclone/cyclonedds.xml
 
 # FROM robocar_image as robocar_image_built
 

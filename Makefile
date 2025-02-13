@@ -138,6 +138,7 @@ build-docker-cpu-foxy:
 		--build-arg EXPORTS_GPU_SCRIPT=empty-script.sh \
 		--build-arg VCS_IMPORTS_SCRIPT=vcs-imports-foxy.sh \
 		--build-arg CUSTOM_INSTALL_FILE=custom-installs.sh \
+		--build-arg CYCLONEDDS_SCRIPT=cyclonedds-foxy.xml \
 		-t ${IMG_NAME} .
 
 
@@ -170,6 +171,7 @@ build-docker-gpu-foxy-jetpack5:
 		--build-arg EXPORTS_GPU_SCRIPT=empty-script.sh \
 		--build-arg VCS_IMPORTS_SCRIPT=vcs-imports-foxy-jetson.sh \
 		--build-arg CUSTOM_INSTALL_FILE=custom-installs-jetson.sh \
+		--build-arg CYCLONEDDS_SCRIPT=cyclonedds-foxy.xml \
 		-t ${IMG_NAME} .
 
 
