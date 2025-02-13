@@ -17,11 +17,3 @@ repositories:
     #     type: git
     #     url: git@github.com:ros-planning/navigation2.git
     #     version: humble
-    src/external/utils/misc/external/pluginlib:
-        type: git
-        url: git@github.com:ros/pluginlib.git
-        version: 5.2.2 
-    src/external/utils/misc/external/xacro:
-        type: git
-        url: git@github.com:ros/xacro.git
-        version: 2.0.10
