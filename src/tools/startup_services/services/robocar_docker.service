@@ -1,0 +1,16 @@
+[Unit]
+Description=Robocar Docker Container Launch
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+EnvironmentFile=/etc/default/robocar
+Type=simple
+ExecStart=/bin/bash ${ROBOCAR_DIR}/src/tools/startup_services/launch/docker.bash
+ExecStop=/usr/bin/docker stop ${CONT_NAME}
+TimeoutStartSec=600s
+TimeoutStopSec=5s
+
+[Install]
+WantedBy=default.target
+
