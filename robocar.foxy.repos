@@ -1,14 +1,14 @@
 repositories:
     #VESC
-    src/external/vesc/vesc:
+    src/external/drivers/vesc:
         type: git
         url: https://github.com/f1tenth/vesc.git 
         version: foxy
-    src/external/vesc/ackermann_mux:
+    src/external/interfaces/ackermann_mux:
         type: git
         url: https://github.com/f1tenth/ackermann_mux.git 
         version: foxy-devel
-    src/external/vesc/teleop_tools:
+    src/external/interfaces/teleop_tools:
         type: git
         url: https://github.com/f1tenth/teleop_tools.git 
         version: foxy-devel
