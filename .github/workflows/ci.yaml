@@ -82,7 +82,7 @@ jobs:
         id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/amd64, linux/arm64
+          platforms: linux/amd64
           context: .
           file: tools/image/Dockerfile
           pull: true
@@ -247,7 +247,7 @@ jobs:
         id: docker_build_push
         uses: docker/build-push-action@v6
         with:
-          platforms: linux/arm64
+          platforms: linux/arm64/v8
           context: .
           file: tools/image/Dockerfile
           pull: true
