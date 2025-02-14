@@ -1,0 +1,287 @@
+name: Robocar Docker + ROS2 Build and Test Workflow
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - stable
+  push:
+    branches:
+      - stable
+
+jobs:
+  build-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - SAVE_NAME: robocar_foxy_cpu
+            BASE_IMAGE: ubuntu:20.04
+            ROS_DISTRO: foxy
+            ROS_SOURCE: foxy
+            ROS_INSTALL: ros-install.sh
+            SKIP_KEYS: skip-keys
+            APT_FILE: apt-packages
+            APT_GPU_FILE: empty-deps
+            PIP_FILE: pip3-packages
+            PIP_GPU_FILE: empty-deps
+            PYTORCH_FILE: pytorch-cpu
+            EXPORTS_SCRIPT: exports.sh
+            EXPORTS_GPU_SCRIPT: empty-script.sh
+            VCS_IMPORTS_SCRIPT: vcs-imports-foxy.sh
+            CUSTOM_INSTALL_FILE: custom-installs.sh
+            CYCLONEDDS_SCRIPT: cyclonedds-foxy.xml
+    outputs:
+      image_name: ${{ steps.save_image_name.outputs.image_name }}
+      cache_name: ${{ steps.save_image_name.outputs.cache_name }}
+      tag_name: ${{ steps.save_image_name.outputs.tag_name }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+      - name: Get the Ref
+        id: get-ref
+        uses: sisaha9/ref-to-tag-action@v2
+        with:
+          ref: ${{ github.ref }}
+          head_ref: ${{ github.head_ref }}
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+          key: ${{ runner.os }}-buildx-dev-${{ matrix.SAVE_NAME }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-dev-${{ matrix.SAVE_NAME }}
+            ${{ runner.os }}-buildx-dev
+      - name: Build and Push Docker image
+        id: docker_build_push
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/amd64, linux/arm64
+          context: .
+          file: tools/image/Dockerfile
+          pull: true
+          push: true
+          tags: |
+            ghcr.io/triton-ai/${{ matrix.SAVE_NAME }}:${{ steps.get-ref.outputs.tag }}
+          ssh: |
+            default=${{ env.SSH_AUTH_SOCK }}
+          cache-from: type=local,src=/tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+          cache-to: type=local,dest=/tmp/.buildx-cache-new-${{ matrix.SAVE_NAME }},mode=max
+          build-args: |
+            BASE_IMAGE=${{ matrix.BASE_IMAGE }}
+            ROS_DISTRO=${{ matrix.ROS_DISTRO }}
+            ROS_SOURCE=${{ matrix.ROS_SOURCE }}
+            ROS_INSTALL=${{ matrix.ROS_INSTALL }}
+            SKIP_KEYS=${{ matrix.SKIP_KEYS }}
+            APT_FILE=${{ matrix.APT_FILE }}
+            APT_GPU_FILE=${{ matrix.APT_GPU_FILE }}
+            PIP_FILE=${{ matrix.PIP_FILE }}
+            PIP_GPU_FILE=${{ matrix.PIP_GPU_FILE }}
+            PYTORCH_FILE=${{ matrix.PYTORCH_FILE }}
+            EXPORTS_SCRIPT=${{ matrix.EXPORTS_SCRIPT }}
+            EXPORTS_GPU_SCRIPT=${{ matrix.EXPORTS_GPU_SCRIPT }}
+            VCS_IMPORTS_SCRIPT=${{ matrix.VCS_IMPORTS_SCRIPT }}
+            CUSTOM_INSTALL_FILE=${{ matrix.CUSTOM_INSTALL_FILE }}
+            CYCLONEDDS_SCRIPT=${{ matrix.CYCLONEDDS_SCRIPT }}
+          target: robocar_image
+      - name: Delete old cache
+        run: |
+          rm -rf /tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+          mv /tmp/.buildx-cache-new-${{ matrix.SAVE_NAME }} /tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+      - name: Save image name to Github Output
+        id: save_image_name
+        run: |
+          echo "image_name=ghcr.io/triton-ai/${{ matrix.SAVE_NAME }}:${{ steps.get-ref.outputs.tag }}" >> $GITHUB_OUTPUT
+          echo "cache_name=${{ matrix.SAVE_NAME }}" >> $GITHUB_OUTPUT
+          echo "tag_name=${{ steps.get-ref.outputs.tag }}" >> $GITHUB_OUTPUT
+  build-test:
+    runs-on: ubuntu-latest
+    needs: build-push
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+    container:
+      image: ${{ needs.build-push.outputs.image_name }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Import External Repos
+        run: |
+          bash -c 'make vcs-import VCS_FILE=robocar.${ROS_DISTRO}.repos; \
+          make vcs-import VCS_FILE=drivers.${ROS_DISTRO}.repos'
+      - name: Ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+        with:
+          key: ${{ needs.build-push.outputs.cache_name }}-ccache
+          max-size: "500M"
+      - name: Restore build artifacts
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            install
+            build
+          key: ${{ needs.build-push.outputs.cache_name }}-ros2-artifacts--${{ github.sha }}
+          restore-keys: |
+            ${{ needs.build-push.outputs.cache_name }}-ros2-artifacts
+      - name: Build Workspace
+        run: |
+          bash -ic 'make build-ci'
+      - name: Save build artifacts
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            install
+            build
+          key: ${{ needs.build-push.outputs.cache_name }}-ros2-artifacts--${{ github.sha }}
+      - name: Run Tests
+        run: |
+          bash -ic 'make test-ci'
+      - name: Clean tests
+        run: |
+          bash -ic 'make clean-test'
+  build-push-jetpack:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - SAVE_NAME: robocar_foxy_gpu_jetpack5
+            BASE_IMAGE: nvcr.io/nvidia/l4t-jetpack:r35.4.1
+            ROS_DISTRO: foxy
+            ROS_SOURCE: foxy
+            ROS_INSTALL: ros-install.sh
+            SKIP_KEYS: skip-keys
+            APT_FILE: apt-packages-jetson
+            APT_GPU_FILE: empty-deps
+            PIP_FILE: pip3-packages-jetson
+            PIP_GPU_FILE: empty-deps
+            PYTORCH_FILE: pytorch-gpu-jetson
+            EXPORTS_SCRIPT: exports-jetson.sh
+            EXPORTS_GPU_SCRIPT: empty-script.sh
+            VCS_IMPORTS_SCRIPT: vcs-imports-foxy-jetson.sh
+            CUSTOM_INSTALL_FILE: custom-installs-jetson.sh
+            CYCLONEDDS_SCRIPT: cyclonedds-foxy.xml
+    outputs:
+      image_name: ${{ steps.save_image_name.outputs.image_name }}
+      cache_name: ${{ steps.save_image_name.outputs.cache_name }}
+      tag_name: ${{ steps.save_image_name.outputs.tag_name }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+      - name: Get the Ref
+        id: get-ref
+        uses: sisaha9/ref-to-tag-action@v2
+        with:
+          ref: ${{ github.ref }}
+          head_ref: ${{ github.head_ref }}
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@v1.3.1
+        with:
+          tool-cache: true
+      - name: Cache Docker layers
+        uses: actions/cache@v4
+        with:
+          path: /tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+          key: ${{ runner.os }}-buildx-dev-${{ matrix.SAVE_NAME }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-dev-${{ matrix.SAVE_NAME }}
+            ${{ runner.os }}-buildx-dev
+      - name: Build and Push Docker image
+        id: docker_build_push
+        uses: docker/build-push-action@v6
+        with:
+          platforms: linux/arm64
+          context: .
+          file: tools/image/Dockerfile
+          pull: true
+          push: true
+          tags: |
+            ghcr.io/triton-ai/${{ matrix.SAVE_NAME }}:${{ steps.get-ref.outputs.tag }}
+          ssh: |
+            default=${{ env.SSH_AUTH_SOCK }}
+          cache-from: type=local,src=/tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+          cache-to: type=local,dest=/tmp/.buildx-cache-new-${{ matrix.SAVE_NAME }},mode=max
+          build-args: |
+            BASE_IMAGE=${{ matrix.BASE_IMAGE }}
+            ROS_DISTRO=${{ matrix.ROS_DISTRO }}
+            ROS_SOURCE=${{ matrix.ROS_SOURCE }}
+            ROS_INSTALL=${{ matrix.ROS_INSTALL }}
+            SKIP_KEYS=${{ matrix.SKIP_KEYS }}
+            APT_FILE=${{ matrix.APT_FILE }}
+            APT_GPU_FILE=${{ matrix.APT_GPU_FILE }}
+            PIP_FILE=${{ matrix.PIP_FILE }}
+            PIP_GPU_FILE=${{ matrix.PIP_GPU_FILE }}
+            PYTORCH_FILE=${{ matrix.PYTORCH_FILE }}
+            EXPORTS_SCRIPT=${{ matrix.EXPORTS_SCRIPT }}
+            EXPORTS_GPU_SCRIPT=${{ matrix.EXPORTS_GPU_SCRIPT }}
+            VCS_IMPORTS_SCRIPT=${{ matrix.VCS_IMPORTS_SCRIPT }}
+            CUSTOM_INSTALL_FILE=${{ matrix.CUSTOM_INSTALL_FILE }}
+            CYCLONEDDS_SCRIPT=${{ matrix.CYCLONEDDS_SCRIPT }}
+          target: robocar_image
+      - name: Delete old cache
+        run: |
+          rm -rf /tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+          mv /tmp/.buildx-cache-new-${{ matrix.SAVE_NAME }} /tmp/.buildx-cache-${{ matrix.SAVE_NAME }}
+      - name: Save image name to Github Output
+        id: save_image_name
+        run: |
+          echo "image_name=ghcr.io/triton-ai/${{ matrix.SAVE_NAME }}:${{ steps.get-ref.outputs.tag }}" >> $GITHUB_OUTPUT
+          echo "cache_name=${{ matrix.SAVE_NAME }}" >> $GITHUB_OUTPUT
+          echo "tag_name=${{ steps.get-ref.outputs.tag }}" >> $GITHUB_OUTPUT
