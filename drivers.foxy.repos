@@ -13,6 +13,16 @@ repositories:
         type: git
         url: git@github.com:luxonis/depthai-ros.git
         version: foxy
+    # GPS
+    src/external/drivers/pointonenav_driver:
         type: git
-        url: https://github.com/linorobot/ldlidar.git
+        url: https://github.com/Triton-AI/ros2-fusion-engine-driver.git
+        version: main
+    src/external/drivers/ntrip_client:
+        type: git
+        url: https://github.com/LORD-MicroStrain/ntrip_client
         version: ros2
+    src/external/drivers/p1-host-tools:
+        type: git
+        url: https://github.com/PointOneNav/p1-host-tools.git
+        version: main

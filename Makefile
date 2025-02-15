@@ -245,3 +245,26 @@ docker-cache-clean:
 sick-driver:
 	vcs import < dsc.repos
 	./tools/scripts/sick_driver.sh
+
+P1_HOST_DIR = ${PWD}/src/external/drivers/p1-host-tools
+.PHONY: p1-driver
+p1-driver:
+	@GNSS_DIR="${GNSS_DIR}" # /dev/ttyUSB0 or /dev/ttyUSB1
+	apt install python3.8-venv
+	python3 -m venv ${P1_HOST_DIR}/p1_tools_venv
+	source ${P1_HOST_DIR}/p1_tools_venv/bin/activate
+	pip3 install -r ${P1_HOST_DIR}/requirements.txt	
+	${P1_HOST_DIR}/bin/config_tool.py apply uart2_message_rate fe ROSPoseMessage 100ms --device ${GNSS_DIR}
+	${P1_HOST_DIR}/bin/config_tool.py apply uart2_message_rate fe ROSGPSFixMessage 100ms --device ${GNSS_DIR}
+	${P1_HOST_DIR}/bin/config_tool.py apply uart2_message_rate fe ROSIMUMessage 100ms --device ${GNSS_DIR}
+	${P1_HOST_DIR}/bin/config_tool.py save --device ${GNSS_DIR}
+	deactivate
+
+.PHONY: p1-runner
+p1-runner:
+	@GNSS_DIR="${GNSS_DIR}" # /dev/ttyUSB0 or /dev/ttyUSB1
+	@USERNAME="${USERNAME}" # gbUv1nO2
+	@PASSWORD="${PASSWORD}" # zZLxzLpJ
+	source ${P1_HOST_DIR}/p1_tools_venv/bin/activate
+	${P1_HOST_DIR}/bin/runner.py --device-id ${USERNAME} --polaris ${PASSWORD} --device-port ${GNSS_DIR}
+	deactivate
