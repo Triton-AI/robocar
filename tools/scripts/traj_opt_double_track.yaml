@@ -1,0 +1,127 @@
+verbose: True
+interval: 1.0
+centerline: UCSD_EIGHT_FIG_Centerline.csv
+left_boundary: UCSD_EIGHT_FIG_Left_Bound.csv
+right_boundary: UCSD_EIGHT_FIG_Right_Bound.csv
+output: UCSD_EIGHT_FIG_ENU_TTL_OPTM_15.csv
+
+max_iter: 500 # max iteration of IPOPT
+tol: 0.1 # convergence tolerance of IPOPT
+constr_viol_tol: 0.1 # constraint violation tolerance of IPOPT
+speed_cap: 15 # overall speed limit (m/s)
+average_track_width: 5 # a resonable track width (m) assumption to scale the NLP nicely
+
+estimates: # some initial estimates to warm start the solving
+  acc_speed_loopup: # Lookup of acceleration ability at different speed levels. Left is the speed (m/s) and right is the acceleration (m/s^2)
+    - [0.0, 9.10935576152022]
+    - [0.25, 8.97995725362624]
+    - [0.5, 8.850558745732261]
+    - [0.75, 8.721160237838284]
+    - [1.0, 8.591761729944306]
+    - [1.25, 8.462363222050326]
+    - [1.5, 8.332964714156347]
+    - [1.75, 8.203566206262368]
+    - [2.0, 8.07416769836839]
+    - [2.25, 7.944769190474411]
+    - [2.5, 7.815370682580432]
+    - [2.75, 7.685972174686453]
+    - [3.0, 7.556573666792474]
+    - [3.25, 7.427175158898495]
+    - [3.5, 7.297776651004517]
+    - [3.75, 7.168378143110537]
+    - [4.0, 7.03897963521656]
+    - [4.25, 6.90958112732258]
+    - [4.5, 6.780182619428602]
+    - [4.75, 6.650784111534623]
+    - [5.0, 6.521385603640645]
+    - [5.25, 6.391987095746665]
+    - [5.5, 6.262588587852687]
+    - [5.75, 6.133190079958707]
+    - [6.0, 6.003791572064729]
+    - [6.25, 5.87439306417075]
+    - [6.5, 5.744994556276771]
+    - [6.75, 5.615596048382792]
+    - [7.0, 5.4861975404888135]
+    - [7.25, 5.356799032594835]
+    - [7.5, 5.2274005247008555]
+    - [7.75, 5.098002016806878]
+    - [8.0, 4.968603508912898]
+    - [8.25, 4.83920500101892]
+    - [8.5, 4.709806493124941]
+    - [8.75, 4.580407985230962]
+    - [9.0, 4.451009477336983]
+    - [9.25, 4.321610969443004]
+    - [9.5, 4.192212461549026]
+    - [9.75, 4.062813953655047]
+    - [10.0, 3.933415445761068]
+    - [10.25, 3.804016937867089]
+    - [10.5, 3.67461842997311]
+    - [10.75, 3.545219922079131]
+    - [11.0, 3.415821414185153]
+    - [11.25, 3.286422906291174]
+    - [11.5, 3.157024398397195]
+    - [11.75, 3.027625890503216]
+    - [12.0, 2.898227382609237]
+    - [12.25, 2.768828874715258]
+    - [12.5, 2.6394303668212804]
+    - [12.75, 2.5100318589273014]
+    - [13.0, 2.3806333510333224]
+    - [13.25, 2.2512348431393434]
+    - [13.5, 2.1218363352453644]
+    - [13.75, 1.9924378273513854]
+    - [14.0, 1.8630393194574073]
+    - [14.25, 1.7336408115634283]
+    - [14.5, 1.6042423036694495]
+    - [14.75, 1.4748437957754705]
+    - [15.0, 1.4748437957754705]
+  dcc_speed_lookup:
+    - [0.0, -10.0]
+    - [15.0, -10.0]
+  max_lon_acc_mpss: 10.0 # max acceleration ability of the vehicle engine
+  max_lon_dcc_mpss: -10.0 # max braking ability of the brake
+  max_left_acc_mpss: 10.0 # max cornering G (left)
+  max_right_acc_mpss: -10.0 # max cornering G (right)
+  max_speed_mps: 15.0 # max speed (m/s)
+  max_jerk_mpsc: 10.0 # max jerk (m/s^3)
+
+model:
+  kd_f: 0.0 # front drive force bias (rear is 1 - kd_f)
+  kb_f: 0.0 # front brake force bias (rear is 1 - kb_f)
+  mass: 3.518 # mass of car (kg)
+  Jzz: 0.04712 # MOI around z axis (kg * m^2)
+  lf: 0.15875 # cg to front axle (m)
+  lr: 0.17145 # cg to rear axle (m)
+  twf: 0.281 # front track width (m)
+  twr: 0.281 # rear track width (m)
+  delta_max: 0.314159 # max front wheel angle (rad)
+  vehicle_width: 0.30 # physical vehicle width (m)
+  safety_margin: 1.0 # safety margin added to vehicle width (m)
+
+  fr: 0.01 # rolling resistance coefficient
+  hcog: 0.074 # center of gravity height
+  kroll_f: 0.5 # front roll moment distribution
+
+  cl_f: 0.0 # downforce coefficient at front
+  cl_r: 0.0 # downforce coefficient at rear
+  rho: 1.2041 # air density (kg / m^3)
+  A: 0.4 # frontal area (m^2)
+  cd: 0.0136 # drag coefficient
+  mu: 1.0 # tyre - track friction coefficient
+
+  Bf: 7.4 # magic formula B - front
+  Cf: 1.2 # magic formula C - front
+  Ef: 0.85 # magic formula E - front
+  Fz0_f: 8.6 # magic formula Fz0 - front
+  eps_f: -0.0813 # extended magic formula epsilon - front
+  Br: 7.4 # magic formula B - rear
+  Cr: 1.2 # magic formula C - rear
+  Er: 0.85 # magic formula E - rear
+  Fz0_r: 8.6 # magic formula Fz0 - rear
+  eps_r: -0.1263 # extended magic formula epsilon - rear
+
+  Pmax: 267.0 # motor max power
+  Fd_max: 33.4 # max driver force
+  Fb_max: -47.4 # max brake force
+  Td: 0.1 # drive time constant
+  Tb: 0.1 # brake time constant
+  Tdelta: 0.1 # steering time constant
