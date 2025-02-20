@@ -11,7 +11,7 @@
   <link name="model">
     <visual>
       <geometry>
-        <mesh filename="package://race_metadata/urdf/iac_car/visual/il15_body.stl" scale="0.01 0.01 0.01" />
+        <mesh filename="package://common_metadata/urdf/iac_car/visual/il15_body.stl" scale="0.01 0.01 0.01" />
       </geometry>
       <material name="white">
         <color rgba="1.0 1.0 1.0 1.0" />
@@ -56,7 +56,7 @@
   <link name="tyre_fl">
     <visual>
       <geometry>
-        <mesh filename="package://race_metadata/urdf/iac_car/visual/il15_tyre_fl.stl" scale="0.01 0.01 0.01" />
+        <mesh filename="package://common_metadata/urdf/iac_car/visual/il15_tyre_fl.stl" scale="0.01 0.01 0.01" />
       </geometry>
       <material name="white">
         <color rgba="1.0 1.0 1.0 1.0" />
@@ -67,7 +67,7 @@
   <link name="tyre_fr">
     <visual>
       <geometry>
-        <mesh filename="package://race_metadata/urdf/iac_car/visual/il15_tyre_fr.stl" scale="0.01 0.01 0.01" />
+        <mesh filename="package://common_metadata/urdf/iac_car/visual/il15_tyre_fr.stl" scale="0.01 0.01 0.01" />
       </geometry>
       <material name="white">
         <color rgba="1.0 1.0 1.0 1.0" />
@@ -78,7 +78,7 @@
   <link name="tyre_rl">
     <visual>
       <geometry>
-        <mesh filename="package://race_metadata/urdf/iac_car/visual/il15_tyre_rl.stl" scale="0.01 0.01 0.01" />
+        <mesh filename="package://common_metadata/urdf/iac_car/visual/il15_tyre_rl.stl" scale="0.01 0.01 0.01" />
       </geometry>
       <material name="white">
         <color rgba="1.0 1.0 1.0 1.0" />
@@ -89,7 +89,7 @@
   <link name="tyre_rr">
     <visual>
       <geometry>
-        <mesh filename="package://race_metadata/urdf/iac_car/visual/il15_tyre_rr.stl" scale="0.01 0.01 0.01" />
+        <mesh filename="package://common_metadata/urdf/iac_car/visual/il15_tyre_rr.stl" scale="0.01 0.01 0.01" />
       </geometry>
       <material name="white">
         <color rgba="1.0 1.0 1.0 1.0" />

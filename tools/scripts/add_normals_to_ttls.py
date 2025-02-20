@@ -22,6 +22,6 @@ def main(ttl_dir : pathlib.Path):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", help="Path to the ttls directory", type=pathlib.Path, default=pathlib.Path("src/common/race_metadata/ttls"))
+    parser.add_argument("-i", help="Path to the ttls directory", type=pathlib.Path, default=pathlib.Path("src/common/common_metadata/ttls"))
     args = parser.parse_args()
     main(args.i)
