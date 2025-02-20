@@ -24,6 +24,7 @@ endif()
 # Create & install ament package.
 ament_auto_package(INSTALL_TO_SHARE
   maps
+  ttls
   urdf
   rviz
 )
