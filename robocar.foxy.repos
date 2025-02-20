@@ -12,3 +12,7 @@ repositories:
         type: git
         url: https://github.com/f1tenth/teleop_tools.git 
         version: foxy-devel
+    src/external/utils/misc/gps_waypoint_follower:
+        type: git
+        url: https://github.com/Triton-AI/gps_waypoint_follower.git
+        version: main
