@@ -1,0 +1,22 @@
+session_name: GPS Waypoint Follower Launch
+windows:
+  - window_name: GPS Waypoint Follower Launch
+    layout: tiled
+    panes:
+      - shell_command:
+        - source tools/scripts/source_all.sh
+        - ros2 launch vesc_interface vesc_interface.launch.py
+      - shell_command:
+        - source tools/scripts/source_all.sh
+        - ros2 launch robocar_launch robocar.launch.py
+      - shell_command:
+        - source tools/scripts/source_all.sh
+        - ros2 launch basestation_launch basestation.launch.py
+      - shell_command:
+        - source tools/scripts/source_all.sh
+  # - window_name: Viz
+  #   layout: tiled
+  #   panes:
+  #   - shell_command:
+  #     - source install/setup.bash
+  #     - rviz2 -d src/common/common_metadata/rviz/sensor_visualization.rviz
