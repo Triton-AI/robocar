@@ -66,6 +66,26 @@ test-ci:
 	source ./tools/scripts/source_all.sh
 	colcon test --return-code-on-test-failure --packages-select $(shell cat .github/packages_for_test.txt); colcon test-result --verbose || ([ -z "$FAIL_ON_TEST_FAILURE" ] || exit 1)
 
+.PHONY: robocar-debug
+robocar-debug:
+	@PACKAGES="${PACKAGES}"
+	source ./tools/scripts/source_all.sh
+	if [ -z "$${PACKAGES}" ] ; then
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug --packages-up-to basestation_launch robocar_launch vesc_interface gps_waypoint_follower
+	else
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug --packages-up-to ${PACKAGES}
+	fi
+
+.PHONY: robocar
+robocar:
+	@PACKAGES="${PACKAGES}"
+	source ./tools/scripts/source_all.sh
+	if [ -z "$${PACKAGES}" ] ; then
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to basestation_launch robocar_launch vesc_interface gps_waypoint_follower
+	else
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to ${PACKAGES}
+	fi
+
 .PHONY: test-select
 test-select:
 	@PACKAGES="${PACKAGES}"
