@@ -48,7 +48,7 @@ def generate_launch_description():
                 'nmea_max_length': 128,
                 'nmea_min_length': 3,
                 # Use this parameter to change the type of RTCM message published by the node. Defaults to "mavros_msgs", but we also support "rtcm_msgs"
-                'rtcm_message_package': 'rtcm_msgs',
+                'rtcm_message_package': LaunchConfiguration('rtcm_message_package'),
                 # Will affect how many times the node will attempt to reconnect before exiting, and how long it will wait in between attempts when a reconnect occurs
                 'reconnect_attempt_max': 10,
                 'reconnect_attempt_wait_seconds': 5,
@@ -84,7 +84,7 @@ def generate_launch_description():
             DeclareLaunchArgument('cert',                  default_value='None'),
             DeclareLaunchArgument('key',                   default_value='None'),
             DeclareLaunchArgument('ca_cert',               default_value='None'),
-            DeclareLaunchArgument('rtcm_message_package',  default_value='rtcm_msgs'),
+            DeclareLaunchArgument('rtcm_message_package',  default_value='mavros_msgs'),
             SetEnvironmentVariable(name='NTRIP_CLIENT_DEBUG', value=LaunchConfiguration('debug')),
             ntrip_client_node,
             fusion_engine_node,
