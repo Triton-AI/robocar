@@ -12,3 +12,4 @@ fusion_engine_node:
   ros__parameters:
     connection_type: tty
     tty_port: /dev/ttyUSB1
+    debug: True
