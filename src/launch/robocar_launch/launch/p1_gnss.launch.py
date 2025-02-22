@@ -14,6 +14,8 @@ gps_remappings = {
     "gps_fix": "/p1/gps",
     "imu": "/p1/imu",
     "pose": "/p1/pose",
+    "nmea": "/ntrip_client/nmea",
+    "rtcm": "/ntrip_client/rtcm",
 }.items()
 
 

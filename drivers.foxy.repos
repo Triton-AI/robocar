@@ -20,8 +20,8 @@ repositories:
         version: main
     src/external/drivers/ntrip_client:
         type: git
-        url: https://github.com/LORD-MicroStrain/ntrip_client
-        version: ros2
+        url: https://github.com/WinstonHChou/ntrip_client.git
+        version: pointonenav
     src/external/drivers/p1-host-tools:
         type: git
         url: https://github.com/PointOneNav/p1-host-tools.git
