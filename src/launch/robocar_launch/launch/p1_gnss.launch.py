@@ -37,10 +37,10 @@ def generate_launch_description():
         parameters=[
             param_file_path,
             {
-                'ssl': 'False',
-                'cert': 'None',
-                'key':  'None',
-                'ca_cert': 'None',
+                'ssl': LaunchConfiguration('ssl'),
+                'cert': LaunchConfiguration('cert'),
+                'key':  LaunchConfiguration('key'),
+                'ca_cert': LaunchConfiguration('ca_cert'),
                 'rtcm_frame_id': 'odom',
                 # Optional parameters that will allow for longer or shorter NMEA messages. Standard max length for NMEA is 82
                 'nmea_max_length': 128,
@@ -70,7 +70,19 @@ def generate_launch_description():
     return LaunchDescription(
         [
             vehicle_name_arg,
-            DeclareLaunchArgument('debug', default_value='false'),
+            DeclareLaunchArgument('debug',                 default_value='false'),
+            # DeclareLaunchArgument('host',                  default_value='20.185.11.35'),
+            # DeclareLaunchArgument('port',                  default_value='2101'),
+            # DeclareLaunchArgument('mountpoint',            default_value='VRS_RTCM3'),
+            # DeclareLaunchArgument('ntrip_version',         default_value='None'),
+            # DeclareLaunchArgument('authenticate',          default_value='True'),
+            # DeclareLaunchArgument('username',              default_value='user'),
+            # DeclareLaunchArgument('password',              default_value='pass'),
+            DeclareLaunchArgument('ssl',                   default_value='False'),
+            DeclareLaunchArgument('cert',                  default_value='None'),
+            DeclareLaunchArgument('key',                   default_value='None'),
+            DeclareLaunchArgument('ca_cert',               default_value='None'),
+            DeclareLaunchArgument('rtcm_message_package',  default_value='rtcm_msgs'),
             SetEnvironmentVariable(name='NTRIP_CLIENT_DEBUG', value=LaunchConfiguration('debug')),
             ntrip_client_node,
             fusion_engine_node,
