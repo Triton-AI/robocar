@@ -12,4 +12,5 @@ fusion_engine_node:
   ros__parameters:
     connection_type: tty
     tty_port: /dev/ttyUSB1
+    frame_id: gps_top
     debug: True
