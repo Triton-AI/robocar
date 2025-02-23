@@ -17,6 +17,9 @@ windows:
         - ros2 launch basestation_launch basestation.launch.py
       - shell_command:
         - source tools/scripts/source_all.sh
+        - ros2 launch autonomy_launch misc.launch.py
+      - shell_command:
+        - source tools/scripts/source_all.sh
   # - window_name: Viz
   #   layout: tiled
   #   panes:
