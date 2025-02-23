@@ -2,7 +2,7 @@ repositories:
     #VESC
     src/external/drivers/vesc:
         type: git
-        url: https://github.com/f1tenth/vesc.git 
+        url: https://github.com/Triton-AI/vesc-robocar.git
         version: foxy
     src/external/interfaces/ackermann_mux:
         type: git
