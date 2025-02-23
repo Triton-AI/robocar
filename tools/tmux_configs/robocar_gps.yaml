@@ -14,6 +14,9 @@ windows:
         - ros2 launch gps_waypoint_follower gps_waypoint_follower.launch.py
       - shell_command:
         - source tools/scripts/source_all.sh
+        - ros2 launch autonomy_launch misc.launch.py
+      - shell_command:
+        - source tools/scripts/source_all.sh
   # - window_name: Viz
   #   layout: tiled
   #   panes:

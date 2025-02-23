@@ -71,7 +71,7 @@ robocar-debug:
 	@PACKAGES="${PACKAGES}"
 	source ./tools/scripts/source_all.sh
 	if [ -z "$${PACKAGES}" ] ; then
-		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug --packages-up-to basestation_launch robocar_launch vesc_interface gps_waypoint_follower
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug --packages-up-to autonomy_launch basestation_launch robocar_launch vesc_interface gps_waypoint_follower
 	else
 		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Debug --packages-up-to ${PACKAGES}
 	fi
@@ -81,7 +81,7 @@ robocar:
 	@PACKAGES="${PACKAGES}"
 	source ./tools/scripts/source_all.sh
 	if [ -z "$${PACKAGES}" ] ; then
-		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to basestation_launch robocar_launch vesc_interface gps_waypoint_follower
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to autonomy_launch basestation_launch robocar_launch vesc_interface gps_waypoint_follower
 	else
 		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to ${PACKAGES}
 	fi
