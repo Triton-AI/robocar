@@ -4,6 +4,10 @@ repositories:
         type: git
         url: git@github.com:Ericsii/livox_ros_driver2.git
         version: feature/merge-ros
+    src/external/interfaces/livox_to_pointcloud2:
+        type: git
+        url: https://github.com/Triton-AI/livox_to_pointcloud2.git
+        version: master
     src/external/drivers/ldlidar:
         type: git
         url: https://github.com/linorobot/ldlidar.git
