@@ -17,6 +17,10 @@ repositories:
         type: git
         url: git@github.com:luxonis/depthai-ros.git
         version: foxy
+    src/external/interfaces/rtabmap_ros:
+        type: git
+        url: https://github.com/introlab/rtabmap_ros.git
+        version: foxy-devel
     # GPS
     src/external/drivers/pointonenav_driver:
         type: git
