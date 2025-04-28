@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>startup_services</name>
+  <version>0.0.0</version>
+  <description>Services for Robocar Startup</description>
+  <maintainer email="winston.h.chou@gmail.com">Winston Chou</maintainer>
+  <license>LGPLv3</license>
+  <author email="winston.h.chou@gmail.com">Winston Chou</author>
+
+  <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

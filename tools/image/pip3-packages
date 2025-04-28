@@ -1,0 +1,34 @@
+# Visualization utilities
+pandas
+numpy
+seaborn
+matplotlib
+packaging
+pyparsing
+
+# ML
+scikit-learn
+onnx
+numba
+tensorflow
+
+# TTL
+transforms3d
+pymap3d
+
+# Launch
+environs
+
+# Solvers
+pyomo
+casadi
+
+# Style
+pycodestyle==2.6.0
+
+# Utils
+tmuxp
+
+# Reformatting
+autoflake
+black

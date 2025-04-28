@@ -1,0 +1,11 @@
+/**:
+    ros__parameters:
+      topics:
+        navigation:
+          topic: /auto/drive
+          timeout: 0.2
+          priority: 100
+        joystick:
+          topic: /joystick/teleop
+          timeout: 0.2
+          priority: 10

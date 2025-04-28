@@ -6,13 +6,13 @@
 Clone this repo.
 
 Then, in the robocar home directory, do
-```
-source /opt/ros/foxy/setup.bash
-vcs import < common.repos
-vcs import < ADDITIONAL_REPO_FILE (If you have one)
-make rosdep-install
+```bash
+source tools/scripts/source_all.sh
+make vcs-import VCS_FILE=robocar.foxy.repos
+make vcs-import VCS_FILE=ADDITIONAL_REPO_FILE (If you have one)
+make rosdep-install-eol
 make
-source install/setup.bash
+source tools/scripts/source_all.sh
 ```
 
 ## Future build

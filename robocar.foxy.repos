@@ -1,0 +1,18 @@
+repositories:
+    #VESC
+    src/external/drivers/vesc:
+        type: git
+        url: https://github.com/Triton-AI/vesc-robocar.git
+        version: foxy
+    src/external/interfaces/ackermann_mux:
+        type: git
+        url: https://github.com/f1tenth/ackermann_mux.git 
+        version: foxy-devel
+    src/external/interfaces/teleop_tools:
+        type: git
+        url: https://github.com/f1tenth/teleop_tools.git 
+        version: foxy-devel
+    src/external/utils/misc/gps_waypoint_follower:
+        type: git
+        url: https://github.com/Triton-AI/gps_waypoint_follower.git
+        version: main

@@ -1,0 +1,58 @@
+# Essentials
+ca-certificates
+build-essential
+software-properties-common
+lsb-release
+sudo
+git
+python3-pip
+clang-tidy
+ccache
+lld
+lcov
+cmake
+cargo
+clang
+
+# Utiltiies
+vim
+nano
+net-tools
+can-utils
+rsync
+zip
+htop
+udev
+curl
+wget
+python3-argcomplete
+bash-completion
+iputils-ping
+unzip
+tmux
+tcpdump
+tcpreplay
+
+# Dependencies
+libssl-dev
+dirmngr
+gnupg2
+libopencv-dev
+python3-opencv
+libpcl-dev
+less
+libusb-1.0-0-dev
+libapr1-dev
+libaprutil1-dev
+libboost-all-dev
+libeigen3-dev
+libpcl-dev
+libomp-dev
+libcgal-dev
+libglm-dev
+
+# Python Style
+python3-flake8
+
+# Github actions
+zstd

@@ -1,0 +1,36 @@
+repositories:
+    # Lidar
+    src/external/drivers/livox_driver:
+        type: git
+        url: git@github.com:Ericsii/livox_ros_driver2.git
+        version: feature/merge-ros
+    src/external/interfaces/livox_to_pointcloud2:
+        type: git
+        url: https://github.com/Triton-AI/livox_to_pointcloud2.git
+        version: master
+    src/external/drivers/ldlidar:
+        type: git
+        url: https://github.com/linorobot/ldlidar.git
+        version: ros2
+    # Camera
+    src/external/drivers/depthai-ros:
+        type: git
+        url: git@github.com:luxonis/depthai-ros.git
+        version: foxy
+    src/external/interfaces/rtabmap_ros:
+        type: git
+        url: https://github.com/introlab/rtabmap_ros.git
+        version: foxy-devel
+    # GPS
+    src/external/drivers/pointonenav_driver:
+        type: git
+        url: https://github.com/Triton-AI/ros2-fusion-engine-driver.git
+        version: main
+    src/external/drivers/ntrip_client:
+        type: git
+        url: https://github.com/WinstonHChou/ntrip_client.git
+        version: pointonenav
+    src/external/drivers/p1-host-tools:
+        type: git
+        url: https://github.com/PointOneNav/p1-host-tools.git
+        version: main

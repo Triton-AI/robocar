@@ -1,0 +1,16 @@
+ntrip_client:
+  ros__parameters:
+    host: polaris.pointonenav.com
+    port: 2101
+    mountpoint: POLARIS
+    ntrip_version: v2
+    authenticate: True
+    username: "gbUv1nO2"
+    password: "zZLxzLpJ"
+
+fusion_engine_node:
+  ros__parameters:
+    connection_type: tty
+    tty_port: /dev/ttyUSB1
+    frame_id: gps_top
+    debug: True
