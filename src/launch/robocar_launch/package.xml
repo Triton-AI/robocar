@@ -14,7 +14,7 @@
   <!-- <exec_depend>depthai-ros</exec_depend>
   <exec_depend>livox_ros_driver2</exec_depend>
   <exec_depend>livox_to_pointcloud2</exec_depend> -->
-  <!-- <exec_depend>base_common</exec_depend> -->
+  <exec_depend>base_common</exec_depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>
