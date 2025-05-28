@@ -86,6 +86,16 @@ robocar:
 		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to ${PACKAGES}
 	fi
 
+.PHONY: gps-collector
+gps-collector:
+	@PACKAGES="${PACKAGES}"
+	source ./tools/scripts/source_all.sh
+	if [ -z "$${PACKAGES}" ] ; then
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to ntrip_client fusion-engine-driver
+	else
+		colcon build --cmake-args -DCMAKE_BUILD_TYPE=Release --packages-up-to ${PACKAGES}
+	fi
+
 .PHONY: test-select
 test-select:
 	@PACKAGES="${PACKAGES}"
